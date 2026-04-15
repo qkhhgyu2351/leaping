@@ -866,14 +866,9 @@ function renderTodayTab(profile, records) {
   const proteinGoal = calculateProteinGoal(profile);
   const mealPlan = MEAL_PLANS.base;
   
-  let totalCal = 0, totalProt = 0;
-  todayRecord.eaten.forEach(id => {
-    const [mi, fi] = id.split('-').map(Number);
-    if (mealPlan[mi] && mealPlan[mi].foods[fi]) {
-      totalCal += mealPlan[mi].foods[fi].cal;
-      totalProt += (mealPlan[mi].foods[fi].prot || 0);
-    }
-  });
+  const totals = calculateTodayTotals(todayRecord.eaten);
+  const totalCal = totals.totalCalories;
+  const totalProt = totals.totalProtein;
   
   mainContent.innerHTML = `
     <div class="card">
@@ -934,6 +929,19 @@ function renderTodayTab(profile, records) {
   `;
 }
 
+function calculateTodayTotals(eaten) {
+  const mealPlan = MEAL_PLANS.base;
+  let totalCal = 0, totalProt = 0;
+  eaten.forEach(id => {
+    const [mi, fi] = id.split('-').map(Number);
+    if (mealPlan[mi] && mealPlan[mi].foods[fi]) {
+      totalCal += mealPlan[mi].foods[fi].cal;
+      totalProt += (mealPlan[mi].foods[fi].prot || 0);
+    }
+  });
+  return { totalCalories: totalCal, totalProtein: totalProt };
+}
+
 function toggleFood(id) {
   const { profile, records } = getStorage();
   const today = todayKey();
@@ -945,6 +953,10 @@ function toggleFood(id) {
   } else {
     records[today].eaten.push(id);
   }
+  
+  const totals = calculateTodayTotals(records[today].eaten);
+  records[today].totalCalories = totals.totalCalories;
+  records[today].totalProtein = totals.totalProtein;
   
   saveRecords(records);
   renderTodayTab(profile, records);
