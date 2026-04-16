@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A股上市自测 - 朋友圈单页 v2</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0d1b2e; }
+
+  .card {
+    width: 1080px;
+    height: 1080px;
+    background: #0d1b2e;
+    position: relative;
+    font-family: "PingFang SC", "Microsoft YaHei", "Heiti SC", sans-serif;
+    overflow: hidden;
+  }
+
+  /* 顶部蓝条 */
+  .top-stripe {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 8px;
+    background: linear-gradient(90deg, #1a56db, #3b82f6, #60a5fa, #3b82f6, #1a56db);
+  }
+
+  /* 左上角装饰 */
+  .corner-circle {
+    position: absolute;
+    top: -100px; right: -100px;
+    width: 320px; height: 320px;
+    border-radius: 50%;
+    border: 1px solid rgba(59,130,246,0.12);
+    background: radial-gradient(circle, rgba(59,130,246,0.06) 0%, transparent 70%);
+  }
+
+  /* 品牌 */
+  .brand {
+    position: absolute;
+    top: 56px; left: 72px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .brand-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: #3b82f6;
+    box-shadow: 0 0 10px rgba(59,130,246,0.8);
+  }
+  .brand-text {
+    font-size: 26px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.85);
+    letter-spacing: 3px;
+  }
+
+  /* 主标题区 */
+  .hero {
+    position: absolute;
+    top: 180px; left: 72px; right: 72px;
+  }
+  .hero h1 {
+    font-size: 88px;
+    font-weight: 900;
+    color: #ffffff;
+    line-height: 1.0;
+    letter-spacing: -2px;
+  }
+  .hero h1 .hl {
+    color: #60a5fa;
+    display: block;
+  }
+  .hero h1 .small {
+    font-size: 58px;
+    font-weight: 700;
+    letter-spacing: -1px;
+  }
+
+  /* 副标题 */
+  .tagline {
+    position: absolute;
+    top: 400px; left: 72px; right: 72px;
+  }
+  .tagline p {
+    font-size: 30px;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.65;
+  }
+  .tagline .orange {
+    color: #f97316;
+    font-weight: 600;
+  }
+
+  /* 分隔线 */
+  .rule {
+    position: absolute;
+    left: 72px; right: 72px;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(59,130,246,0.5), rgba(59,130,246,0.1));
+  }
+  .rule-1 { top: 510px; }
+  .rule-2 { top: 760px; }
+
+  /* 维度区 */
+  .dims {
+    position: absolute;
+    top: 535px; left: 72px; right: 72px;
+  }
+  .dims-label {
+    font-size: 18px;
+    color: rgba(255,255,255,0.3);
+    letter-spacing: 6px;
+    margin-bottom: 22px;
+    font-weight: 500;
+  }
+  .dims-row {
+    display: flex;
+    gap: 0;
+  }
+  .dim-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 18px 8px;
+    border-left: 1px solid rgba(59,130,246,0.15);
+  }
+  .dim-item:first-child { border-left: none; }
+  .dim-num {
+    font-size: 18px;
+    color: #3b82f6;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .dim-name {
+    font-size: 24px;
+    color: rgba(255,255,255,0.85);
+    font-weight: 600;
+    text-align: center;
+  }
+
+  /* 交付区 */
+  .gets {
+    position: absolute;
+    top: 785px; left: 72px; right: 72px;
+  }
+  .gets-label {
+    font-size: 18px;
+    color: rgba(255,255,255,0.3);
+    letter-spacing: 6px;
+    margin-bottom: 22px;
+    font-weight: 500;
+  }
+  .gets-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .get-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+  .get-check {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: rgba(59,130,246,0.2);
+    border: 1px solid rgba(59,130,246,0.35);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .get-check svg { width: 14px; height: 14px; }
+  .get-text {
+    font-size: 26px;
+    color: rgba(255,255,255,0.8);
+    line-height: 1.4;
+  }
+  .get-text strong {
+    color: #ffffff;
+    font-weight: 700;
+  }
+
+  /* 底部CTA */
+  .cta-area {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 200px;
+    background: linear-gradient(0deg, rgba(15,35,65,1) 0%, rgba(15,35,65,0.9) 60%, transparent 100%);
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding: 0 72px 44px;
+  }
+  .cta-left {}
+  .cta-headline {
+    font-size: 34px;
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+  }
+  .cta-sub {
+    font-size: 24px;
+    color: rgba(255,255,255,0.45);
+    font-weight: 400;
+  }
+  .cta-keyword {
+    display: inline-block;
+    background: rgba(249,115,22,0.15);
+    border: 1px solid rgba(249,115,22,0.4);
+    border-radius: 6px;
+    padding: 3px 12px;
+    color: #f97316;
+    font-size: 22px;
+    font-weight: 700;
+    vertical-align: middle;
+  }
+  .qr-box {
+    width: 136px; height: 136px;
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 10px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .qr-box svg { width: 100%; height: 100%; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="top-stripe"></div>
+  <div class="corner-circle"></div>
+
+  <!-- 品牌 -->
+  <div class="brand">
+    <div class="brand-dot"></div>
+    <span class="brand-text">有二财经</span>
+  </div>
+
+  <!-- 主标题 -->
+  <div class="hero">
+    <h1>
+      你的企业<br>
+      <span class="hl">能上市吗？</span>
+      <span class="small">先别急着<br>算净利润。</span>
+    </h1>
+  </div>
+
+  <!-- 副标题 -->
+  <div class="tagline">
+    <p>大多数人说"够格了"的时候，<br>其实只算了<span class="orange">净利润这一条</span>。</p>
+    <p style="margin-top:12px; font-size:24px; color:rgba(255,255,255,0.35);">上市审核看五个维度，缺一条，<br>财务再好看也报不上去。</p>
+  </div>
+
+  <div class="rule rule-1"></div>
+
+  <!-- 五个维度 -->
+  <div class="dims">
+    <div class="dims-label">FIVE DIMENSIONS</div>
+    <div class="dims-row">
+      <div class="dim-item">
+        <div class="dim-num">01</div>
+        <div class="dim-name">基本<br>体量</div>
+      </div>
+      <div class="dim-item">
+        <div class="dim-num">02</div>
+        <div class="dim-name">财务<br>数据</div>
+      </div>
+      <div class="dim-item">
+        <div class="dim-num">03</div>
+        <div class="dim-name">研发<br>投入</div>
+      </div>
+      <div class="dim-item">
+        <div class="dim-num">04</div>
+        <div class="dim-name">股权<br>治理</div>
+      </div>
+      <div class="dim-item">
+        <div class="dim-num">05</div>
+        <div class="dim-name">合规<br>记录</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="rule rule-2"></div>
+
+  <!-- 交付 -->
+  <div class="gets">
+    <div class="gets-label">YOU WILL GET</div>
+    <div class="gets-list">
+      <div class="get-item">
+        <div class="get-check">
+          <svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3 3 6-6" stroke="#60a5fa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="get-text">一张现状地图：<strong>哪个维度达标，哪个缺项</strong></div>
+      </div>
+      <div class="get-item">
+        <div class="get-check">
+          <svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3 3 6-6" stroke="#60a5fa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="get-text">一条优先路径：<strong>先补哪个，用多少时间</strong></div>
+      </div>
+      <div class="get-item">
+        <div class="get-check">
+          <svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3 3 6-6" stroke="#60a5fa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="get-text">一次深度咨询：<strong>帮你读报告，给出具体建议</strong></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 底部CTA -->
+  <div class="cta-area">
+    <div class="cta-left">
+      <div class="cta-headline">扫码添加作者微信</div>
+      <div class="cta-sub">回复" <span class="cta-keyword">上市自测</span> " 获取完整问卷</div>
+    </div>
+    <div class="qr-box">
+      <!-- 真实场景替换此SVG为实际二维码 -->
+      <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- 三个定位角块 -->
+        <rect x="5" y="5" width="28" height="28" fill="#0d1b2e"/>
+        <rect x="9" y="9" width="20" height="20" fill="#3b82f6"/>
+        <rect x="13" y="13" width="12" height="12" fill="#0d1b2e"/>
+        <rect x="16" y="16" width="6" height="6" fill="#60a5fa"/>
+
+        <rect x="67" y="5" width="28" height="28" fill="#0d1b2e"/>
+        <rect x="71" y="9" width="20" height="20" fill="#3b82f6"/>
+        <rect x="75" y="13" width="12" height="12" fill="#0d1b2e"/>
+        <rect x="78" y="16" width="6" height="6" fill="#60a5fa"/>
+
+        <rect x="5" y="67" width="28" height="28" fill="#0d1b2e"/>
+        <rect x="9" y="71" width="20" height="20" fill="#3b82f6"/>
+        <rect x="13" y="75" width="12" height="12" fill="#0d1b2e"/>
+        <rect x="16" y="78" width="6" height="6" fill="#60a5fa"/>
+
+        <!-- 数据区 -->
+        <rect x="38" y="5" width="5" height="5" fill="#60a5fa"/>
+        <rect x="47" y="5" width="5" height="5" fill="#3b82f6"/>
+        <rect x="56" y="5" width="8" height="5" fill="#3b82f6"/>
+        <rect x="38" y="14" width="8" height="5" fill="#3b82f6"/>
+        <rect x="50" y="14" width="5" height="5" fill="#60a5fa"/>
+        <rect x="59" y="10" width="4" height="4" fill="#60a5fa"/>
+
+        <rect x="5" y="38" width="5" height="5" fill="#3b82f6"/>
+        <rect x="14" y="38" width="5" height="5" fill="#60a5fa"/>
+        <rect x="23" y="38" width="4" height="5" fill="#3b82f6"/>
+        <rect x="38" y="38" width="5" height="5" fill="#60a5fa"/>
+        <rect x="47" y="38" width="5" height="5" fill="#3b82f6"/>
+        <rect x="56" y="38" width="8" height="5" fill="#3b82f6"/>
+        <rect x="5" y="47" width="5" height="5" fill="#60a5fa"/>
+        <rect x="14" y="47" width="5" height="5" fill="#3b82f6"/>
+        <rect x="23" y="47" width="4" height="5" fill="#60a5fa"/>
+        <rect x="38" y="47" width="5" height="5" fill="#3b82f6"/>
+        <rect x="47" y="47" width="5" height="5" fill="#60a5fa"/>
+        <rect x="56" y="47" width="8" height="5" fill="#60a5fa"/>
+        <rect x="5" y="56" width="5" height="8" fill="#3b82f6"/>
+        <rect x="14" y="54" width="5" height="4" fill="#60a5fa"/>
+        <rect x="23" y="56" width="4" height="8" fill="#3b82f6"/>
+        <rect x="38" y="56" width="5" height="5" fill="#60a5fa"/>
+        <rect x="47" y="56" width="5" height="5" fill="#3b82f6"/>
+        <rect x="56" y="54" width="8" height="10" fill="#60a5fa"/>
+
+        <rect x="67" y="38" width="5" height="5" fill="#60a5fa"/>
+        <rect x="76" y="38" width="5" height="5" fill="#3b82f6"/>
+        <rect x="85" y="38" width="6" height="5" fill="#60a5fa"/>
+        <rect x="67" y="47" width="5" height="5" fill="#3b82f6"/>
+        <rect x="76" y="47" width="5" height="5" fill="#60a5fa"/>
+        <rect x="85" y="47" width="6" height="5" fill="#3b82f6"/>
+        <rect x="67" y="56" width="5" height="8" fill="#60a5fa"/>
+        <rect x="76" y="56" width="5" height="5" fill="#3b82f6"/>
+        <rect x="85" y="56" width="6" height="8" fill="#60a5fa"/>
+
+        <rect x="38" y="65" width="5" height="5" fill="#60a5fa"/>
+        <rect x="47" y="65" width="5" height="5" fill="#3b82f6"/>
+        <rect x="56" y="65" width="8" height="5" fill="#60a5fa"/>
+        <rect x="38" y="74" width="5" height="5" fill="#3b82f6"/>
+        <rect x="47" y="74" width="5" height="5" fill="#60a5fa"/>
+        <rect x="56" y="74" width="8" height="5" fill="#3b82f6"/>
+        <rect x="38" y="83" width="5" height="5" fill="#60a5fa"/>
+        <rect x="47" y="83" width="5" height="5" fill="#3b82f6"/>
+        <rect x="56" y="83" width="8" height="5" fill="#60a5fa"/>
+
+        <!-- 第四角块 -->
+        <rect x="67" y="67" width="28" height="28" fill="#0d1b2e"/>
+        <rect x="71" y="71" width="20" height="20" fill="#3b82f6"/>
+        <rect x="75" y="75" width="12" height="12" fill="#0d1b2e"/>
+        <rect x="78" y="78" width="6" height="6" fill="#60a5fa"/>
+      </svg>
+    </div>
+  </div>
+</div>
+</body>
+</html>

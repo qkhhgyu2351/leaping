@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>Timeline</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0a1628; }
+  .illus {
+    width: 800px;
+    height: 450px;
+    background: linear-gradient(180deg, #0d2240 0%, #081525 100%);
+    position: relative;
+    overflow: hidden;
+    font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+  }
+  /* 背景装饰 */
+  .bg-deco {
+    position: absolute;
+    width: 600px; height: 300px;
+    border: 1px solid rgba(59,130,246,0.08);
+    border-radius: 150px;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  /* 标题 */
+  .title {
+    position: absolute;
+    top: 45px;
+    left: 0; right: 0;
+    text-align: center;
+    font-size: 22px;
+    color: rgba(255,255,255,0.35);
+    letter-spacing: 8px;
+    font-weight: 500;
+  }
+  /* 时间线主路径 */
+  .timeline {
+    position: absolute;
+    top: 180px;
+    left: 80px; right: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, #1a56db, #3b82f6, #60a5fa);
+    border-radius: 2px;
+  }
+  /* 节点 */
+  .nodes {
+    position: absolute;
+    top: 140px;
+    left: 80px; right: 80px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .node {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 140px;
+  }
+  .node-dot {
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    background: #3b82f6;
+    border: 4px solid #0d2240;
+    box-shadow: 0 0 0 2px #3b82f6;
+    margin-bottom: 20px;
+  }
+  .node-dot.active {
+    background: #60a5fa;
+    box-shadow: 0 0 0 2px #60a5fa, 0 0 20px rgba(96,165,250,0.5);
+  }
+  .node-label {
+    font-size: 16px;
+    color: rgba(255,255,255,0.85);
+    font-weight: 600;
+    text-align: center;
+    line-height: 1.4;
+    margin-bottom: 8px;
+  }
+  .node-time {
+    font-size: 14px;
+    color: rgba(255,255,255,0.4);
+    text-align: center;
+  }
+  /* 底部说明 */
+  .bottom-note {
+    position: absolute;
+    bottom: 50px;
+    left: 0; right: 0;
+    text-align: center;
+  }
+  .bottom-note .line1 {
+    font-size: 20px;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 8px;
+  }
+  .bottom-note .line2 {
+    font-size: 26px;
+    color: #f97316;
+    font-weight: 700;
+  }
+</style>
+</head>
+<body>
+<div class="illus">
+  <div class="bg-deco"></div>
+  <div class="title">上市准备 · 时间线</div>
+  
+  <div class="timeline"></div>
+  
+  <div class="nodes">
+    <div class="node">
+      <div class="node-dot"></div>
+      <div class="node-label">现状诊断</div>
+      <div class="node-time">第1步</div>
+    </div>
+    
+    <div class="node">
+      <div class="node-dot"></div>
+      <div class="node-label">差距分析</div>
+      <div class="node-time">第2步</div>
+    </div>
+    
+    <div class="node">
+      <div class="node-dot"></div>
+      <div class="node-label">规范整改</div>
+      <div class="node-time">6-12个月</div>
+    </div>
+    
+    <div class="node">
+      <div class="node-dot active"></div>
+      <div class="node-label">辅导申报</div>
+      <div class="node-time">12-18个月</div>
+    </div>
+    
+    <div class="node">
+      <div class="node-dot"></div>
+      <div class="node-label">审核过会</div>
+      <div class="node-time">目标</div>
+    </div>
+  </div>
+  
+  <div class="bottom-note">
+    <div class="line1">方向对了，三年不晚</div>
+    <div class="line2">方向错了，越努力越贵</div>
+  </div>
+</div>
+</body>
+</html>

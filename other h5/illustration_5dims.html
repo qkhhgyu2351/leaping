@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>5 Dimensions</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0a1628; }
+  .illus {
+    width: 800px;
+    height: 450px;
+    background: linear-gradient(180deg, #0d2240 0%, #081525 100%);
+    position: relative;
+    overflow: hidden;
+    font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+  }
+  /* 背景装饰 */
+  .bg-circle {
+    position: absolute;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    border: 1px solid rgba(59,130,246,0.06);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  /* 标题 */
+  .title {
+    position: absolute;
+    top: 40px;
+    left: 0; right: 0;
+    text-align: center;
+    font-size: 22px;
+    color: rgba(255,255,255,0.35);
+    letter-spacing: 8px;
+    font-weight: 500;
+  }
+  /* 五个维度 - 横向排列 */
+  .dims {
+    position: absolute;
+    top: 110px;
+    left: 0; right: 0;
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    padding: 0 40px;
+  }
+  .dim {
+    width: 130px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .dim-icon {
+    width: 80px; height: 80px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, rgba(59,130,246,0.15), rgba(59,130,246,0.05));
+    border: 1px solid rgba(59,130,246,0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+  }
+  .dim-icon svg {
+    width: 40px; height: 40px;
+  }
+  .dim-num {
+    font-size: 14px;
+    color: #3b82f6;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .dim-name {
+    font-size: 18px;
+    color: rgba(255,255,255,0.9);
+    font-weight: 600;
+    text-align: center;
+    line-height: 1.3;
+  }
+  /* 连接线 */
+  .connector {
+    position: absolute;
+    top: 150px;
+    left: 145px; right: 145px;
+    height: 2px;
+    background: linear-gradient(90deg, 
+      transparent 0%, 
+      rgba(59,130,246,0.3) 10%, 
+      rgba(59,130,246,0.3) 90%, 
+      transparent 100%);
+  }
+  /* 底部说明 */
+  .note {
+    position: absolute;
+    bottom: 45px;
+    left: 0; right: 0;
+    text-align: center;
+    font-size: 18px;
+    color: rgba(255,255,255,0.4);
+  }
+  .note .highlight {
+    color: #f97316;
+    font-weight: 600;
+  }
+</style>
+</head>
+<body>
+<div class="illus">
+  <div class="bg-circle"></div>
+  <div class="title">上市审核 · 五个维度</div>
+  
+  <div class="connector"></div>
+  
+  <div class="dims">
+    <div class="dim">
+      <div class="dim-icon">
+        <svg viewBox="0 0 40 40" fill="none">
+          <rect x="8" y="20" width="10" height="14" rx="2" fill="#3b82f6" opacity="0.6"/>
+          <rect x="22" y="12" width="10" height="22" rx="2" fill="#60a5fa"/>
+          <path d="M6 34h28" stroke="#3b82f6" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="dim-num">01</div>
+      <div class="dim-name">基本<br>体量</div>
+    </div>
+    
+    <div class="dim">
+      <div class="dim-icon">
+        <svg viewBox="0 0 40 40" fill="none">
+          <circle cx="20" cy="20" r="14" stroke="#3b82f6" stroke-width="2" fill="none"/>
+          <text x="20" y="25" text-anchor="middle" fill="#60a5fa" font-size="14" font-weight="700">¥</text>
+        </svg>
+      </div>
+      <div class="dim-num">02</div>
+      <div class="dim-name">财务<br>数据</div>
+    </div>
+    
+    <div class="dim">
+      <div class="dim-icon">
+        <svg viewBox="0 0 40 40" fill="none">
+          <path d="M10 28L16 20L22 24L30 12" stroke="#3b82f6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <circle cx="30" cy="12" r="3" fill="#60a5fa"/>
+        </svg>
+      </div>
+      <div class="dim-num">03</div>
+      <div class="dim-name">研发<br>投入</div>
+    </div>
+    
+    <div class="dim">
+      <div class="dim-icon">
+        <svg viewBox="0 0 40 40" fill="none">
+          <circle cx="14" cy="16" r="6" stroke="#3b82f6" stroke-width="2" fill="none"/>
+          <circle cx="26" cy="16" r="6" stroke="#60a5fa" stroke-width="2" fill="none"/>
+          <path d="M14 26h12" stroke="#3b82f6" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="dim-num">04</div>
+      <div class="dim-name">股权<br>治理</div>
+    </div>
+    
+    <div class="dim">
+      <div class="dim-icon">
+        <svg viewBox="0 0 40 40" fill="none">
+          <rect x="8" y="8" width="24" height="24" rx="4" stroke="#3b82f6" stroke-width="2" fill="none"/>
+          <path d="M14 20l4 4 8-8" stroke="#60a5fa" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        </svg>
+      </div>
+      <div class="dim-num">05</div>
+      <div class="dim-name">合规<br>记录</div>
+    </div>
+  </div>
+  
+  <div class="note">缺<span class="highlight">任何一条</span>，财务数据再好看也报不上去</div>
+</div>
+</body>
+</html>

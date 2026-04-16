@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A股上市自测 - 朋友圈单页</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0a1628; }
+  .card {
+    width: 1080px;
+    height: 1350px;
+    background: linear-gradient(175deg, #0d2240 0%, #081525 55%, #0a1628 100%);
+    margin: 0 auto;
+    position: relative;
+    font-family: "PingFang SC", "Microsoft YaHei", "Heiti SC", sans-serif;
+    overflow: hidden;
+  }
+
+  /* 顶部装饰线 */
+  .top-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, #3b82f6, #60a5fa, #3b82f6);
+  }
+
+  /* 左上角装饰圆 */
+  .deco-circle {
+    position: absolute;
+    top: -80px;
+    right: -80px;
+    width: 320px;
+    height: 320px;
+    border-radius: 50%;
+    border: 1px solid rgba(59, 130, 246, 0.15);
+    background: radial-gradient(circle, rgba(59, 130, 246, 0.05) 0%, transparent 70%);
+  }
+  .deco-circle-2 {
+    position: absolute;
+    bottom: 200px;
+    left: -60px;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border: 1px solid rgba(59, 130, 246, 0.08);
+    background: transparent;
+  }
+
+  /* 头部品牌区 */
+  .brand {
+    position: absolute;
+    top: 48px;
+    left: 72px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .brand-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #3b82f6;
+    box-shadow: 0 0 12px rgba(59, 130, 246, 0.7);
+  }
+  .brand-name {
+    font-size: 28px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.9);
+    letter-spacing: 4px;
+  }
+
+  /* 主标题 */
+  .main-title {
+    position: absolute;
+    top: 130px;
+    left: 72px;
+    right: 72px;
+  }
+  .main-title h1 {
+    font-size: 76px;
+    font-weight: 900;
+    color: #ffffff;
+    line-height: 1.1;
+    letter-spacing: -1px;
+  }
+  .main-title h1 .blue { color: #60a5fa; }
+  .main-title h1 .underline {
+    border-bottom: 4px solid #3b82f6;
+    padding-bottom: 2px;
+  }
+
+  /* 副标题 */
+  .subtitle {
+    position: absolute;
+    top: 330px;
+    left: 72px;
+    right: 72px;
+  }
+  .subtitle p {
+    font-size: 30px;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.7;
+    font-weight: 400;
+  }
+  .subtitle .highlight {
+    color: #f97316;
+    font-weight: 600;
+  }
+
+  /* 分隔线 */
+  .divider {
+    position: absolute;
+    left: 72px;
+    right: 72px;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(59,130,246,0.6), rgba(59,130,246,0.1));
+  }
+
+  /* 五个维度 */
+  .dimensions {
+    position: absolute;
+    top: 460px;
+    left: 72px;
+    right: 72px;
+  }
+  .dim-label {
+    font-size: 22px;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 6px;
+    margin-bottom: 28px;
+    font-weight: 500;
+  }
+  .dim-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px 28px;
+  }
+  .dim-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .dim-num {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    background: rgba(59, 130, 246, 0.15);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    color: #60a5fa;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .dim-text {
+    font-size: 26px;
+    color: rgba(255,255,255,0.85);
+    font-weight: 500;
+  }
+  .dim-item:nth-child(5) {
+    grid-column: 1;
+  }
+
+  /* 分隔线2 */
+  .divider2 {
+    position: absolute;
+    left: 72px;
+    right: 72px;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(59,130,246,0.4), rgba(59,130,246,0.08));
+    top: 720px;
+  }
+
+  /* 交付结果 */
+  .deliverables {
+    position: absolute;
+    top: 748px;
+    left: 72px;
+    right: 72px;
+  }
+  .del-label {
+    font-size: 22px;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 6px;
+    margin-bottom: 24px;
+    font-weight: 500;
+  }
+  .del-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .del-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .del-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(59, 130, 246, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 3px;
+  }
+  .del-icon svg {
+    width: 16px;
+    height: 16px;
+  }
+  .del-text {
+    font-size: 26px;
+    color: rgba(255,255,255,0.8);
+    line-height: 1.4;
+  }
+  .del-text strong {
+    color: #ffffff;
+    font-weight: 700;
+  }
+
+  /* 底部行动区 */
+  .bottom-area {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 340px;
+    background: linear-gradient(0deg, #0f2340 0%, rgba(15, 35, 64, 0) 100%);
+  }
+
+  /* CTA区 */
+  .cta-zone {
+    position: absolute;
+    bottom: 220px;
+    left: 72px;
+    right: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .cta-left {
+    flex: 1;
+  }
+  .cta-main {
+    font-size: 34px;
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: 1px;
+    line-height: 1.2;
+  }
+  .cta-sub {
+    font-size: 24px;
+    color: rgba(255,255,255,0.45);
+    margin-top: 10px;
+    font-weight: 400;
+  }
+  .cta-keyword {
+    display: inline-block;
+    background: rgba(249, 115, 22, 0.15);
+    border: 1px solid rgba(249, 115, 22, 0.4);
+    border-radius: 6px;
+    padding: 4px 12px;
+    color: #f97316;
+    font-size: 22px;
+    font-weight: 700;
+    margin-top: 10px;
+  }
+
+  /* 二维码区 */
+  .qr-area {
+    width: 180px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+  .qr-box {
+    width: 148px;
+    height: 148px;
+    background: #ffffff;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+  }
+  .qr-box svg {
+    width: 100%;
+    height: 100%;
+  }
+  .qr-hint {
+    font-size: 18px;
+    color: rgba(255,255,255,0.5);
+    text-align: center;
+    font-weight: 400;
+  }
+
+  /* 底部信息栏 */
+  .footer-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    background: rgba(8, 21, 37, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 72px;
+  }
+  .footer-left {
+    font-size: 22px;
+    color: rgba(255,255,255,0.35);
+    font-weight: 500;
+    letter-spacing: 2px;
+  }
+  .footer-right {
+    font-size: 22px;
+    color: rgba(255,255,255,0.35);
+    font-weight: 500;
+    letter-spacing: 2px;
+  }
+
+  /* 底部装饰线 */
+  .bottom-line {
+    position: absolute;
+    bottom: 80px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(59,130,246,0.1), rgba(59,130,246,0.5), rgba(59,130,246,0.1));
+  }
+</style>
+</head>
+<body>
+<div class="card">
+  <!-- 顶部装饰 -->
+  <div class="top-bar"></div>
+  <div class="deco-circle"></div>
+  <div class="deco-circle-2"></div>
+
+  <!-- 品牌 -->
+  <div class="brand">
+    <div class="brand-dot"></div>
+    <span class="brand-name">有二财经</span>
+  </div>
+
+  <!-- 主标题 -->
+  <div class="main-title">
+    <h1>你的企业<br>能<span class="blue">上市</span>吗？<br><span class="underline">先别</span>急着算<br>净利润。</h1>
+  </div>
+
+  <!-- 副标题 -->
+  <div class="subtitle">
+    <p>大多数人说"我们够格了"的时候，<br>其实只算了<span class="highlight">净利润这一条</span>。</p>
+    <p style="margin-top:16px; font-size:26px; color:rgba(255,255,255,0.4);">上市审核看五个维度，缺任何一条，<br>财务数据再好看也过不了会。</p>
+  </div>
+
+  <div class="divider" style="top:440px;"></div>
+
+  <!-- 五个维度 -->
+  <div class="dimensions">
+    <div class="dim-label">FIVE DIMENSIONS</div>
+    <div class="dim-grid">
+      <div class="dim-item">
+        <div class="dim-num">1</div>
+        <div class="dim-text">企业基本体量</div>
+      </div>
+      <div class="dim-item">
+        <div class="dim-num">2</div>
+        <div class="dim-text">财务数据质量</div>
+      </div>
+      <div class="dim-item">
+        <div class="dim-num">3</div>
+        <div class="dim-text">研发投入与创新</div>
+      </div>
+      <div class="dim-item">
+        <div class="dim-num">4</div>
+        <div class="dim-text">股权结构与治理</div>
+      </div>
+      <div class="dim-item">
+        <div class="dim-num">5</div>
+        <div class="dim-text">合规与历史记录</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider2"></div>
+
+  <!-- 交付结果 -->
+  <div class="deliverables">
+    <div class="del-label">YOU WILL GET</div>
+    <div class="del-list">
+      <div class="del-item">
+        <div class="del-icon">
+          <svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="#60a5fa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="del-text">一张现状地图：<strong>哪个维度达标，哪个缺项</strong></div>
+      </div>
+      <div class="del-item">
+        <div class="del-icon">
+          <svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="#60a5fa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="del-text">一条优先路径：<strong>先补哪个，用多少时间</strong></div>
+      </div>
+      <div class="del-item">
+        <div class="del-icon">
+          <svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="#60a5fa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="del-text">一次深度咨询：<strong>帮你读报告，给出具体建议</strong></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 底部行动区 -->
+  <div class="bottom-area">
+    <div class="bottom-line"></div>
+    <div class="cta-zone">
+      <div class="cta-left">
+        <div class="cta-main">扫码添加作者微信</div>
+        <div class="cta-sub">回复" <span class="cta-keyword">上市自测</span> " 获取完整问卷</div>
+      </div>
+      <div class="qr-area">
+        <div class="qr-box">
+          <!-- 二维码占位图，真实场景替换为实际二维码 -->
+          <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- 简化二维码图案占位 -->
+            <rect x="5" y="5" width="28" height="28" fill="#0a1628"/>
+            <rect x="9" y="9" width="20" height="20" fill="#3b82f6"/>
+            <rect x="13" y="13" width="12" height="12" fill="#0a1628"/>
+            <rect x="16" y="16" width="6" height="6" fill="#60a5fa"/>
+
+            <rect x="67" y="5" width="28" height="28" fill="#0a1628"/>
+            <rect x="71" y="9" width="20" height="20" fill="#3b82f6"/>
+            <rect x="75" y="13" width="12" height="12" fill="#0a1628"/>
+            <rect x="78" y="16" width="6" height="6" fill="#60a5fa"/>
+
+            <rect x="5" y="67" width="28" height="28" fill="#0a1628"/>
+            <rect x="9" y="71" width="20" height="20" fill="#3b82f6"/>
+            <rect x="13" y="75" width="12" height="12" fill="#0a1628"/>
+            <rect x="16" y="78" width="6" height="6" fill="#60a5fa"/>
+
+            <rect x="38" y="5" width="6" height="6" fill="#60a5fa"/>
+            <rect x="48" y="9" width="4" height="4" fill="#3b82f6"/>
+            <rect x="56" y="5" width="8" height="8" fill="#3b82f6"/>
+            <rect x="38" y="15" width="8" height="4" fill="#3b82f6"/>
+            <rect x="52" y="17" width="6" height="6" fill="#60a5fa"/>
+            <rect x="38" y="23" width="4" height="8" fill="#3b82f6"/>
+            <rect x="46" y="27" width="8" height="4" fill="#60a5fa"/>
+            <rect x="58" y="17" width="4" height="6" fill="#3b82f6"/>
+
+            <rect x="5" y="38" width="6" height="6" fill="#3b82f6"/>
+            <rect x="15" y="42" width="8" height="4" fill="#60a5fa"/>
+            <rect x="27" y="38" width="6" height="10" fill="#3b82f6"/>
+            <rect x="38" y="38" width="6" height="6" fill="#60a5fa"/>
+            <rect x="48" y="42" width="4" height="4" fill="#3b82f6"/>
+            <rect x="56" y="38" width="8" height="6" fill="#3b82f6"/>
+            <rect x="38" y="48" width="8" height="4" fill="#3b82f6"/>
+            <rect x="50" y="50" width="6" height="6" fill="#60a5fa"/>
+            <rect x="60" y="48" width="6" height="8" fill="#3b82f6"/>
+
+            <rect x="5" y="50" width="4" height="6" fill="#3b82f6"/>
+            <rect x="13" y="56" width="8" height="4" fill="#60a5fa"/>
+            <rect x="25" y="52" width="6" height="8" fill="#3b82f6"/>
+            <rect x="38" y="56" width="4" height="6" fill="#3b82f6"/>
+            <rect x="46" y="54" width="8" height="8" fill="#60a5fa"/>
+            <rect x="58" y="50" width="6" height="10" fill="#3b82f6"/>
+
+            <rect x="38" y="64" width="8" height="4" fill="#3b82f6"/>
+            <rect x="50" y="62" width="6" height="6" fill="#60a5fa"/>
+            <rect x="60" y="64" width="4" height="8" fill="#3b82f6"/>
+            <rect x="38" y="72" width="6" height="6" fill="#60a5fa"/>
+            <rect x="48" y="74" width="8" height="4" fill="#3b82f6"/>
+            <rect x="60" y="76" width="6" height="6" fill="#60a5fa"/>
+
+            <rect x="67" y="38" width="6" height="4" fill="#3b82f6"/>
+            <rect x="77" y="38" width="6" height="8" fill="#60a5fa"/>
+            <rect x="67" y="46" width="8" height="6" fill="#3b82f6"/>
+            <rect x="79" y="50" width="4" height="6" fill="#3b82f6"/>
+            <rect x="67" y="56" width="6" height="4" fill="#60a5fa"/>
+            <rect x="77" y="58" width="6" height="6" fill="#3b82f6"/>
+
+            <rect x="67" y="67" width="28" height="28" fill="#0a1628"/>
+            <rect x="71" y="71" width="20" height="20" fill="#3b82f6"/>
+            <rect x="75" y="75" width="12" height="12" fill="#0a1628"/>
+            <rect x="78" y="78" width="6" height="6" fill="#60a5fa"/>
+          </svg>
+        </div>
+        <div class="qr-hint">添加作者微信</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 底部信息栏 -->
+  <div class="footer-bar">
+    <span class="footer-left">何斌 · 有二财经</span>
+    <span class="footer-right">AI多懂你，你就有多强</span>
+  </div>
+</div>
+</body>
+</html>
