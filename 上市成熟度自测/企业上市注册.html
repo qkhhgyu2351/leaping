@@ -1,0 +1,1213 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>企业上市注册 | 有二财经</title>
+<style>
+  :root {
+    --blue-dark: #0a1628;
+    --blue-mid: #0d1f3c;
+    --blue-accent: #3b82f6;
+    --blue-light: #60a5fa;
+    --blue-glow: #93c5fd;
+    --white: #ffffff;
+    --gray: #94a3b8;
+    --gray-light: #e2e8f0;
+    --green: #10b981;
+    --red: #ef4444;
+    --orange: #f59e0b;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    background: var(--blue-dark);
+    color: var(--white);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Progress bar */
+  .progress-wrap {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(10, 22, 40, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 12px 20px;
+    display: none;
+    align-items: center;
+    gap: 12px;
+  }
+  .progress-wrap.show { display: flex; }
+  .progress-label {
+    font-size: 13px;
+    color: var(--gray);
+    white-space: nowrap;
+  }
+  .progress-bar-bg {
+    flex: 1;
+    height: 4px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--blue-accent), var(--blue-light));
+    border-radius: 2px;
+    transition: width 0.3s ease;
+    width: 0%;
+  }
+
+  /* Screen base */
+  .screen {
+    display: none;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+  .screen.active { display: flex; }
+
+  /* ── Screen 0: Welcome ── */
+  .s0-hero {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 32px;
+    text-align: center;
+    background: linear-gradient(180deg, var(--blue-dark) 0%, var(--blue-mid) 100%);
+    position: relative;
+    overflow: hidden;
+  }
+  .s0-hero::before {
+    content: '';
+    position: absolute;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(59,130,246,0.12) 0%, transparent 70%);
+    top: -100px; left: 50%; transform: translateX(-50%);
+    pointer-events: none;
+  }
+  .s0-badge {
+    font-size: 12px;
+    letter-spacing: 3px;
+    color: var(--blue-light);
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    opacity: 0.8;
+  }
+  .s0-title {
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 16px;
+    background: linear-gradient(135deg, var(--white) 40%, var(--blue-glow));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .s0-sub {
+    font-size: 16px;
+    color: var(--gray);
+    line-height: 1.7;
+    max-width: 360px;
+    margin-bottom: 48px;
+  }
+  .s0-cta {
+    width: 100%;
+    max-width: 320px;
+    background: linear-gradient(135deg, var(--blue-accent), var(--blue-light));
+    color: white;
+    border: none;
+    padding: 16px 32px;
+    border-radius: 12px;
+    font-size: 17px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 24px rgba(59,130,246,0.3);
+    margin-bottom: 16px;
+  }
+  .s0-cta:active { transform: scale(0.97); }
+  .s0-note {
+    font-size: 12px;
+    color: rgba(148,163,184,0.6);
+    text-align: center;
+    max-width: 320px;
+    line-height: 1.6;
+  }
+  .s0-features {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 40px;
+    max-width: 320px;
+  }
+  .s0-feature {
+    background: rgba(59,130,246,0.1);
+    border: 1px solid rgba(59,130,246,0.25);
+    border-radius: 12px;
+    padding: 12px;
+    text-align: center;
+  }
+  .s0-feature-icon {
+    font-size: 20px;
+    margin-bottom: 8px;
+  }
+  .s0-feature-text {
+    font-size: 12px;
+    color: var(--blue-glow);
+    font-weight: 600;
+  }
+
+  /* ── Question screen ── */
+  .q-header {
+    padding: 20px 20px 0;
+    position: sticky;
+    top: 52px;
+    z-index: 90;
+    background: var(--blue-dark);
+  }
+  .q-section-title {
+    font-size: 13px;
+    color: var(--blue-light);
+    font-weight: 600;
+    letter-spacing: 1px;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(59,130,246,0.2);
+    margin-bottom: 16px;
+  }
+  .q-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 16px;
+    padding: 24px 20px;
+    margin: 0 auto 16px;
+    max-width: 560px;
+  }
+  .q-num {
+    font-size: 11px;
+    color: var(--blue-accent);
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+  .q-text {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.5;
+    margin-bottom: 16px;
+  }
+  .q-hint {
+    font-size: 12px;
+    color: rgba(148,163,184,0.7);
+    margin-bottom: 14px;
+    line-height: 1.5;
+  }
+  .q-input {
+    width: 100%;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 10px;
+    padding: 12px 14px;
+    color: var(--white);
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.2s;
+    font-family: inherit;
+  }
+  .q-input:focus { border-color: var(--blue-accent); }
+  .q-input::placeholder { color: rgba(148,163,184,0.4); }
+
+  .q-options { display: flex; flex-direction: column; gap: 10px; }
+  .q-option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 10px;
+    padding: 12px 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .q-option:active { transform: scale(0.98); }
+  .q-option.selected {
+    border-color: var(--blue-accent);
+    background: rgba(59,130,246,0.12);
+  }
+  .q-option-dot {
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.2);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+  }
+  .q-option.selected .q-option-dot {
+    border-color: var(--blue-accent);
+    background: var(--blue-accent);
+  }
+  .q-option.selected .q-option-dot::after {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: white;
+  }
+  .q-option-label { font-size: 14px; line-height: 1.4; color: var(--gray-light); }
+  .q-option.selected .q-option-label { color: var(--white); font-weight: 500; }
+
+  .q-nav {
+    display: flex;
+    gap: 10px;
+    padding: 20px 16px 32px;
+    max-width: 560px;
+    margin: 0 auto;
+  }
+  .q-btn-back {
+    flex: 1;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: var(--gray);
+    padding: 14px;
+    border-radius: 12px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background 0.2s;
+    font-family: inherit;
+  }
+  .q-btn-back:active { background: rgba(255,255,255,0.1); }
+  .q-btn-next {
+    flex: 2;
+    background: linear-gradient(135deg, var(--blue-accent), var(--blue-light));
+    border: none;
+    color: white;
+    padding: 14px;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    box-shadow: 0 4px 16px rgba(59,130,246,0.25);
+  }
+  .q-btn-next:active { transform: scale(0.98); }
+
+  /* ── Screen: Result ── */
+  .res-hero {
+    padding: 40px 24px 32px;
+    text-align: center;
+    background: linear-gradient(180deg, var(--blue-dark) 0%, var(--blue-mid) 100%);
+  }
+  .res-hero::before {
+    content: '';
+    position: absolute;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(59,130,246,0.1) 0%, transparent 70%);
+    top: -80px; left: 50%; transform: translateX(-50%);
+    pointer-events: none;
+  }
+  .res-eyebrow {
+    font-size: 12px;
+    color: var(--blue-light);
+    letter-spacing: 3px;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+  }
+  .res-board-name {
+    font-size: 36px;
+    font-weight: 800;
+    background: linear-gradient(135deg, #60a5fa, #93c5fd);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 8px;
+  }
+  .res-board-sub {
+    font-size: 14px;
+    color: var(--gray);
+    margin-bottom: 28px;
+  }
+  .res-score-ring {
+    width: 120px; height: 120px;
+    margin: 0 auto 24px;
+    position: relative;
+  }
+  .res-score-ring svg {
+    transform: rotate(-90deg);
+    width: 120px; height: 120px;
+  }
+  .res-score-ring circle {
+    fill: none;
+    stroke-width: 8;
+    stroke-linecap: round;
+  }
+  .res-score-ring .bg { stroke: rgba(255,255,255,0.08); }
+  .res-score-ring .fg {
+    stroke: var(--blue-accent);
+    stroke-dasharray: 339.3;
+    stroke-dashoffset: 339.3;
+    transition: stroke-dashoffset 1.5s ease;
+  }
+  .res-score-num {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--white);
+  }
+  .res-score-num span { font-size: 13px; font-weight: 400; color: var(--gray); }
+
+  .res-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+    padding: 24px 20px;
+    margin: 0 16px 16px;
+  }
+  .res-card-title {
+    font-size: 13px;
+    color: var(--blue-light);
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+  }
+  .res-dim-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .res-dim-row:last-child { border-bottom: none; }
+  .res-dim-icon {
+    width: 36px; height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+  .res-dim-icon.ok { background: rgba(16,185,129,0.15); }
+  .res-dim-icon.warn { background: rgba(245,158,11,0.15); }
+  .res-dim-icon.fail { background: rgba(239,68,68,0.15); }
+  .res-dim-info { flex: 1; }
+  .res-dim-name { font-size: 14px; font-weight: 600; margin-bottom: 2px; }
+  .res-dim-status { font-size: 12px; }
+  .res-dim-status.ok { color: var(--green); }
+  .res-dim-status.warn { color: var(--orange); }
+  .res-dim-status.fail { color: var(--red); }
+
+  .res-path-item {
+    display: flex;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .res-path-item:last-child { border-bottom: none; }
+  .res-path-num {
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    background: rgba(59,130,246,0.2);
+    color: var(--blue-light);
+    font-size: 12px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .res-path-text { font-size: 14px; line-height: 1.6; color: var(--gray-light); }
+
+  .res-timeline {
+    margin: 0 16px 16px;
+  }
+  .res-timeline-item {
+    position: relative;
+    padding-left: 30px;
+    margin-bottom: 20px;
+  }
+  .res-timeline-item::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 6px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--blue-accent);
+  }
+  .res-timeline-item::after {
+    content: '';
+    position: absolute;
+    left: 11px;
+    top: 14px;
+    width: 2px;
+    height: calc(100% + 12px);
+    background: rgba(59,130,246,0.3);
+  }
+  .res-timeline-item:last-child::after { display: none; }
+  .res-timeline-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 4px;
+  }
+  .res-timeline-desc {
+    font-size: 12px;
+    color: var(--gray);
+    line-height: 1.5;
+  }
+
+  .res-materials {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+    padding: 20px;
+    margin: 0 16px 16px;
+  }
+  .res-materials-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--blue-light);
+    margin-bottom: 12px;
+  }
+  .res-materials-list {
+    list-style: none;
+  }
+  .res-materials-list li {
+    padding: 8px 0;
+    font-size: 13px;
+    color: var(--gray-light);
+    line-height: 1.5;
+  }
+  .res-materials-list li::before {
+    content: '•';
+    color: var(--blue-accent);
+    font-weight: bold;
+    margin-right: 8px;
+  }
+
+  .res-caveat {
+    background: rgba(245,158,11,0.08);
+    border: 1px solid rgba(245,158,11,0.2);
+    border-radius: 12px;
+    padding: 16px;
+    margin: 0 16px 16px;
+    font-size: 13px;
+    color: rgba(251,191,36,0.9);
+    line-height: 1.7;
+  }
+
+  .res-cta-section {
+    padding: 8px 16px 40px;
+  }
+  .res-cta-title {
+    font-size: 18px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 8px;
+  }
+  .res-cta-sub {
+    font-size: 13px;
+    color: var(--gray);
+    text-align: center;
+    margin-bottom: 24px;
+    line-height: 1.6;
+  }
+  .res-cta-card {
+    background: linear-gradient(135deg, rgba(59,130,246,0.15), rgba(96,165,250,0.1));
+    border: 1px solid rgba(59,130,246,0.25);
+    border-radius: 16px;
+    padding: 24px 20px;
+    margin-bottom: 16px;
+    text-align: center;
+  }
+  .res-cta-card p {
+    font-size: 14px;
+    color: var(--gray-light);
+    line-height: 1.7;
+    margin-bottom: 20px;
+  }
+  .res-cta-wechat {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--blue-accent);
+    color: white;
+    padding: 12px 28px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    font-family: inherit;
+  }
+  .res-footer {
+    text-align: center;
+    padding: 20px 16px 32px;
+    font-size: 12px;
+    color: rgba(148,163,184,0.4);
+    line-height: 1.8;
+  }
+
+  /* Animations */
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .fade-in { animation: fadeInUp 0.4s ease forwards; }
+
+  @keyframes countUp {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Progress bar -->
+<div class="progress-wrap" id="progressWrap">
+  <span class="progress-label" id="progressLabel">第 1/16 题</span>
+  <div class="progress-bar-bg">
+    <div class="progress-bar-fill" id="progressFill"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ SCREEN 0: Welcome ═══════════════════════════════ -->
+<div class="screen active" id="screen0">
+  <div class="s0-hero">
+    <div class="s0-badge">企业上市注册 · 有二财经</div>
+    <h1 class="s0-title">企业上市<br>全程指南</h1>
+    <p class="s0-sub">从股改到挂牌的完整流程<br>板块匹配、时间规划、材料清单<br><br>让上市之路不再迷茫</p>
+    <div class="s0-features">
+      <div class="s0-feature">
+        <div class="s0-feature-icon">🎯</div>
+        <div class="s0-feature-text">板块匹配</div>
+      </div>
+      <div class="s0-feature">
+        <div class="s0-feature-icon">📋</div>
+        <div class="s0-feature-text">材料清单</div>
+      </div>
+      <div class="s0-feature">
+        <div class="s0-feature-icon">⏰</div>
+        <div class="s0-feature-text">时间规划</div>
+      </div>
+      <div class="s0-feature">
+        <div class="s0-feature-icon">🗺️</div>
+        <div class="s0-feature-text">流程指南</div>
+      </div>
+    </div>
+    <button class="s0-cta" onclick="startTest()">开始评估 →</button>
+    <p class="s0-note">评估约需3-5分钟完成<br>结果仅供参考，不构成上市辅导意见</p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ SCREEN Q: Questions ════════════════════════════ -->
+<div class="screen" id="screenQ">
+  <div class="q-header">
+    <div class="q-section-title" id="qSectionTitle"></div>
+  </div>
+  <div id="qContainer" style="flex:1;overflow-y:auto;padding-bottom:20px;"></div>
+  <div class="q-nav">
+    <button class="q-btn-back" id="btnBack" onclick="prevQuestion()">← 上题</button>
+    <button class="q-btn-next" id="btnNext" onclick="nextQuestion()">下一题 →</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ SCREEN R: Result ════════════════════════════════ -->
+<div class="screen" id="screenR">
+  <div class="res-hero">
+    <div class="res-eyebrow">评估结果</div>
+    <div class="res-board-name" id="resBoardName"></div>
+    <div class="res-board-sub" id="resBoardSub"></div>
+    <div class="res-score-ring">
+      <svg viewBox="0 0 120 120">
+        <circle class="bg" cx="60" cy="60" r="54"/>
+        <circle class="fg" id="scoreFg" cx="60" cy="60" r="54"/>
+      </svg>
+      <div class="res-score-num">
+        <span id="resScore">0</span>
+        <span>分</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="res-card fade-in" style="animation-delay:0.1s">
+    <div class="res-card-title">板块匹配分析</div>
+    <div id="resDims"></div>
+  </div>
+
+  <div class="res-caveat fade-in" style="animation-delay:0.2s">
+    ⚠️ 本评估基于公开标准，不包含窗口指导意见和审核节奏等隐性变量。<br>
+    实际推进前建议找有经验的保代做一次预审。
+  </div>
+
+  <div class="res-timeline fade-in" style="animation-delay:0.3s">
+    <div class="res-card-title">上市流程时间规划</div>
+    <div class="res-timeline-item">
+      <div class="res-timeline-title">1. 股改阶段（3-6个月）</div>
+      <div class="res-timeline-desc">股份制改造、财务规范、法律尽调</div>
+    </div>
+    <div class="res-timeline-item">
+      <div class="res-timeline-title">2. 辅导阶段（3-6个月）</div>
+      <div class="res-timeline-desc">券商辅导、制度建设、材料准备</div>
+    </div>
+    <div class="res-timeline-item">
+      <div class="res-timeline-title">3. 申报阶段（1-3个月）</div>
+      <div class="res-timeline-desc">材料申报、反馈回复、审核排队</div>
+    </div>
+    <div class="res-timeline-item">
+      <div class="res-timeline-title">4. 审核阶段（3-12个月）</div>
+      <div class="res-timeline-desc">证监会审核、问询回复、上市委会议</div>
+    </div>
+    <div class="res-timeline-item">
+      <div class="res-timeline-title">5. 发行上市（1-2个月）</div>
+      <div class="res-timeline-desc">路演询价、申购配售、挂牌上市</div>
+    </div>
+  </div>
+
+  <div class="res-materials fade-in" style="animation-delay:0.4s">
+    <div class="res-materials-title">核心材料清单</div>
+    <ul class="res-materials-list">
+      <li>招股说明书及附录</li>
+      <li>审计报告（最近三年及一期）</li>
+      <li>法律意见书</li>
+      <li>内部控制鉴证报告</li>
+      <li>资产评估报告（如需）</li>
+      <li>保荐书及发行保荐工作报告</li>
+      <li>发行人关于募集资金运用的专项说明</li>
+      <li>盈利预测报告（如需）</li>
+      <li>其他专项文件</li>
+    </ul>
+  </div>
+
+  <div class="res-cta-section fade-in" style="animation-delay:0.5s">
+    <div class="res-cta-title">下一步，找何斌聊聊</div>
+    <p class="res-cta-sub">评估告诉你"在哪"，我帮你制定"怎么走"。<br>从股改到上市的全程规划——这才是真正的价值。</p>
+    <div class="res-cta-card">
+      <p>扫码添加何斌微信<br>发送本页面截图，回复"上市注册"<br>获取一对一具体建议</p>
+      <button class="res-cta-wechat" onclick="copyWechat()">
+        📋 复制微信号：593090320
+      </button>
+    </div>
+  </div>
+
+  <div class="res-footer">
+    <div>有二财经 · AI多懂你，你就有多强</div>
+    <div style="margin-top:4px">本评估结果仅供参考，不构成正式上市辅导意见</div>
+  </div>
+</div>
+
+<script>
+// ─────────────────────────────────────────────────────────────────────────────
+// Questions data
+// Sections and questions with scoring
+// ─────────────────────────────────────────────────────────────────────────────
+const sections = [
+  {
+    name: "第一部分：企业基本情况",
+    icon: "🏢",
+    questions: [
+      {
+        id: 1,
+        text: "企业成立时间？",
+        type: "select",
+        options: [
+          "5年以上",
+          "3-5年",
+          "2-3年",
+          "1-2年",
+          "1年以下"
+        ],
+        mapping: [10, 8, 6, 3, 0]
+      },
+      {
+        id: 2,
+        text: "企业性质？",
+        type: "select",
+        options: [
+          "有限责任公司",
+          "股份有限公司",
+          "其他类型"
+        ],
+        mapping: [8, 10, 5]
+      }
+    ]
+  },
+  {
+    name: "第二部分：财务指标",
+    icon: "📊",
+    questions: [
+      {
+        id: 3,
+        text: "最近一年净利润（扣非归母）约？",
+        hint: "单位：万元人民币",
+        type: "select",
+        options: [
+          "≥10000万元",
+          "5000-10000万元",
+          "3000-5000万元",
+          "1000-3000万元",
+          "<1000万元"
+        ],
+        mapping: [10, 8, 6, 3, 0]
+      },
+      {
+        id: 4,
+        text: "最近一年营收约？",
+        hint: "单位：万元人民币",
+        type: "select",
+        options: [
+          "≥100000万元",
+          "50000-100000万元",
+          "30000-50000万元",
+          "10000-30000万元",
+          "<10000万元"
+        ],
+        mapping: [10, 8, 6, 3, 0]
+      },
+      {
+        id: 5,
+        text: "资产负债率约？",
+        type: "select",
+        options: [
+          "<40%",
+          "40-50%",
+          "50-60%",
+          "60-70%",
+          ">70%"
+        ],
+        mapping: [10, 8, 6, 3, 0]
+      }
+    ]
+  },
+  {
+    name: "第三部分：行业与技术",
+    icon: "🔬",
+    questions: [
+      {
+        id: 6,
+        text: "所属行业？",
+        type: "select",
+        options: [
+          "战略新兴行业（新能源/半导体/生物医药/高端装备）",
+          "科技创新行业（AI/软件/信息安全/云计算）",
+          "传统行业（制造/消费/建筑/商贸）",
+          "金融/地产/教培/受监管行业"
+        ],
+        mapping: [10, 9, 7, 0]
+      },
+      {
+        id: 7,
+        text: "研发投入占比？",
+        type: "select",
+        options: [
+          "≥15%",
+          "8-15%",
+          "3-8%",
+          "<3%"
+        ],
+        mapping: [10, 8, 6, 3]
+      },
+      {
+        id: 8,
+        text: "核心技术情况？",
+        type: "select",
+        options: [
+          "拥有多项发明专利，技术壁垒高",
+          "有一定技术积累，部分专利",
+          "技术一般，模仿为主",
+          "无核心技术"
+        ],
+        mapping: [10, 8, 6, 3]
+      }
+    ]
+  },
+  {
+    name: "第四部分：公司治理",
+    icon: "⚖️",
+    questions: [
+      {
+        id: 9,
+        text: "实际控制人稳定性？",
+        type: "select",
+        options: [
+          "3年以上未变更",
+          "1-3年内变更",
+          "1年内变更",
+          "无实际控制人"
+        ],
+        mapping: [10, 6, 3, 0]
+      },
+      {
+        id: 10,
+        text: "股权结构清晰度？",
+        type: "select",
+        options: [
+          "结构清晰，无代持",
+          "存在少量代持，已清理",
+          "结构复杂，多层嵌套",
+          "存在股权纠纷"
+        ],
+        mapping: [10, 7, 4, 0]
+      },
+      {
+        id: 11,
+        text: "三会运作情况？",
+        type: "select",
+        options: [
+          "规范运作，记录完整",
+          "基本运作，记录不全",
+          "形式运作，无实质",
+          "未建立治理结构"
+        ],
+        mapping: [10, 7, 4, 0]
+      }
+    ]
+  },
+  {
+    name: "第五部分：合规情况",
+    icon: "📋",
+    questions: [
+      {
+        id: 12,
+        text: "行政处罚情况？",
+        type: "select",
+        options: [
+          "无任何处罚",
+          "小额处罚（≤10万元）",
+          "较大处罚（>10万元）",
+          "重大处罚或调查中"
+        ],
+        mapping: [10, 7, 3, 0]
+      },
+      {
+        id: 13,
+        text: "诉讼仲裁情况？",
+        type: "select",
+        options: [
+          "无重大诉讼",
+          "小额诉讼，不影响经营",
+          "较大诉讼，存在风险",
+          "重大诉讼，可能构成障碍"
+        ],
+        mapping: [10, 7, 3, 0]
+      },
+      {
+        id: 14,
+        text: "关联交易情况？",
+        type: "select",
+        options: [
+          "无关联交易或定价公允",
+          "少量关联交易，定价合理",
+          "较多关联交易，定价存疑",
+          "大量不规范关联交易"
+        ],
+        mapping: [10, 7, 3, 0]
+      }
+    ]
+  },
+  {
+    name: "第六部分：上市准备",
+    icon: "📝",
+    questions: [
+      {
+        id: 15,
+        text: "是否聘请中介机构？",
+        type: "select",
+        options: [
+          "已聘请券商、律师、会计师",
+          "已接触中介，尚未确定",
+          "正在了解中介机构",
+          "尚未考虑"
+        ],
+        mapping: [10, 7, 4, 1]
+      },
+      {
+        id: 16,
+        text: "上市时间预期？",
+        type: "select",
+        options: [
+          "1-2年内",
+          "2-3年内",
+          "3-5年内",
+          "暂不确定"
+        ],
+        mapping: [10, 8, 6, 3]
+      }
+    ]
+  }
+];
+
+// Flatten questions with global index
+let flatQuestions = [];
+let globalIndex = 0;
+sections.forEach(sec => {
+  sec.questions.forEach(q => {
+    flatQuestions.push({...q, _gi: globalIndex++, _sec: sec.name, _secIcon: sec.icon});
+  });
+});
+
+const totalQuestions = flatQuestions.length;
+
+// State
+let answers = new Array(totalQuestions).fill(null); // null or answer index
+let currentQ = 0;
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Render
+// ─────────────────────────────────────────────────────────────────────────────
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function startTest() {
+  currentQ = 0;
+  answers = new Array(totalQuestions).fill(null);
+  showScreen('screenQ');
+  document.getElementById('progressWrap').classList.add('show');
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const q = flatQuestions[currentQ];
+  const answered = answers[currentQ] !== null;
+
+  // Update progress
+  document.getElementById('progressLabel').textContent = `第 ${currentQ + 1}/${totalQuestions} 题`;
+  document.getElementById('progressFill').style.width = ((currentQ) / totalQuestions * 100) + '%';
+
+  // Section title
+  document.getElementById('qSectionTitle').innerHTML =
+    `<span style="opacity:0.6">${q._secIcon}</span> ${q._sec}`;
+
+  let html = `
+  <div class="q-card">
+    <div class="q-num">第 ${currentQ + 1} 题</div>
+    <div class="q-text">${q.text}</div>
+    ${q.hint ? `<div class="q-hint">${q.hint}</div>` : ''}
+  `;
+
+  if (q.type === 'input') {
+    const val = typeof answers[currentQ] === 'string' ? answers[currentQ] : '';
+    html += `<input class="q-input" type="number" placeholder="请输入数字" value="${val}"
+      oninput="answers[${currentQ}] = this.value; updateNextBtn()">`;
+  } else {
+    html += `<div class="q-options">`;
+    q.options.forEach((opt, idx) => {
+      const selected = answers[currentQ] === idx ? 'selected' : '';
+      html += `<div class="q-option ${selected}" onclick="selectOption(${idx})">
+        <div class="q-option-dot"></div>
+        <div class="q-option-label">${opt}</div>
+      </div>`;
+    });
+    html += `</div>`;
+  }
+
+  html += `</div>`;
+  document.getElementById('qContainer').innerHTML = html;
+
+  // Nav buttons
+  document.getElementById('btnBack').style.visibility = currentQ === 0 ? 'hidden' : 'visible';
+  updateNextBtn();
+}
+
+function selectOption(idx) {
+  answers[currentQ] = idx;
+  // Update UI
+  document.querySelectorAll('.q-option').forEach((el, i) => {
+    el.classList.toggle('selected', i === idx);
+  });
+  updateNextBtn();
+}
+
+function updateNextBtn() {
+  const btn = document.getElementById('btnNext');
+  const hasAnswer = answers[currentQ] !== null && answers[currentQ] !== '';
+  btn.disabled = !hasAnswer;
+  btn.style.opacity = hasAnswer ? '1' : '0.5';
+  const isLast = currentQ === totalQuestions - 1;
+  btn.textContent = isLast ? '查看结果 →' : '下一题 →';
+}
+
+function nextQuestion() {
+  if (answers[currentQ] === null || answers[currentQ] === '') return;
+  if (currentQ < totalQuestions - 1) {
+    currentQ++;
+    renderQuestion();
+    document.getElementById('qContainer').scrollTop = 0;
+  } else {
+    showResult();
+  }
+}
+
+function prevQuestion() {
+  if (currentQ > 0) {
+    currentQ--;
+    renderQuestion();
+    document.getElementById('qContainer').scrollTop = 0;
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Scoring & Result
+// ─────────────────────────────────────────────────────────────────────────────
+const BOARDS = {
+  sxzz: { name: '上交所主板', sub: '成熟稳定大盘蓝筹' },
+  kcb: { name: '科创板', sub: '硬科技创新企业' },
+  cyb: { name: '创业板', sub: '成长型创新企业' },
+  bjjs: { name: '北交所', sub: '创新型中小企业' }
+};
+
+function showResult() {
+  document.getElementById('progressWrap').classList.remove('show');
+  showScreen('screenR');
+
+  // Calculate scores
+  let totalScore = 0;
+  let boardScores = { sxzz: 0, kcb: 0, cyb: 0, bjjs: 0 };
+
+  flatQuestions.forEach((q, qi) => {
+    const ans = answers[qi];
+    if (ans === null || ans === '') return;
+
+    const score = q.mapping[ans];
+    totalScore += score;
+
+    // Calculate board-specific scores
+    if (q.id === 3 || q.id === 4 || q.id === 5) { // 财务指标
+      boardScores.sxzz += score * 1.2;
+      boardScores.cyb += score * 1.1;
+      boardScores.kcb += score * 0.9;
+      boardScores.bjjs += score * 0.8;
+    } else if (q.id === 6 || q.id === 7 || q.id === 8) { // 行业技术
+      boardScores.kcb += score * 1.3;
+      boardScores.cyb += score * 1.1;
+      boardScores.sxzz += score * 0.8;
+      boardScores.bjjs += score * 1.0;
+    } else if (q.id === 9 || q.id === 10 || q.id === 11) { // 公司治理
+      Object.keys(boardScores).forEach(board => {
+        boardScores[board] += score;
+      });
+    } else if (q.id === 12 || q.id === 13 || q.id === 14) { // 合规情况
+      Object.keys(boardScores).forEach(board => {
+        boardScores[board] += score;
+      });
+    } else if (q.id === 15 || q.id === 16) { // 上市准备
+      Object.keys(boardScores).forEach(board => {
+        boardScores[board] += score * 0.8;
+      });
+    } else { // 基本情况
+      Object.keys(boardScores).forEach(board => {
+        boardScores[board] += score * 0.9;
+      });
+    }
+  });
+
+  // Find best board
+  let bestBoard = 'bjjs';
+  let bestScore = -999;
+  Object.entries(boardScores).forEach(([board, score]) => {
+    if (score > bestScore) {
+      bestScore = score;
+      bestBoard = board;
+    }
+  });
+
+  const board = BOARDS[bestBoard];
+  const percentageScore = Math.round((totalScore / (totalQuestions * 10)) * 100);
+
+  // Render board name
+  document.getElementById('resBoardName').textContent = board.name;
+  document.getElementById('resBoardSub').textContent = `推荐板块：${board.sub}`;
+
+  // Animate score ring
+  const circumference = 339.3;
+  const fill = circumference * (1 - percentageScore / 100);
+  const fg = document.getElementById('scoreFg');
+  fg.style.strokeDashoffset = circumference;
+  fg.style.stroke = percentageScore >= 70 ? '#3b82f6' : percentageScore >= 40 ? '#f59e0b' : '#ef4444';
+  document.getElementById('resScore').textContent = percentageScore;
+
+  setTimeout(() => {
+    fg.style.strokeDashoffset = fill;
+    // Count up number
+    let cur = 0;
+    const target = percentageScore;
+    const step = target / 40;
+    const counter = setInterval(() => {
+      cur += step;
+      if (cur >= target) { cur = target; clearInterval(counter); }
+      document.getElementById('resScore').textContent = Math.round(cur);
+    }, 30);
+  }, 300);
+
+  // Render dimensions
+  const dimIcons = ['🏢','📊','🔬','⚖️','📋','📝'];
+  const dimNames = ['基本情况', '财务指标', '行业技术', '公司治理', '合规情况', '上市准备'];
+  let dimHtml = '';
+  
+  // Calculate dimension scores
+  const dimScores = [0, 0, 0, 0, 0, 0];
+  const dimQuestions = [2, 3, 3, 3, 3, 2];
+  
+  flatQuestions.forEach((q, qi) => {
+    const ans = answers[qi];
+    if (ans === null || ans === '') return;
+    
+    const score = q.mapping[ans];
+    if (q.id <= 2) dimScores[0] += score; // 基本情况
+    else if (q.id <= 5) dimScores[1] += score; // 财务指标
+    else if (q.id <= 8) dimScores[2] += score; // 行业技术
+    else if (q.id <= 11) dimScores[3] += score; // 公司治理
+    else if (q.id <= 14) dimScores[4] += score; // 合规情况
+    else dimScores[5] += score; // 上市准备
+  });
+
+  dimScores.forEach((s, i) => {
+    const maxScore = dimQuestions[i] * 10;
+    const percentage = Math.round((s / maxScore) * 100);
+    let cls = percentage >= 80 ? 'ok' : percentage >= 60 ? 'warn' : 'fail';
+    let label = percentage >= 80 ? '优秀' : percentage >= 60 ? '良好' : '待改进';
+    dimHtml += `
+    <div class="res-dim-row">
+      <div class="res-dim-icon ${cls}">${dimIcons[i]}</div>
+      <div class="res-dim-info">
+        <div class="res-dim-name">${dimNames[i]}</div>
+        <div class="res-dim-status ${cls}">${label} · ${percentage}分</div>
+      </div>
+    </div>`;
+  });
+  document.getElementById('resDims').innerHTML = dimHtml;
+}
+
+function copyWechat() {
+  const el = document.createElement('input');
+  el.value = '593090320';
+  document.body.appendChild(el);
+  el.select();
+  document.execCommand('copy');
+  document.body.removeChild(el);
+  const btn = document.querySelector('.res-cta-wechat');
+  const orig = btn.textContent;
+  btn.textContent = '✅ 已复制，微信搜索添加';
+  setTimeout(() => { btn.textContent = orig; }, 2500);
+}
+
+// Init
+document.getElementById('btnNext').disabled = true;
+</script>
+</body>
+</html>
