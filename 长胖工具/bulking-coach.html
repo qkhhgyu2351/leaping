@@ -696,7 +696,7 @@ function renderOnboarding() {
           <div class="form-group">
             <label class="form-label">年龄</label>
             <input type="number" class="form-input" id="ageInput" placeholder="输入年龄" 
-                   value="${tempProfile.age || ''}" onchange="updateTempProfile('age', this.value)">
+                   value="${tempProfile.age || ''}" oninput="updateTempProfile('age', this.value)">
           </div>
         </div>
         <button class="btn-primary" onclick="nextStep()" ${!tempProfile.gender || !tempProfile.age ? 'disabled style="opacity:0.5;cursor:not-allowed;"' : ''}>下一步 →</button>
@@ -712,17 +712,17 @@ function renderOnboarding() {
           <div class="form-group">
             <label class="form-label">身高 (cm)</label>
             <input type="number" class="form-input" id="heightInput" placeholder="例如：175" 
-                   value="${tempProfile.height || ''}" onchange="updateTempProfile('height', this.value)">
+                   value="${tempProfile.height || ''}" oninput="updateTempProfile('height', this.value)">
           </div>
           <div class="form-group">
             <label class="form-label">当前体重 (kg)</label>
             <input type="number" class="form-input" id="currentWeightInput" placeholder="例如：55" 
-                   value="${tempProfile.currentWeight || ''}" onchange="updateTempProfile('currentWeight', this.value)">
+                   value="${tempProfile.currentWeight || ''}" oninput="updateTempProfile('currentWeight', this.value)">
           </div>
           <div class="form-group">
             <label class="form-label">目标体重 (kg)</label>
             <input type="number" class="form-input" id="targetWeightInput" placeholder="例如：65" 
-                   value="${tempProfile.targetWeight || ''}" onchange="updateTempProfile('targetWeight', this.value)">
+                   value="${tempProfile.targetWeight || ''}" oninput="updateTempProfile('targetWeight', this.value)">
           </div>
         </div>
         <button class="btn-primary" onclick="nextStep()" ${!tempProfile.height || !tempProfile.currentWeight || !tempProfile.targetWeight ? 'disabled style="opacity:0.5;cursor:not-allowed;"' : ''}>下一步 →</button>
@@ -790,7 +790,14 @@ function selectActivity(activity) {
 }
 
 function updateTempProfile(key, value) {
-  tempProfile[key] = parseFloat(value) || value;
+  const numValue = parseFloat(value);
+  if (!isNaN(numValue)) {
+    tempProfile[key] = numValue;
+  } else {
+    tempProfile[key] = value;
+  }
+  // 重新渲染以更新按钮状态
+  renderOnboarding();
 }
 
 function nextStep() {
