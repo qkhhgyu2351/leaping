@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>有二内容 - 预览</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #f5f5f5;
+        }
+        
+        .phone-container {
+            width: 375px;
+            margin: 20px auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        
+        .phone-screen {
+            height: 667px;
+            overflow-y: auto;
+            position: relative;
+        }
+        
+        .tab-bar {
+            display: flex;
+            background: white;
+            border-top: 1px solid #e5e5e5;
+            position: sticky;
+            bottom: 0;
+        }
+        
+        .tab-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .tab-item.active {
+            color: #1B3A6B;
+        }
+        
+        .tab-item:not(.active) {
+            color: #999;
+        }
+        
+        .tab-icon {
+            width: 24px;
+            height: 24px;
+            margin-bottom: 2px;
+        }
+        
+        .page {
+            display: none;
+        }
+        
+        .page.active {
+            display: block;
+        }
+        
+        /* 财经页样式 */
+        .finance-page {
+            min-height: 100%;
+            background: #E8F4FD;
+        }
+        
+        .finance-banner {
+            background: #1B3A6B;
+            padding: 16px;
+            padding-top: 24px;
+        }
+        
+        /* 会客页样式 */
+        .guest-page {
+            min-height: 100%;
+            background: #3B4C7D;
+        }
+        
+        .guest-banner {
+            background: #3B4C7D;
+            padding: 16px;
+            padding-top: 24px;
+        }
+        
+        /* 通用卡片样式 */
+        .card {
+            background: white;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .card-header {
+            padding: 12px 16px;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .card-content {
+            padding: 12px 16px;
+        }
+        
+        .badge {
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 12px;
+        }
+        
+        .badge-outline {
+            border: 1px solid;
+            background: transparent;
+        }
+        
+        .copy-btn {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 6px;
+            color: white;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .copy-btn:hover {
+            opacity: 0.9;
+        }
+        
+        .copy-btn.copied {
+            background: #22C55E !important;
+        }
+        
+        /* 预览控制区 */
+        .preview-controls {
+            max-width: 375px;
+            margin: 20px auto;
+            padding: 16px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .preview-controls h3 {
+            margin-bottom: 12px;
+            color: #1B3A6B;
+        }
+        
+        .preview-controls p {
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="preview-controls">
+        <h3>🎨 有二内容小程序 - 预览</h3>
+        <p>点击下方 TabBar 切换三个页面查看效果</p>
+        <p>编辑提示：你可以在浏览器中直接修改这个 HTML 来调整样式</p>
+    </div>
+    
+    <div class="phone-container">
+        <div class="phone-screen">
+            <!-- 有二财经页 -->
+            <div id="finance-page" class="page active finance-page">
+                <div class="finance-banner">
+                    <div class="text-white text-xl font-bold mb-1">有二财经</div>
+                    <div class="text-white text-sm opacity-90">AI多懂企业，企业就有多强</div>
+                </div>
+                
+                <div class="p-4">
+                    <div class="flex justify-between items-center mb-4">
+                        <div class="text-lg font-bold" style="color: #1B3A6B;">每日速览</div>
+                        <div class="badge badge-outline" style="color: #1B3A6B; border-color: #1B3A6B;">今日更新</div>
+                    </div>
+                    
+                    <!-- 财经资讯卡片 -->
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="text-base font-bold" style="color: #1B3A6B;">AI改变个体</div>
+                            <div class="badge" style="background: #22C55E; color: white;">5条</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="mb-2 text-sm" style="color: #1A2E5C;"><span class="font-bold">• </span>某企业用AI财务助手将月报制作时间从3天缩短到2小时</div>
+                            <div class="text-sm" style="color: #1A2E5C;"><span class="font-bold">• </span>AI税务筹划工具帮助中小企业合规节税平均15%</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="text-base font-bold" style="color: #1B3A6B;">AI改变财税</div>
+                            <div class="badge" style="background: #22C55E; color: white;">5条</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="mb-2 text-sm" style="color: #1A2E5C;"><span class="font-bold">• </span>普华永道报告：AI可将财务审计效率提升60%</div>
+                            <div class="text-sm" style="color: #1A2E5C;"><span class="font-bold">• </span>深圳200家企业试点AI财税系统，平均降本30%</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="text-base font-bold" style="color: #1B3A6B;">上市公司AI应用</div>
+                            <div class="badge" style="background: #22C55E; color: white;">5条</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="mb-2 text-sm" style="color: #1A2E5C;"><span class="font-bold">• </span>万科引入AI财务机器人，处理90%报销单</div>
+                            <div class="text-sm" style="color: #1A2E5C;"><span class="font-bold">• </span>平安银行AI财报分析，自动化率达85%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 有二会客页 -->
+            <div id="guest-page" class="page guest-page">
+                <div class="guest-banner">
+                    <div class="text-white text-xl font-bold mb-1">有二会客</div>
+                    <div class="text-white text-sm opacity-90">AI多懂你，你就有多强</div>
+                </div>
+                
+                <div class="p-4">
+                    <div class="flex justify-between items-center mb-4">
+                        <div class="text-lg font-bold text-white">每日速览</div>
+                        <div class="badge badge-outline" style="color: #F5A623; border-color: #F5A623;">今日更新</div>
+                    </div>
+                    
+                    <!-- 会客资讯卡片 -->
+                    <div class="card" style="background: rgba(255,255,255,0.1);">
+                        <div class="card-header" style="border-bottom-color: rgba(255,255,255,0.1);">
+                            <div class="text-base font-bold text-white">AI改变个体</div>
+                            <div class="badge" style="background: #00C49A; color: white;">5条</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="mb-2 text-sm text-white"><span class="font-bold">• </span>个体用AI工具提升10倍效率案例</div>
+                            <div class="text-sm text-white"><span class="font-bold">• </span>一人公司如何用AI工具同时服务5个客户</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card" style="background: rgba(255,255,255,0.1);">
+                        <div class="card-header" style="border-bottom-color: rgba(255,255,255,0.1);">
+                            <div class="text-base font-bold text-white">AI协助一人公司</div>
+                            <div class="badge" style="background: #00C49A; color: white;">5条</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="mb-2 text-sm text-white"><span class="font-bold">• </span>一人公司如何用AI管理财务、客户、内容</div>
+                            <div class="text-sm text-white"><span class="font-bold">• </span>自由职业者用AI工具月入从2万到8万</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card" style="background: rgba(255,255,255,0.1);">
+                        <div class="card-header" style="border-bottom-color: rgba(255,255,255,0.1);">
+                            <div class="text-base font-bold text-white">AI工具实践</div>
+                            <div class="badge" style="background: #00C49A; color: white;">5条</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="mb-2 text-sm text-white"><span class="font-bold">• </span>Claude+Gemini组合提升工作流效率</div>
+                            <div class="text-sm text-white"><span class="font-bold">• </span>NotebookLM帮你整理知识库</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 文案库页 -->
+            <div id="copywriting-page" class="page bg-gray-50">
+                <div class="p-4 bg-white mb-4">
+                    <div class="text-lg font-bold mb-2">朋友圈文案库</div>
+                    <div class="text-sm text-gray-600">点击"复制"按钮，一键复制文案内容</div>
+                </div>
+                
+                <div class="px-4 pb-8">
+                    <!-- 文案卡片1 -->
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="flex items-center gap-2">
+                                <div class="text-sm font-bold px-2 py-1 rounded" style="background: #E8F4FD; color: #1B3A6B;">有二财经</div>
+                                <div class="badge badge-outline" style="color: #1B3A6B; border-color: #1B3A6B;">方法论</div>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div class="p-3 rounded-lg mb-3" style="background: #f5f5f5;">
+                                <div class="text-sm leading-relaxed text-gray-800 whitespace-pre-line">以前要3个会计凑2天的合并报表，现在大模型10分钟跑完初稿，还能标记出5个异常往来款。
+
+不是AI取代会计，是会用AI的会计取代不会用的。
+
+财务人，你准备好了吗？</div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="text-xs text-gray-500 mb-1">金句</div>
+                                <div class="text-sm font-medium italic" style="color: #1B3A6B;">"AI不是来抢饭碗的，是来递梯子的"</div>
+                            </div>
+                            <button class="copy-btn" style="background: #1B3A6B;" onclick="handleCopy(this, '以前要3个会计凑2天的合并报表...')">复制文案</button>
+                        </div>
+                    </div>
+                    
+                    <!-- 文案卡片2 -->
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="flex items-center gap-2">
+                                <div class="text-sm font-bold px-2 py-1 rounded" style="background: #3B4C7D; color: white;">有二会客</div>
+                                <div class="badge badge-outline" style="color: #3B4C7D; border-color: #3B4C7D;">认识论</div>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div class="p-3 rounded-lg mb-3" style="background: #f5f5f5;">
+                                <div class="text-sm leading-relaxed text-gray-800 whitespace-pre-line">我从企业高管辞职做自媒体，用了AI工具，1个人干出5个人的活。
+
+写作用Claude，生图用即梦，做视频用剪映。
+
+不是AI取代人，是用AI的人取代不用AI的人。</div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="text-xs text-gray-500 mb-1">金句</div>
+                                <div class="text-sm font-medium italic" style="color: #3B4C7D;">"AI是你能力的放大器，不是替代品"</div>
+                            </div>
+                            <button class="copy-btn" style="background: #3B4C7D;" onclick="handleCopy(this, '我从企业高管辞职做自媒体...')">复制文案</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- TabBar -->
+        <div class="tab-bar">
+            <div class="tab-item active" onclick="switchTab('finance')">
+                <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+                    <polyline points="17 6 23 6 23 12"></polyline>
+                </svg>
+                <span class="text-xs">有二财经</span>
+            </div>
+            <div class="tab-item" onclick="switchTab('guest')">
+                <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="9" cy="7" r="4"></circle>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                </svg>
+                <span class="text-xs">有二会客</span>
+            </div>
+            <div class="tab-item" onclick="switchTab('copywriting')">
+                <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="9" cy="7" r="4"></circle>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                </svg>
+                <span class="text-xs">文案库</span>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function switchTab(tab) {
+            // 隐藏所有页面
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // 移除所有tab的active状态
+            document.querySelectorAll('.tab-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // 显示选中的页面
+            document.getElementById(tab + '-page').classList.add('active');
+            
+            // 激活选中的tab
+            event.currentTarget.classList.add('active');
+        }
+        
+        function handleCopy(btn, text) {
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = btn.textContent;
+                btn.textContent = '✓ 已复制';
+                btn.classList.add('copied');
+                
+                setTimeout(() => {
+                    btn.textContent = originalText || '复制文案';
+                    btn.classList.remove('copied');
+                }, 2000);
+                
+                alert('已复制到剪贴板！');
+            });
+        }
+    </script>
+</body>
+</html>

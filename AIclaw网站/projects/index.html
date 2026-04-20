@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AIclaw - AI 爱好者社区平台</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/lucide-react@0.468.0/dist/umd/lucide-react.min.js" rel="stylesheet">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&display=swap');
+    
+    body {
+      font-family: 'Geist', sans-serif;
+    }
+    
+    .gradient-text {
+      background: linear-gradient(90deg, #3b82f6, #06b6d4);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+  <!-- Header -->
+  <header class="sticky top-0 z-50 w-full border-b bg-white/95 dark:bg-gray-900/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 dark:supports-[backdrop-filter]:bg-gray-900/60 transition-all duration-200 shadow-sm">
+    <div class="container mx-auto px-4">
+      <div class="flex h-16 items-center justify-between">
+        <!-- Logo -->
+        <a href="/" class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white"><path d="M12 8v13"/><path d="M19 16v2a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-2"/><path d="M9 3V5a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2V3"/><path d="M10 11h4"/></svg>
+          </div>
+          <span class="text-xl font-bold gradient-text">AIclaw</span>
+        </a>
+
+        <!-- Desktop Navigation -->
+        <nav class="hidden md:flex items-center gap-1">
+          <a href="/category/ai-tools" class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors hover:bg-gray-100 dark:hover:bg-gray-800">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-500"><path d="M12 8v13"/><path d="M19 16v2a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-2"/><path d="M9 3V5a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2V3"/><path d="M10 11h4"/></svg>
+            <span class="hidden lg:inline">AI 工具</span>
+          </a>
+          <a href="/category/news" class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors hover:bg-gray-100 dark:hover:bg-gray-800">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-500"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+            <span class="hidden lg:inline">行业资讯</span>
+          </a>
+          <a href="/category/tutorials" class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors hover:bg-gray-100 dark:hover:bg-gray-800">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-yellow-500"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
+            <span class="hidden lg:inline">技术教程</span>
+          </a>
+          <a href="/category/discussion" class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors hover:bg-gray-100 dark:hover:bg-gray-800">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-pink-500"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+            <span class="hidden lg:inline">讨论区</span>
+          </a>
+          <a href="/category/showcase" class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors hover:bg-gray-100 dark:hover:bg-gray-800">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-purple-500"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"/><path d="M9 12h6"/><path d="M12 9v6"/></svg>
+            <span class="hidden lg:inline">创意展示</span>
+          </a>
+          <a href="/category/resources" class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors hover:bg-gray-100 dark:hover:bg-gray-800">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-cyan-500"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+            <span class="hidden lg:inline">资源分享</span>
+          </a>
+        </nav>
+
+        <!-- Search & Actions -->
+        <div class="flex items-center gap-2">
+          <!-- Search Button -->
+          <button class="hidden sm:flex items-center gap-2 w-48 lg:w-64 justify-start text-muted-foreground border border-gray-300 dark:border-gray-700 rounded-md px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-800">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            <span class="flex-1 text-left text-sm">搜索帖子...</span>
+            <kbd class="hidden lg:inline-flex h-5 items-center gap-1 rounded border bg-gray-100 dark:bg-gray-800 px-1.5 font-mono text-[10px] font-medium text-gray-600 dark:text-gray-400">
+              <span class="text-xs">⌘</span>K
+            </kbd>
+          </button>
+
+          <a href="/create" class="hidden sm:flex items-center gap-2 border border-gray-300 dark:border-gray-700 rounded-md px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-800">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+            发帖
+          </a>
+          <button class="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          </button>
+          <button class="md:hidden p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-1">
+    <div class="container mx-auto px-4 py-6">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- Main Content -->
+        <div class="lg:col-span-8 space-y-4">
+          <!-- Hero Banner -->
+          <div class="overflow-hidden border-0 shadow-lg rounded-lg">
+            <div class="bg-gradient-to-r from-blue-600 via-cyan-500 to-teal-400 p-8 text-white">
+              <div class="max-w-xl">
+                <h1 class="text-3xl font-bold mb-3">
+                  AIclaw - 探索人工智能的无限可能
+                </h1>
+                <p class="text-white/80 mb-4">
+                  加入 AIclaw 社区，与志同道合的 AI 爱好者一起分享、学习、成长，探索人工智能的前沿技术
+                </p>
+                <a href="/create" class="inline-flex items-center gap-2 bg-white text-blue-600 px-4 py-2 rounded-md font-medium hover:bg-gray-100 transition-colors">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v13"/><path d="M19 16v2a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-2"/><path d="M9 3V5a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2V3"/><path d="M10 11h4"/></svg>
+                  开始分享
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Filter Tabs -->
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <button class="flex items-center gap-1 px-3 py-2 rounded-md bg-blue-100 text-blue-600 dark:bg-blue-900 dark:text-blue-300">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"/><path d="M9 12h6"/><path d="M12 9v6"/></svg>
+                最新
+              </button>
+              <button class="flex items-center gap-1 px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                热门
+              </button>
+              <button class="flex items-center gap-1 px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+                飙升
+              </button>
+            </div>
+          </div>
+
+          <!-- Posts List -->
+          <div class="space-y-4">
+            <!-- Post 1 -->
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+              <div class="p-4">
+                <div class="flex gap-4">
+                  <div class="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0">
+                    <img src="https://via.placeholder.com/80" alt="ChatGPT-5" class="w-full h-full object-cover"/>
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <div class="flex items-center gap-2 mb-1">
+                      <span class="px-2 py-1 text-xs rounded-md bg-indigo-100 text-indigo-600 dark:bg-indigo-900 dark:text-indigo-300">
+                        AI 工具
+                      </span>
+                      <span class="text-xs text-gray-500 dark:text-gray-400">
+                        2026/4/13
+                      </span>
+                    </div>
+                    <a href="/post/post-1" class="block group">
+                      <h3 class="font-semibold group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors line-clamp-1">
+                        ChatGPT-5 即将发布？OpenAI CEO 暗示重大更新
+                      </h3>
+                    </a>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 line-clamp-1 mt-1">
+                      OpenAI CEO 暗示 ChatGPT 即将迎来重大更新，推理能力和多模态将有显著提升
+                    </p>
+                    <div class="flex items-center gap-4 mt-2">
+                      <div class="flex items-center gap-2">
+                        <div class="w-5 h-5 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
+                          <span class="text-xs">AI</span>
+                        </div>
+                        <span class="text-xs text-gray-500 dark:text-gray-400">
+                          AI爱好者
+                        </span>
+                      </div>
+                      <div class="flex items-center gap-3 text-xs text-gray-500 dark:text-gray-400">
+                        <span class="flex items-center gap-1">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+                          1257
+                        </span>
+                        <span class="flex items-center gap-1">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                          89
+                        </span>
+                        <span class="flex items-center gap-1">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                          23
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <button class="flex-shrink-0 p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Post 2 -->
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+              <div class="p-4">
+                <div class="flex gap-4">
+                  <div class="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0">
+                    <img src="https://via.placeholder.com/80" alt="Claude 3.5" class="w-full h-full object-cover"/>
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <div class="flex items-center gap-2 mb-1">
+                      <span class="px-2 py-1 text-xs rounded-md bg-green-100 text-green-600 dark:bg-green-900 dark:text-green-300">
+                        行业资讯
+                      </span>
+                      <span class="text-xs text-gray-500 dark:text-gray-400">
+                        2026/4/12
+                      </span>
+                    </div>
+                    <a href="/post/post-2" class="block group">
+                      <h3 class="font-semibold group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors line-clamp-1">
+                        Claude 3.5 发布，Anthropic 称其性能超越 GPT-4
+                      </h3>
+                    </a>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 line-clamp-1 mt-1">
+                      Anthropic 发布 Claude 3.5，声称在多项基准测试中超越 GPT-4，具有更强的推理能力和创造性
+                    </p>
+                    <div class="flex items-center gap-4 mt-2">
+                      <div class="flex items-center gap-2">
+                        <div class="w-5 h-5 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
+                          <span class="text-xs">AI</span>
+                        </div>
+                        <span class="text-xs text-gray-500 dark:text-gray-400">
+                          AI资讯君
+                        </span>
+                      </div>
+                      <div class="flex items-center gap-3 text-xs text-gray-500 dark:text-gray-400">
+                        <span class="flex items-center gap-1">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+                          986
+                        </span>
+                        <span class="flex items-center gap-1">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                          76
+                        </span>
+                        <span class="flex items-center gap-1">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                          19
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <button class="flex-shrink-0 p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Post 3 -->
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+              <div class="p-4">
+                <div class="flex gap-4">
+                  <div class="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0">
+                    <img src="https://via.placeholder.com/80" alt="Transformer" class="w-full h-full object-cover"/>
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <div class="flex items-center gap-2 mb-1">
+                      <span class="px-2 py-1 text-xs rounded-md bg-yellow-100 text-yellow-600 dark:bg-yellow-900 dark:text-yellow-300">
+                        技术教程
+                      </span>
+                      <span class="text-xs text-gray-500 dark:text-gray-400">
+                        2026/4/11
+                      </span>
+                    </div>
+                    <a href="/post/post-3" class="block group">
+                      <h3 class="font-semibold group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors line-clamp-1">
+                        深入理解 Transformer 架构：从原理到实践
+                      </h3>
+                    </a>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 line-clamp-1 mt-1">
+                      详细解析 Transformer 架构的工作原理，包括自注意力机制、位置编码和层归一化等核心概念
+                    </p>
+                    <div class="flex items-center gap-4 mt-2">
+                      <div class="flex items-center gap-2">
+                        <div class="w-5 h-5 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
+                          <span class="text-xs">ML</span>
+                        </div>
+                        <span class="text-xs text-gray-500 dark:text-gray-400">
+                          机器学习研究员
+                        </span>
+                      </div>
+                      <div class="flex items-center gap-3 text-xs text-gray-500 dark:text-gray-400">
+                        <span class="flex items-center gap-1">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+                          756
+                        </span>
+                        <span class="flex items-center gap-1">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                          54
+                        </span>
+                        <span class="flex items-center gap-1">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                          12
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <button class="flex-shrink-0 p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Load More -->
+          <div class="flex justify-center pt-4">
+            <button class="border border-gray-300 dark:border-gray-700 rounded-md px-4 py-2 text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+              加载更多
+            </button>
+          </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="lg:col-span-4 space-y-6">
+          <!-- Quick Stats -->
+          <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm">
+            <div class="p-4">
+              <h3 class="font-semibold mb-4">社区数据</h3>
+              <div class="space-y-4">
+                <div class="flex justify-between items-center">
+                  <span class="text-sm text-gray-500 dark:text-gray-400">今日新增帖子</span>
+                  <span class="font-semibold">128</span>
+                </div>
+                <div class="flex justify-between items-center">
+                  <span class="text-sm text-gray-500 dark:text-gray-400">活跃用户</span>
+                  <span class="font-semibold">2,456</span>
+                </div>
+                <div class="flex justify-between items-center">
+                  <span class="text-sm text-gray-500 dark:text-gray-400">总帖子数</span>
+                  <span class="font-semibold">12,890</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Hot Categories -->
+          <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm">
+            <div class="p-4">
+              <h3 class="font-semibold mb-4">热门分类</h3>
+              <div class="space-y-3">
+                <a href="/category/ai-tools" class="flex items-center justify-between p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+                  <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-lg flex items-center justify-center bg-indigo-100 dark:bg-indigo-900">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-600 dark:text-indigo-400"><path d="M12 8v13"/><path d="M19 16v2a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-2"/><path d="M9 3V5a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2V3"/><path d="M10 11h4"/></svg>
+                    </div>
+                    <span class="text-sm font-medium">AI 工具</span>
+                  </div>
+                  <span class="px-2 py-1 text-xs rounded-md bg-gray-100 dark:bg-gray-700">1234</span>
+                </a>
+                <a href="/category/news" class="flex items-center justify-between p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+                  <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-lg flex items-center justify-center bg-green-100 dark:bg-green-900">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-600 dark:text-green-400"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                    </div>
+                    <span class="text-sm font-medium">行业资讯</span>
+                  </div>
+                  <span class="px-2 py-1 text-xs rounded-md bg-gray-100 dark:bg-gray-700">892</span>
+                </a>
+                <a href="/category/tutorials" class="flex items-center justify-between p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+                  <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-lg flex items-center justify-center bg-yellow-100 dark:bg-yellow-900">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-yellow-600 dark:text-yellow-400"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
+                    </div>
+                    <span class="text-sm font-medium">技术教程</span>
+                  </div>
+                  <span class="px-2 py-1 text-xs rounded-md bg-gray-100 dark:bg-gray-700">756</span>
+                </a>
+                <a href="/category/discussion" class="flex items-center justify-between p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+                  <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-lg flex items-center justify-center bg-pink-100 dark:bg-pink-900">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-pink-600 dark:text-pink-400"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                    </div>
+                    <span class="text-sm font-medium">讨论区</span>
+                  </div>
+                  <span class="px-2 py-1 text-xs rounded-md bg-gray-100 dark:bg-gray-700">2103</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Trending Topics -->
+          <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm">
+            <div class="p-4">
+              <h3 class="font-semibold mb-4">热门话题</h3>
+              <div class="space-y-2">
+                <a href="/search?q=%23GPT-5" class="block text-sm text-blue-600 dark:text-blue-400 hover:underline">
+                  #GPT-5
+                </a>
+                <a href="/search?q=%23AI-%E7%BC%96%E7%A8%8B" class="block text-sm text-blue-600 dark:text-blue-400 hover:underline">
+                  #AI-编程
+                </a>
+                <a href="/search?q=%23%E5%A4%A7%E6%A8%A1%E5%9E%8B" class="block text-sm text-blue-600 dark:text-blue-400 hover:underline">
+                  #大模型
+                </a>
+                <a href="/search?q=%23AGI" class="block text-sm text-blue-600 dark:text-blue-400 hover:underline">
+                  #AGI
+                </a>
+                <a href="/search?q=%23AI%E7%BB%98%E7%94%BB" class="block text-sm text-blue-600 dark:text-blue-400 hover:underline">
+                  #AI绘画
+                </a>
+                <a href="/search?q=%23AI-%E5%B7%A5%E5%85%B7" class="block text-sm text-blue-600 dark:text-blue-400 hover:underline">
+                  #AI-工具
+                </a>
+                <a href="/search?q=%23%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0" class="block text-sm text-blue-600 dark:text-blue-400 hover:underline">
+                  #机器学习
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-white dark:bg-gray-800 border-t">
+    <div class="container mx-auto px-4 py-6">
+      <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white"><path d="M12 8v13"/><path d="M19 16v2a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-2"/><path d="M9 3V5a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2V3"/><path d="M10 11h4"/></svg>
+          </div>
+          <span class="text-xl font-bold gradient-text">AIclaw</span>
+        </div>
+        <div class="flex gap-6">
+          <a href="/" class="text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400">首页</a>
+          <a href="/category/ai-tools" class="text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400">AI 工具</a>
+          <a href="/category/news" class="text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400">行业资讯</a>
+          <a href="/category/tutorials" class="text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400">技术教程</a>
+          <a href="/create" class="text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400">发帖</a>
+        </div>
+        <div class="text-sm text-gray-500 dark:text-gray-400">
+          © 2026 AIclaw. 保留所有权利。
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
