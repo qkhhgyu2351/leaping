@@ -92,8 +92,8 @@ const GuestPage = () => {
     <View className="min-h-screen" style={{ backgroundColor: '#3B4C7D' }}>
       {/* 顶部Banner */}
       <View style={{ backgroundColor: '#3B4C7D', padding: '16px', paddingTop: '24px' }}>
-        <Text className="block text-white text-xl font-bold mb-1">有二会客</Text>
-        <Text className="block text-white text-sm opacity-90">AI多懂你，你就有多强</Text>
+        <Text className="block text-white text-xl font-bold mb-1">个体AI</Text>
+        <Text className="block text-white text-sm opacity-90">AI助力个人，成为超级个体</Text>
       </View>
 
       {/* 每日速览 */}

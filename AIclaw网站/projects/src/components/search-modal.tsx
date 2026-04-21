@@ -66,7 +66,8 @@ export function SearchModal({
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<Post[]>([]);
   const [loading, setLoading] = useState(false);
-  const [searchType, setSearchType] = useState<"all" | "ai-tools" | "news" | "tutorials" | "discussion" | "showcase" | "resources">("all");
+  const [searchType, setSearchType] = useState<"all" | "ai-tools" | "news" | "tutorials" | "discussion" | "showcase" | "resources" | "professional">('all');
+  const [sortBy, setSortBy] = useState<"relevance" | "latest" | "popular">('relevance');
   const router = useRouter();
 
   const search = useCallback(async (searchQuery: string) => {
@@ -77,7 +78,7 @@ export function SearchModal({
 
     setLoading(true);
     try {
-      let url = `/api/posts?search=${encodeURIComponent(searchQuery)}&limit=10`;
+      let url = `/api/posts?search=${encodeURIComponent(searchQuery)}&limit=10&sort=${sortBy}`;
       if (searchType !== "all") {
         url += `&category=${searchType}`;
       }
@@ -91,7 +92,7 @@ export function SearchModal({
     } finally {
       setLoading(false);
     }
-  }, [searchType]);
+  }, [searchType, sortBy]);
 
   // Debounced search
   useEffect(() => {
@@ -126,6 +127,13 @@ export function SearchModal({
     { value: "discussion", label: "讨论" },
     { value: "showcase", label: "创意" },
     { value: "resources", label: "资源" },
+    { value: "professional", label: "专业" },
+  ];
+
+  const sortOptions = [
+    { value: "relevance", label: "相关度" },
+    { value: "latest", label: "最新" },
+    { value: "popular", label: "热门" },
   ];
 
   return (
@@ -172,6 +180,21 @@ export function SearchModal({
                   className="flex-shrink-0"
                 >
                   {cat.label}
+                </Button>
+              ))}
+            </div>
+
+            {/* Sort Options */}
+            <div className="flex items-center gap-2 px-4 py-2 border-b overflow-x-auto">
+              {sortOptions.map((option) => (
+                <Button
+                  key={option.value}
+                  variant={sortBy === option.value ? "default" : "ghost"}
+                  size="sm"
+                  onClick={() => setSortBy(option.value as any)}
+                  className="flex-shrink-0"
+                >
+                  {option.label}
                 </Button>
               ))}
             </div>
