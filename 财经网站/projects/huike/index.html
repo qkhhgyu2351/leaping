@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>有二会客 - AI多懂你，你就有多强</title>
+  <meta name="description" content="AI改变个人成长与转型，AI协助一人公司和超级个体变现。站在普通人和创业者的视角看个人杠杆与财富分配。">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      background: #3B4C7D;
+      color: #fff;
+      min-height: 100vh;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container { max-width: 680px; margin: 0 auto; padding: 0 20px; }
+
+    /* 导航 */
+    .nav {
+      position: sticky;
+      top: 0;
+      background: rgba(59, 76, 125, 0.9);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      z-index: 100;
+    }
+    .nav-inner {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 14px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .nav-brand {
+      font-size: 16px;
+      font-weight: 700;
+      color: #fff;
+      text-decoration: none;
+    }
+    .nav-brand span { color: #F5A623; }
+    .nav-links { display: flex; gap: 20px; }
+    .nav-links a {
+      font-size: 13px;
+      color: rgba(255,255,255,0.45);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: #fff; }
+
+    /* 首屏 */
+    .hero { padding: 56px 0 40px; }
+    .hero-badge {
+      display: inline-block;
+      font-size: 12px;
+      color: #F5A623;
+      background: rgba(245,166,35,0.12);
+      border: 1px solid rgba(245,166,35,0.25);
+      padding: 5px 14px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+      letter-spacing: 1px;
+    }
+    .hero h1 {
+      font-size: 28px;
+      font-weight: 800;
+      line-height: 1.35;
+      margin-bottom: 14px;
+      color: #fff;
+    }
+    .hero h1 .highlight { color: #F5A623; }
+    .hero-desc {
+      font-size: 15px;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.8;
+      margin-bottom: 28px;
+    }
+
+    /* 定位卡 */
+    .position-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 28px 24px;
+      margin-bottom: 16px;
+    }
+    .position-card__label {
+      font-size: 11px;
+      color: #F5A623;
+      font-weight: 600;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+    .position-card__text {
+      font-size: 15px;
+      color: rgba(255,255,255,0.8);
+      line-height: 1.8;
+    }
+
+    /* 内容方向 */
+    .directions { padding: 32px 0; }
+    .section-title {
+      font-size: 13px;
+      color: rgba(255,255,255,0.35);
+      letter-spacing: 2px;
+      margin-bottom: 18px;
+    }
+    .dir-item {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 14px;
+      padding: 20px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+    .dir-item__icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+      background: rgba(245,166,35,0.1);
+    }
+    .dir-item__title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+    .dir-item__desc {
+      font-size: 13px;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.7;
+    }
+
+    /* 创始人 */
+    .founder { padding: 32px 0; }
+    .founder-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 28px 24px;
+    }
+    .founder-card__name {
+      font-size: 20px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+    .founder-card__role {
+      font-size: 13px;
+      color: #F5A623;
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+    .founder-card__tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    .founder-tag {
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 12px;
+      background: rgba(245,166,35,0.1);
+      color: #F5A623;
+    }
+    .founder-card__quote {
+      font-size: 14px;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.8;
+      border-left: 3px solid #F5A623;
+      padding-left: 14px;
+      margin-top: 4px;
+    }
+
+    /* 微信 */
+    .wechat-card {
+      background: rgba(245,166,35,0.08);
+      border: 1px solid rgba(245,166,35,0.2);
+      border-radius: 16px;
+      padding: 28px 24px;
+      text-align: center;
+      margin: 16px 0;
+    }
+    .wechat-card__title {
+      font-size: 17px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    .wechat-card__desc {
+      font-size: 13px;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 16px;
+    }
+    .wechat-id {
+      display: inline-block;
+      background: rgba(255,255,255,0.06);
+      border: 1px dashed rgba(245,166,35,0.4);
+      padding: 10px 24px;
+      border-radius: 8px;
+      font-size: 18px;
+      font-weight: 700;
+      color: #F5A623;
+      letter-spacing: 2px;
+      margin-bottom: 14px;
+    }
+    .btn-copy {
+      display: inline-block;
+      background: #F5A623;
+      color: #3B4C7D;
+      border: none;
+      padding: 11px 32px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .wechat-note {
+      font-size: 11px;
+      color: rgba(255,255,255,0.3);
+      margin-top: 10px;
+    }
+
+    /* 底部 */
+    .footer {
+      padding: 28px 0 36px;
+      text-align: center;
+    }
+    .footer-brand {
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+    .footer-brand span { color: #F5A623; }
+    .footer-desc {
+      font-size: 12px;
+      color: rgba(255,255,255,0.3);
+    }
+    .footer-back {
+      margin-top: 12px;
+    }
+    .footer-back a {
+      font-size: 13px;
+      color: #F5A623;
+      text-decoration: none;
+    }
+
+    /* 动画 */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(14px);
+      animation: fadeUp 0.45s ease forwards;
+    }
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- 导航 -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-brand"><span>有二</span>会客</a>
+    <div class="nav-links">
+      <a href="/">主页</a>
+      <a href="/caijing/">财经</a>
+    </div>
+  </div>
+</nav>
+
+<!-- 首屏 -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-badge">AI多懂你，你就有多强</div>
+    <h1 class="fade-up">AI改变个人成长<br>与<span class="highlight">职业转型</span><br>协助一人公司<br>与<span class="highlight">超级个体变现</span></h1>
+    <p class="hero-desc">站在普通人、打工人和创业者的视角看个人杠杆与财富分配。不是教你用AI工具，是帮你建立用AI的思维——这才是真正的杠杆。</p>
+  </div>
+</section>
+
+<!-- 定位 -->
+<section>
+  <div class="container">
+    <div class="position-card fade-up">
+      <div class="position-card__label">核心定位</div>
+      <div class="position-card__text">
+        AI改变个体 / AI失业及组织重构 / AI协助一人公司及超级个体变现。<br><br>
+        什么叫"会用AI"？<strong>不是会用工具，是一种思维和深度认知。</strong>AI在怎么改变我们的职业，AI在怎么协助我们赚钱——这是核心命题。
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 内容方向 -->
+<section class="directions">
+  <div class="container">
+    <div class="section-title">内容方向</div>
+
+    <div class="dir-item fade-up">
+      <div class="dir-item__icon">🧠</div>
+      <div>
+        <div class="dir-item__title">AI思维与认知</div>
+        <div class="dir-item__desc">会用AI不是会操作工具，是一种思维方式。建立认知，才能找到杠杆。</div>
+      </div>
+    </div>
+
+    <div class="dir-item fade-up">
+      <div class="dir-item__icon">🔄</div>
+      <div>
+        <div class="dir-item__title">AI与职业转型</div>
+        <div class="dir-item__desc">AI在重构哪些岗位，哪些机会正在出现，个体如何找到自己的位置。</div>
+      </div>
+    </div>
+
+    <div class="dir-item fade-up">
+      <div class="dir-item__icon">💰</div>
+      <div>
+        <div class="dir-item__title">一人公司与变现</div>
+        <div class="dir-item__desc">OPC模式、超级个体、AI如何协助一个人完成过去一个团队的活。</div>
+      </div>
+    </div>
+
+    <div class="dir-item fade-up">
+      <div class="dir-item__icon">🎯</div>
+      <div>
+        <div class="dir-item__title">个人杠杆实践</div>
+        <div class="dir-item__desc">AI作为个人杠杆的真实案例与可复用路径，不是鸡汤，是操作手册。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 创始人 -->
+<section class="founder">
+  <div class="container">
+    <div class="section-title">背后的人</div>
+    <div class="founder-card fade-up">
+      <div class="founder-card__name">何斌</div>
+      <div class="founder-card__role">17年企业中高管，主动离开职场</div>
+      <div class="founder-card__tags">
+        <span class="founder-tag">高级会计师</span>
+        <span class="founder-tag">CIA国际注册审计师</span>
+        <span class="founder-tag">金融MBA</span>
+        <span class="founder-tag">中国500强6年</span>
+        <span class="founder-tag">上市公司5年</span>
+        <span class="founder-tag">副总裁</span>
+        <span class="founder-tag">摩旅西藏2次</span>
+      </div>
+      <div class="founder-card__quote">
+        不是被淘汰，不是混不下去。是看清了——AI时代，一个人的杠杆可以超过一个团队。和一群人一起探索AI时代的新可能。
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 微信 -->
+<section>
+  <div class="container">
+    <div class="wechat-card fade-up">
+      <div class="wechat-card__title">一起探索</div>
+      <div class="wechat-card__desc">备注「AI转型」，聊聊你的方向</div>
+      <div class="wechat-id">593090320</div>
+      <br>
+      <button class="btn-copy" onclick="copyWechat()">复制微信号</button>
+      <div class="wechat-note">复制后到微信搜索添加</div>
+    </div>
+  </div>
+</section>
+
+<!-- 底部 -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-brand"><span>有二</span>会客 | 用AI的搞钱人</div>
+    <div class="footer-desc">AI多懂你，你就有多强</div>
+    <div class="footer-back"><a href="/">← 返回主页</a></div>
+  </div>
+</footer>
+
+<script>
+function copyWechat() {
+  navigator.clipboard.writeText('593090320').then(() => {
+    const btn = document.querySelector('.btn-copy');
+    btn.textContent = '已复制';
+    setTimeout(() => { btn.textContent = '复制微信号'; }, 2000);
+  }).catch(() => {
+    const input = document.createElement('input');
+    input.value = '593090320';
+    document.body.appendChild(input);
+    input.select();
+    document.execCommand('copy');
+    document.body.removeChild(input);
+    const btn = document.querySelector('.btn-copy');
+    btn.textContent = '已复制';
+    setTimeout(() => { btn.textContent = '复制微信号'; }, 2000);
+  });
+}
+</script>
+
+</body>
+</html>
