@@ -92,8 +92,8 @@ const FinancePage = () => {
     <View className="min-h-screen" style={{ backgroundColor: '#E8F4FD' }}>
       {/* 顶部Banner */}
       <View style={{ backgroundColor: '#1B3A6B', padding: '16px', paddingTop: '24px' }}>
-        <Text className="block text-white text-xl font-bold mb-1">有二财经</Text>
-        <Text className="block text-white text-sm opacity-90">AI多懂企业，企业就有多强</Text>
+        <Text className="block text-white text-xl font-bold mb-1">企业AI</Text>
+        <Text className="block text-white text-sm opacity-90">AI赋能企业，提升核心竞争力</Text>
       </View>
 
       {/* 每日速览 */}

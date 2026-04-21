@@ -6,9 +6,9 @@ export default defineAppConfig({
   ],
   window: {
     backgroundTextStyle: 'light',
-    navigationBarBackgroundColor: '#fff',
-    navigationBarTitleText: '有二内容',
-    navigationBarTextStyle: 'black'
+    navigationBarBackgroundColor: '#3B4C7D',
+    navigationBarTitleText: 'OPC 超级个体学院',
+    navigationBarTextStyle: 'white'
   },
   tabBar: {
     color: '#999999',
@@ -18,13 +18,13 @@ export default defineAppConfig({
     list: [
       {
         pagePath: 'pages/finance/index',
-        text: '有二财经',
+        text: '企业AI',
         iconPath: './assets/tabbar/trending-up.png',
         selectedIconPath: './assets/tabbar/trending-up-active.png'
       },
       {
         pagePath: 'pages/guest/index',
-        text: '有二会客',
+        text: '个体AI',
         iconPath: './assets/tabbar/users.png',
         selectedIconPath: './assets/tabbar/users-active.png'
       },
