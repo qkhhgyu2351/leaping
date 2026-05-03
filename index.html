@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>有二财经 — AI多懂企业，企业就有多强</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Noto+Serif+SC:wght@300;400;600;700&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy: #060F1E;
+    --navy-mid: #0D1F3C;
+    --navy-light: #1A3258;
+    --blue: #1B6FE8;
+    --blue-light: #3B8AF5;
+    --gold: #B8964A;
+    --gold-light: #D4AE6A;
+    --white: #FFFFFF;
+    --paper: #FAF9F6;
+    --text: #0E1726;
+    --text-mid: #3A4A5C;
+    --text-muted: #6B7D93;
+    --border: #E2E5EA;
+    --border-dark: #1E3257;
+    --font-serif: 'Noto Serif SC', Georgia, serif;
+    --font-sans: 'Noto Sans SC', system-ui, sans-serif;
+    --font-display: 'Playfair Display', Georgia, serif;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--font-sans); background: var(--paper); color: var(--text); -webkit-font-smoothing: antialiased; min-height: 100vh; }
+
+  /* TICKER */
+  .ticker-wrap { background: var(--navy); color: rgba(255,255,255,0.65); font-size: 11px; overflow: hidden; height: 32px; display: flex; align-items: center; }
+  .ticker-label { background: var(--gold); color: var(--navy); font-weight: 700; font-size: 10px; letter-spacing: 0.12em; padding: 0 14px; height: 100%; display: flex; align-items: center; flex-shrink: 0; white-space: nowrap; }
+  .ticker-track { display: flex; animation: ticker 32s linear infinite; white-space: nowrap; gap: 60px; padding-left: 40px; }
+  @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+  .ticker-item { display: flex; align-items: center; gap: 8px; }
+  .ticker-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
+
+  /* HEADER */
+  header { background: var(--navy); border-bottom: 1px solid var(--border-dark); position: sticky; top: 0; z-index: 100; }
+  .header-top { max-width: 1280px; margin: 0 auto; padding: 0 32px; display: flex; align-items: center; justify-content: space-between; height: 64px; }
+  .logo { display: flex; align-items: baseline; gap: 10px; cursor: pointer; }
+  .logo-cn { font-family: var(--font-serif); font-size: 22px; font-weight: 700; color: var(--white); letter-spacing: 0.05em; }
+  .logo-en { font-family: var(--font-display); font-size: 11px; color: var(--gold); letter-spacing: 0.18em; text-transform: uppercase; }
+  .header-actions { display: flex; align-items: center; gap: 16px; }
+  .btn-ghost { background: transparent; border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.75); padding: 6px 16px; font-size: 13px; font-family: var(--font-sans); cursor: pointer; transition: all 0.2s; }
+  .btn-ghost:hover { border-color: rgba(255,255,255,0.5); color: white; }
+  .btn-primary-sm { background: var(--blue); border: none; color: white; padding: 7px 20px; font-size: 13px; font-family: var(--font-sans); cursor: pointer; transition: background 0.2s; font-weight: 500; }
+  .btn-primary-sm:hover { background: var(--blue-light); }
+
+  /* NAV */
+  nav { background: var(--navy-mid); border-bottom: 1px solid var(--border-dark); }
+  .nav-inner { max-width: 1280px; margin: 0 auto; padding: 0 32px; display: flex; align-items: center; height: 44px; }
+  .nav-item { padding: 0 20px; height: 100%; display: flex; align-items: center; font-size: 13.5px; color: rgba(255,255,255,0.65); cursor: pointer; transition: all 0.2s; letter-spacing: 0.04em; position: relative; white-space: nowrap; border: none; background: none; font-family: var(--font-sans); }
+  .nav-item:hover { color: white; }
+  .nav-item.active { color: white; }
+  .nav-item.active::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: var(--gold); }
+  .nav-tag { background: var(--blue); color: white; font-size: 9px; padding: 1px 5px; margin-left: 5px; font-weight: 600; }
+
+  /* LAYOUT */
+  .page { min-height: calc(100vh - 140px); animation: fadeIn 0.3s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+  .container { max-width: 1280px; margin: 0 auto; padding: 0 32px; }
+
+  /* HERO */
+  .hero { background: var(--navy); position: relative; overflow: hidden; }
+  .hero-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(27,111,232,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(27,111,232,0.06) 1px, transparent 1px); background-size: 48px 48px; }
+  .hero-glow { position: absolute; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(27,111,232,0.15) 0%, transparent 70%); top: -200px; right: -100px; pointer-events: none; }
+  .hero-inner { max-width: 1280px; margin: 0 auto; padding: 72px 32px 64px; display: grid; grid-template-columns: 1fr 420px; gap: 64px; align-items: start; position: relative; }
+  .hero-eyebrow { display: flex; align-items: center; gap: 10px; margin-bottom: 24px; }
+  .eyebrow-line { width: 32px; height: 1px; background: var(--gold); }
+  .eyebrow-text { font-size: 11px; letter-spacing: 0.2em; color: var(--gold); text-transform: uppercase; font-weight: 500; }
+  .hero-title { font-family: var(--font-serif); font-size: clamp(34px, 4vw, 50px); color: var(--white); line-height: 1.25; font-weight: 700; margin-bottom: 24px; }
+  .hero-title em { font-style: normal; color: var(--blue-light); }
+  .hero-desc { font-size: 15px; color: rgba(255,255,255,0.55); line-height: 1.85; max-width: 520px; margin-bottom: 36px; }
+  .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn-hero { background: var(--blue); color: white; border: none; padding: 12px 28px; font-size: 14px; font-family: var(--font-sans); font-weight: 500; cursor: pointer; transition: background 0.2s; }
+  .btn-hero:hover { background: var(--blue-light); }
+  .btn-hero-outline { background: transparent; color: rgba(255,255,255,0.75); border: 1px solid rgba(255,255,255,0.2); padding: 12px 28px; font-size: 14px; font-family: var(--font-sans); cursor: pointer; transition: all 0.2s; }
+  .btn-hero-outline:hover { border-color: rgba(255,255,255,0.5); color: white; }
+  .hero-stats { display: flex; gap: 32px; margin-top: 48px; padding-top: 32px; border-top: 1px solid rgba(255,255,255,0.08); }
+  .stat-num { font-family: var(--font-display); font-size: 28px; color: white; font-weight: 700; line-height: 1; }
+  .stat-label { font-size: 11px; color: rgba(255,255,255,0.4); margin-top: 4px; letter-spacing: 0.06em; }
+
+  /* HERO FEATURED */
+  .hero-featured { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); padding: 28px; }
+  .featured-label { font-size: 10px; letter-spacing: 0.18em; color: var(--gold); text-transform: uppercase; font-weight: 600; margin-bottom: 16px; }
+  .featured-card { cursor: pointer; padding-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.06); margin-bottom: 20px; transition: opacity 0.2s; }
+  .featured-card:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .featured-card:hover { opacity: 0.8; }
+  .featured-cat { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 600; margin-bottom: 8px; }
+  .cat-tax { color: #4DA8FF; }
+  .cat-corp { color: #5DD6A0; }
+  .cat-listed { color: #F7B84B; }
+  .cat-fin { color: #D07CF5; }
+  .featured-card-title { font-family: var(--font-serif); font-size: 15px; color: white; line-height: 1.5; margin-bottom: 8px; }
+  .featured-meta { font-size: 11px; color: rgba(255,255,255,0.35); }
+
+  /* FOUNDER STRIP */
+  .founder-strip { background: var(--navy-mid); border-bottom: 1px solid var(--border-dark); padding: 0; }
+  .founder-strip-inner { max-width: 1280px; margin: 0 auto; padding: 20px 32px; display: flex; align-items: center; gap: 24px; }
+  .founder-avatar-sm { width: 44px; height: 44px; border-radius: 50%; background: var(--navy-light); border: 2px solid var(--gold); display: flex; align-items: center; justify-content: center; font-family: var(--font-serif); font-size: 18px; color: var(--gold); font-weight: 700; flex-shrink: 0; }
+  .founder-strip-text { flex: 1; }
+  .founder-strip-name { font-size: 14px; font-weight: 600; color: white; }
+  .founder-strip-creds { font-size: 12px; color: rgba(255,255,255,0.4); margin-top: 2px; }
+  .founder-strip-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+  .founder-tag-sm { font-size: 10px; border: 1px solid rgba(255,255,255,0.12); color: rgba(255,255,255,0.5); padding: 2px 8px; letter-spacing: 0.04em; }
+  .founder-tag-sm.gold { border-color: rgba(184,150,74,0.4); color: var(--gold); }
+
+  /* SECTION */
+  .section-header { display: flex; align-items: baseline; justify-content: space-between; padding: 48px 0 24px; border-bottom: 2px solid var(--text); margin-bottom: 32px; }
+  .section-title { font-family: var(--font-serif); font-size: 22px; font-weight: 700; color: var(--text); letter-spacing: 0.02em; }
+  .section-more { font-size: 12px; color: var(--blue); letter-spacing: 0.08em; cursor: pointer; background: none; border: none; font-family: var(--font-sans); }
+  .section-more:hover { color: var(--blue-light); }
+
+  /* ARTICLES GRID */
+  .articles-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 1px; background: var(--border); margin-bottom: 48px; }
+  .article-cell { background: var(--paper); padding: 28px; cursor: pointer; transition: background 0.15s; }
+  .article-cell:hover { background: white; }
+  .article-cell.featured { padding: 36px; }
+  .art-cat { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }
+  .art-cat::before { content: ''; display: inline-block; width: 16px; height: 2px; background: currentColor; }
+  .article-title { font-family: var(--font-serif); font-size: 20px; line-height: 1.45; color: var(--text); margin-bottom: 12px; font-weight: 600; }
+  .article-cell:not(.featured) .article-title { font-size: 16px; }
+  .article-excerpt { font-size: 13.5px; color: var(--text-mid); line-height: 1.75; margin-bottom: 16px; }
+  .article-meta { font-size: 11px; color: var(--text-muted); display: flex; align-items: center; gap: 12px; }
+  .meta-sep { width: 1px; height: 10px; background: var(--border); }
+  .article-img-placeholder { width: 100%; aspect-ratio: 16/9; background: var(--navy-mid); margin-bottom: 20px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+  .article-img-placeholder::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%); }
+  .img-label { position: relative; font-size: 12px; color: rgba(255,255,255,0.25); letter-spacing: 0.1em; }
+
+  /* 4 COLUMNS */
+  .columns-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); margin-bottom: 48px; }
+  .column-block { background: var(--paper); padding: 28px 24px; }
+  .column-header { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 2px solid currentColor; }
+  .column-icon { width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: 14px; }
+  .column-name { font-family: var(--font-serif); font-size: 15px; font-weight: 700; letter-spacing: 0.04em; }
+  .col-tax { color: #1B6FE8; }
+  .col-corp { color: #0D9E6E; }
+  .col-listed { color: #C47C10; }
+  .col-fin { color: #7B3FD4; }
+  .col-article { padding: 14px 0; border-bottom: 1px solid var(--border); cursor: pointer; }
+  .col-article:last-child { border-bottom: none; }
+  .col-article:hover .col-art-title { color: var(--blue); }
+  .col-art-title { font-size: 13.5px; line-height: 1.6; color: var(--text); margin-bottom: 4px; transition: color 0.15s; }
+  .col-art-meta { font-size: 11px; color: var(--text-muted); }
+
+  /* TOOL CARD */
+  .tool-section { background: var(--navy); margin-bottom: 0; padding: 48px 0; }
+  .tool-card-inner { max-width: 680px; margin: 0 auto; padding: 0 32px; text-align: center; }
+  .tool-card-inner .tool-badge { font-size: 10px; letter-spacing: 0.18em; color: var(--gold); text-transform: uppercase; margin-bottom: 16px; }
+  .tool-title { font-family: var(--font-serif); font-size: 26px; color: white; font-weight: 700; margin-bottom: 10px; }
+  .tool-desc { font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.8; margin-bottom: 8px; }
+  .tool-meta { font-size: 12px; color: rgba(255,255,255,0.3); margin-bottom: 24px; }
+  .btn-tool { background: var(--blue); border: none; color: white; padding: 14px 40px; font-size: 15px; font-family: var(--font-sans); font-weight: 600; cursor: pointer; transition: background 0.2s; }
+  .btn-tool:hover { background: var(--blue-light); }
+
+  /* WECHAT */
+  .wechat-section { padding: 48px 0; }
+  .wechat-card { max-width: 480px; margin: 0 auto; background: white; border: 1px solid var(--border); padding: 36px; text-align: center; }
+  .wechat-title { font-family: var(--font-serif); font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+  .wechat-desc { font-size: 13px; color: var(--text-muted); margin-bottom: 20px; }
+  .wechat-id-display { display: inline-block; background: rgba(27,111,232,0.05); border: 1px dashed rgba(27,111,232,0.3); padding: 10px 28px; font-size: 22px; font-weight: 700; color: var(--blue); letter-spacing: 2px; margin-bottom: 16px; }
+  .btn-copy { background: var(--blue); border: none; color: white; padding: 11px 32px; font-size: 14px; font-family: var(--font-sans); font-weight: 600; cursor: pointer; transition: background 0.2s; }
+  .btn-copy:hover { background: var(--blue-light); }
+  .wechat-note { font-size: 11px; color: var(--text-muted); margin-top: 10px; }
+
+  /* NEWSLETTER */
+  .newsletter-bar { background: var(--navy); padding: 48px 32px; display: flex; align-items: center; gap: 48px; }
+  .nl-left { flex: 1; }
+  .nl-label { font-size: 10px; letter-spacing: 0.2em; color: var(--gold); text-transform: uppercase; margin-bottom: 10px; }
+  .nl-title { font-family: var(--font-serif); font-size: 24px; color: white; font-weight: 700; }
+  .nl-desc { font-size: 13px; color: rgba(255,255,255,0.45); margin-top: 8px; }
+  .nl-form { display: flex; flex-shrink: 0; }
+  .nl-input { width: 280px; padding: 12px 16px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-right: none; color: white; font-size: 14px; font-family: var(--font-sans); outline: none; }
+  .nl-input::placeholder { color: rgba(255,255,255,0.3); }
+  .nl-btn { background: var(--blue); border: none; color: white; padding: 12px 24px; font-size: 14px; font-family: var(--font-sans); font-weight: 500; cursor: pointer; white-space: nowrap; }
+  .nl-btn:hover { background: var(--blue-light); }
+
+  /* PAGE HEADER */
+  .page-header { background: var(--navy); padding: 48px 0 40px; }
+  .page-title { font-family: var(--font-serif); font-size: 36px; color: white; font-weight: 700; margin-bottom: 8px; }
+  .page-subtitle { font-size: 14px; color: rgba(255,255,255,0.45); }
+
+  /* FILTER */
+  .filter-bar { background: white; border-bottom: 1px solid var(--border); padding: 0 32px; display: flex; gap: 0; position: sticky; top: 108px; z-index: 50; }
+  .filter-item { padding: 14px 20px; font-size: 13px; color: var(--text-muted); cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.15s; white-space: nowrap; background: none; border-top: none; border-left: none; border-right: none; font-family: var(--font-sans); }
+  .filter-item:hover { color: var(--text); }
+  .filter-item.active { color: var(--blue); border-bottom-color: var(--blue); }
+
+  /* ARTICLES LIST */
+  .articles-list { max-width: 1280px; margin: 0 auto; padding: 40px 32px; display: grid; grid-template-columns: 1fr 320px; gap: 48px; align-items: start; }
+  .art-list-item { display: grid; grid-template-columns: 1fr 200px; gap: 24px; padding: 28px 0; border-bottom: 1px solid var(--border); cursor: pointer; transition: opacity 0.15s; }
+  .art-list-item:hover { opacity: 0.75; }
+  .art-list-item:first-child { padding-top: 0; }
+  .ali-cat { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 10px; }
+  .ali-title { font-family: var(--font-serif); font-size: 19px; line-height: 1.45; color: var(--text); margin-bottom: 8px; font-weight: 600; }
+  .ali-excerpt { font-size: 13px; color: var(--text-mid); line-height: 1.7; margin-bottom: 10px; }
+  .ali-meta { font-size: 11px; color: var(--text-muted); display: flex; gap: 10px; }
+  .ali-img { aspect-ratio: 4/3; background: var(--navy-mid); flex-shrink: 0; }
+
+  /* SIDEBAR */
+  .sidebar-block { border: 1px solid var(--border); padding: 24px; margin-bottom: 24px; background: white; }
+  .sidebar-title { font-family: var(--font-serif); font-size: 14px; font-weight: 700; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+  .sidebar-item { padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 13px; color: var(--text-mid); cursor: pointer; transition: color 0.15s; line-height: 1.5; }
+  .sidebar-item:hover { color: var(--blue); }
+  .sidebar-item:last-child { border-bottom: none; }
+
+  /* ARTICLE DETAIL */
+  .article-detail { max-width: 1280px; margin: 0 auto; padding: 48px 32px; display: grid; grid-template-columns: 1fr 300px; gap: 64px; }
+  .detail-cat { font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+  .detail-title { font-family: var(--font-serif); font-size: 36px; line-height: 1.3; font-weight: 700; margin-bottom: 16px; }
+  .detail-subtitle { font-size: 17px; color: var(--text-mid); line-height: 1.7; margin-bottom: 24px; }
+  .detail-meta { display: flex; align-items: center; gap: 16px; font-size: 12px; color: var(--text-muted); padding: 20px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); margin-bottom: 36px; }
+  .detail-avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--navy); display: flex; align-items: center; justify-content: center; color: white; font-size: 12px; font-weight: 600; flex-shrink: 0; }
+  .detail-content p { font-size: 16px; line-height: 1.9; color: var(--text-mid); margin-bottom: 20px; }
+  .detail-content h3 { font-family: var(--font-serif); font-size: 20px; color: var(--text); margin: 32px 0 14px; font-weight: 700; }
+  .detail-content blockquote { border-left: 3px solid var(--blue); padding: 16px 20px; background: rgba(27,111,232,0.04); margin: 24px 0; font-style: italic; color: var(--text-mid); font-size: 15px; line-height: 1.7; }
+  .detail-img { width: 100%; aspect-ratio: 16/9; background: var(--navy-mid); margin: 28px 0; display: flex; align-items: center; justify-content: center; }
+  .detail-signature { margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 12px; color: var(--text-muted); line-height: 1.7; }
+
+  /* SERVICES */
+  .services-hero { background: var(--navy); padding: 64px 0; }
+  .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); margin: 48px 0; }
+  .service-card { background: var(--paper); padding: 36px 32px; transition: background 0.15s; }
+  .service-card:hover { background: white; }
+  .svc-num { font-family: var(--font-display); font-size: 40px; color: var(--border); font-weight: 700; line-height: 1; margin-bottom: 20px; }
+  .svc-title { font-family: var(--font-serif); font-size: 20px; font-weight: 700; margin-bottom: 12px; }
+  .svc-desc { font-size: 14px; color: var(--text-mid); line-height: 1.8; margin-bottom: 20px; }
+  .svc-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .svc-tag { font-size: 11px; color: var(--text-muted); border: 1px solid var(--border); padding: 3px 10px; }
+
+  /* MEMBERSHIP */
+  .plans-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); margin: 48px 0; }
+  .plan-card { background: var(--paper); padding: 40px 32px; position: relative; }
+  .plan-card.featured-plan { background: var(--navy); }
+  .plan-badge { position: absolute; top: 0; right: 24px; background: var(--gold); color: var(--navy); font-size: 10px; font-weight: 700; letter-spacing: 0.1em; padding: 4px 12px; text-transform: uppercase; }
+  .plan-name { font-family: var(--font-serif); font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+  .plan-card.featured-plan .plan-name { color: white; }
+  .plan-price { font-family: var(--font-display); font-size: 48px; font-weight: 700; line-height: 1; margin: 20px 0 6px; }
+  .plan-card.featured-plan .plan-price { color: white; }
+  .plan-period { font-size: 13px; color: var(--text-muted); margin-bottom: 28px; }
+  .plan-card.featured-plan .plan-period { color: rgba(255,255,255,0.45); }
+  .plan-divider { height: 1px; background: var(--border); margin-bottom: 24px; }
+  .plan-card.featured-plan .plan-divider { background: rgba(255,255,255,0.08); }
+  .plan-feature { display: flex; align-items: center; gap: 10px; font-size: 13.5px; color: var(--text-mid); margin-bottom: 12px; }
+  .plan-card.featured-plan .plan-feature { color: rgba(255,255,255,0.7); }
+  .check { width: 16px; height: 16px; flex-shrink: 0; }
+  .plan-btn { width: 100%; padding: 13px; font-size: 14px; font-family: var(--font-sans); font-weight: 500; cursor: pointer; margin-top: 28px; letter-spacing: 0.03em; }
+  .plan-btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text); }
+  .plan-btn-outline:hover { border-color: var(--blue); color: var(--blue); }
+  .plan-btn-solid { background: var(--blue); border: 1px solid var(--blue); color: white; }
+  .plan-btn-solid:hover { background: var(--blue-light); }
+
+  /* ABOUT */
+  .about-layout { max-width: 1280px; margin: 0 auto; padding: 64px 32px; display: grid; grid-template-columns: 1fr 360px; gap: 80px; }
+  .about-lead { font-family: var(--font-serif); font-size: 24px; line-height: 1.6; color: var(--text); margin-bottom: 32px; font-weight: 400; border-left: 4px solid var(--blue); padding-left: 24px; }
+  .about-body { font-size: 15px; line-height: 1.9; color: var(--text-mid); }
+  .about-body p { margin-bottom: 20px; }
+  .author-card-large { background: var(--navy); padding: 36px; margin-bottom: 24px; }
+  .author-avatar-lg { width: 80px; height: 80px; border-radius: 50%; background: var(--navy-light); border: 2px solid var(--gold); margin-bottom: 20px; display: flex; align-items: center; justify-content: center; font-family: var(--font-serif); font-size: 32px; color: var(--gold); font-weight: 700; }
+  .author-name-lg { font-family: var(--font-serif); font-size: 24px; color: white; font-weight: 700; margin-bottom: 4px; }
+  .author-role-lg { font-size: 12px; color: var(--gold); margin-bottom: 16px; letter-spacing: 0.06em; }
+  .author-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+  .author-tag { font-size: 10px; border: 1px solid rgba(255,255,255,0.12); color: rgba(255,255,255,0.5); padding: 3px 8px; }
+  .author-tag.highlight { border-color: rgba(184,150,74,0.4); color: var(--gold); }
+  .author-bio-lg { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.8; }
+  .focus-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--border); margin: 32px 0; }
+  .focus-item { background: var(--paper); padding: 24px; }
+  .focus-num { font-family: var(--font-display); font-size: 32px; color: var(--border); font-weight: 700; margin-bottom: 8px; line-height: 1; }
+  .focus-title { font-family: var(--font-serif); font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+  .focus-desc { font-size: 12.5px; color: var(--text-muted); line-height: 1.65; }
+
+  /* FOOTER */
+  footer { background: var(--navy); border-top: 1px solid var(--border-dark); padding: 48px 0 24px; margin-top: 64px; }
+  .footer-grid { max-width: 1280px; margin: 0 auto; padding: 0 32px; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 40px; }
+  .footer-desc { font-size: 13px; color: rgba(255,255,255,0.35); line-height: 1.75; margin-top: 12px; max-width: 260px; }
+  .footer-col-title { font-size: 11px; letter-spacing: 0.14em; color: rgba(255,255,255,0.4); text-transform: uppercase; margin-bottom: 14px; }
+  .footer-link { display: block; font-size: 13px; color: rgba(255,255,255,0.5); margin-bottom: 8px; cursor: pointer; text-decoration: none; transition: color 0.15s; }
+  .footer-link:hover { color: rgba(255,255,255,0.85); }
+  .footer-bottom { max-width: 1280px; margin: 0 auto; padding: 20px 32px 0; border-top: 1px solid var(--border-dark); display: flex; align-items: center; justify-content: space-between; }
+  .footer-copy { font-size: 11px; color: rgba(255,255,255,0.25); }
+
+  .tag { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 8px; border: 1px solid currentColor; margin-right: 6px; }
+
+  @media (max-width: 900px) {
+    .hero-inner { grid-template-columns: 1fr; }
+    .hero-featured { display: none; }
+    .founder-strip-tags { display: none; }
+    .articles-grid { grid-template-columns: 1fr; }
+    .columns-grid { grid-template-columns: repeat(2, 1fr); }
+    .articles-list { grid-template-columns: 1fr; }
+    .services-grid, .plans-grid { grid-template-columns: 1fr; }
+    .about-layout { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .art-list-item { grid-template-columns: 1fr; }
+    .ali-img { display: none; }
+    .newsletter-bar { flex-direction: column; gap: 24px; }
+    .article-detail { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel">
+const { useState, useEffect } = React;
+
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "accentColor": "#1B6FE8",
+  "brandName": "有二财经",
+  "wechatId": "593090320"
+}/*EDITMODE-END*/;
+
+// ── 真实文章数据（基于何斌/有二财经内容方向）──────────────
+const ARTICLES = [
+  {
+    id: 1, cat: "AI财税", catClass: "cat-tax", colClass: "col-tax",
+    title: "CFO的新工作：管AI，而不是管账",
+    subtitle: "以前要3个会计凑2天的合并报表，现在大模型10分钟跑完初稿，还能顺便标记出5个异常往来款。当AI能替代80%的执行工作，财务总监的价值在哪里？",
+    excerpt: "以前3个会计凑2天的合并报表，大模型10分钟跑完初稿，还能标记异常往来款。",
+    date: "2026-04-22", author: "何斌", readTime: "9分钟", tag: "深度"
+  },
+  {
+    id: 2, cat: "AI企业落地", catClass: "cat-corp", colClass: "col-corp",
+    title: "你的企业配不配直接上AI？先做这个10题体检",
+    subtitle: "不是买了大模型就算AI落地。别急着买车，先修路。一份CFO视角的企业AI准备度诊断框架。",
+    excerpt: "不是买了大模型就算AI落地。先测你的企业处在AI进化的哪个阶段，到底配不配直接上。",
+    date: "2026-04-19", author: "何斌", readTime: "6分钟", tag: "工具"
+  },
+  {
+    id: 3, cat: "AI上市公司分析", catClass: "cat-listed", colClass: "col-listed",
+    title: "用AI读财报：识别那些藏在脚注里的风险",
+    excerpt: "传统财报分析CPA要花3天，AI能在3分钟内提取关键风险信号。问题是：你知道让它找什么吗？",
+    date: "2026-04-17", author: "何斌", readTime: "7分钟"
+  },
+  {
+    id: 4, cat: "AI金融观察", catClass: "cat-fin", colClass: "col-fin",
+    title: "融资尽调被AI颠覆：VC的新工作流",
+    excerpt: "从数据抓取、财务建模到竞争分析，AI正在改变一级市场每一个环节。40+尽调项目后，我的观察。",
+    date: "2026-04-15", author: "何斌", readTime: "10分钟"
+  },
+  {
+    id: 5, cat: "AI财税", catClass: "cat-tax", colClass: "col-tax",
+    title: "金税四期+AI：企业税务合规的新红线",
+    excerpt: "数字化监管能力大幅提升后，哪些过去的灰色地带正在消失？CFO级视角的税务风险地图。",
+    date: "2026-04-12", author: "何斌", readTime: "8分钟"
+  },
+  {
+    id: 6, cat: "AI企业落地", catClass: "cat-corp", colClass: "col-corp",
+    title: "老板问我：AI落地财务，先从哪里下手？",
+    excerpt: "从最低风险、最快见效的场景开始。一份经过实战检验的企业AI财务落地路线图。",
+    date: "2026-04-10", author: "何斌", readTime: "5分钟"
+  },
+  {
+    id: 7, cat: "AI上市公司分析", catClass: "cat-listed", colClass: "col-listed",
+    title: "AI估值新范式：如何给一家AI原生企业定价",
+    excerpt: "传统DCF在AI企业面前开始失效。机构投资者正在摸索新框架——我见过的几个路径。",
+    date: "2026-04-08", author: "何斌", readTime: "11分钟"
+  },
+  {
+    id: 8, cat: "AI金融观察", catClass: "cat-fin", colClass: "col-fin",
+    title: "一家制造企业把财税团队从18人压到5人",
+    excerpt: "这不是裁员故事，是一次AI重构组织实验。亲历了全过程，数据和细节都在这里。",
+    date: "2026-04-05", author: "何斌", readTime: "8分钟"
+  }
+];
+
+const COLUMN_ARTICLES = {
+  tax: [
+    { id: 1, title: "CFO的新工作：管AI，而不是管账", date: "04-22" },
+    { id: 5, title: "金税四期+AI：企业税务合规新红线", date: "04-12" },
+    { id: 9, title: "自动化报税的法律边界", date: "04-03" },
+    { id: 10, title: "大模型做审计：能信任吗？", date: "03-28" },
+  ],
+  corp: [
+    { id: 2, title: "你的企业配不配直接上AI", date: "04-19" },
+    { id: 6, title: "AI落地财务，先从哪里下手", date: "04-10" },
+    { id: 11, title: "预算管理被AI重构后，FP&A怎么办", date: "04-01" },
+    { id: 12, title: "买了AI变「人工智障」的坑怎么避", date: "03-25" },
+  ],
+  listed: [
+    { id: 3, title: "用AI读财报：识别脚注里的风险", date: "04-17" },
+    { id: 7, title: "AI估值新范式：给AI企业定价", date: "04-08" },
+    { id: 13, title: "一季报季：如何用AI抢时间差", date: "03-30" },
+    { id: 14, title: "信披合规的AI自动化实践", date: "03-20" },
+  ],
+  fin: [
+    { id: 4, title: "融资尽调被AI颠覆：VC新工作流", date: "04-15" },
+    { id: 8, title: "18人财税团队压到5人全过程", date: "04-05" },
+    { id: 15, title: "AI风控：消费金融的新护城河", date: "03-27" },
+    { id: 16, title: "一级市场AI军备竞赛现状", date: "03-18" },
+  ]
+};
+
+// ── COMPONENTS ──────────────────────────────────────
+
+function Ticker() {
+  const items = [
+    "CFO如何用AI重构财务团队效能",
+    "金税四期数字化监管新动态",
+    "企业AI准备度：先修路还是先买车",
+    "17年CFO视角：AI在企业财税的真实落地",
+    "上市公司财报AI智能分析实操",
+    "融资尽调AI化：40+项目的一手经验",
+    "AI财务Agent：从辅助工具到决策伙伴",
+  ];
+  const doubled = [...items, ...items];
+  return (
+    <div className="ticker-wrap">
+      <div className="ticker-label">最新动态</div>
+      <div style={{overflow:'hidden',flex:1}}>
+        <div className="ticker-track">
+          {doubled.map((item, i) => (
+            <span key={i} className="ticker-item">
+              <span className="ticker-dot"></span>
+              {item}
+            </span>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function Header({ page, setPage, brandName }) {
+  return (
+    <>
+      <Ticker />
+      <header>
+        <div className="header-top">
+          <div className="logo" onClick={() => setPage('home')}>
+            <span className="logo-cn">{brandName}</span>
+            <span className="logo-en">AI × Finance × Enterprise</span>
+          </div>
+          <div className="header-actions">
+            <button className="btn-ghost" onClick={() => setPage('about')}>关于何斌</button>
+            <button className="btn-ghost" onClick={() => setPage('membership')}>会员</button>
+            <button className="btn-primary-sm" onClick={() => setPage('services')}>咨询与课程</button>
+          </div>
+        </div>
+      </header>
+      <nav>
+        <div className="nav-inner">
+          {[
+            { key: 'home', label: '首页' },
+            { key: 'articles', label: 'AI财税' },
+            { key: 'articles', label: 'AI企业落地' },
+            { key: 'articles', label: 'AI上市公司分析' },
+            { key: 'articles', label: 'AI金融观察' },
+            { key: 'services', label: '课程与咨询', isNew: true },
+          ].map((item, i) => (
+            <button
+              key={i}
+              className={`nav-item ${page === item.key ? 'active' : ''}`}
+              onClick={() => setPage(item.key)}
+            >
+              {item.label}
+              {item.isNew && <span className="nav-tag">NEW</span>}
+            </button>
+          ))}
+        </div>
+      </nav>
+    </>
+  );
+}
+
+function FounderStrip({ setPage }) {
+  return (
+    <div className="founder-strip">
+      <div className="founder-strip-inner">
+        <div className="founder-avatar-sm">斌</div>
+        <div className="founder-strip-text">
+          <div className="founder-strip-name">何斌 — 17年CFO与投资实战操盘手</div>
+          <div className="founder-strip-creds">中国500强6年 · 上市公司5年 · 亿级项目10+ · 尽调40+</div>
+        </div>
+        <div className="founder-strip-tags">
+          <span className="founder-tag-sm gold">高级会计师</span>
+          <span className="founder-tag-sm gold">CIA国际注册审计师</span>
+          <span className="founder-tag-sm">董秘资格</span>
+          <span className="founder-tag-sm">金融MBA</span>
+          <span className="founder-tag-sm">注册税务师</span>
+        </div>
+        <button onClick={() => setPage('about')} style={{background:'none',border:'1px solid rgba(255,255,255,0.15)',color:'rgba(255,255,255,0.5)',padding:'6px 14px',fontSize:'12px',cursor:'pointer',fontFamily:'var(--font-sans)',flexShrink:0}}>
+          查看背景 →
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function HomePage({ setPage, wechatId }) {
+  return (
+    <div className="page">
+      <div className="hero">
+        <div className="hero-grid"></div>
+        <div className="hero-glow"></div>
+        <div className="hero-inner">
+          <div>
+            <div className="hero-eyebrow">
+              <div className="eyebrow-line"></div>
+              <div className="eyebrow-text">老板和CFO的AI视角</div>
+            </div>
+            <h1 className="hero-title">
+              AI多懂企业<br/>
+              <em>企业就有多强</em>
+            </h1>
+            <p className="hero-desc">
+              教财务人用AI重构财税工作方式，帮企业主用AI提升财务团队效能。
+              不是卖焦虑，是算清楚每一笔账——AI到底能帮你省多少、赚多少、规避多少风险。
+            </p>
+            <div className="hero-cta">
+              <button className="btn-hero" onClick={() => setPage('articles')}>浏览最新文章</button>
+              <button className="btn-hero-outline" onClick={() => setPage('assessment')}>免费体检企业AI准备度</button>
+            </div>
+            <div className="hero-stats">
+              <div className="stat-item">
+                <div className="stat-num">17年</div>
+                <div className="stat-label">CFO与投资实战</div>
+              </div>
+              <div className="stat-item">
+                <div className="stat-num">10+</div>
+                <div className="stat-label">亿级项目操盘</div>
+              </div>
+              <div className="stat-item">
+                <div className="stat-num">40+</div>
+                <div className="stat-label">尽调项目参与</div>
+              </div>
+              <div className="stat-item">
+                <div className="stat-num">4</div>
+                <div className="stat-label">核心内容方向</div>
+              </div>
+            </div>
+          </div>
+          <div className="hero-featured">
+            <div className="featured-label">本周精选</div>
+            {ARTICLES.slice(0, 4).map(art => (
+              <div key={art.id} className="featured-card" onClick={() => setPage('article-detail')}>
+                <div className={`featured-cat ${art.catClass}`}>{art.cat}</div>
+                <div className="featured-card-title">{art.title}</div>
+                <div className="featured-meta">何斌 · {art.readTime}阅读</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <FounderStrip setPage={setPage} />
+
+      <div className="container">
+        <div className="section-header">
+          <div className="section-title">本周深度</div>
+          <button className="section-more" onClick={() => setPage('articles')}>查看全部 →</button>
+        </div>
+        <div className="articles-grid">
+          <div className="article-cell featured" onClick={() => setPage('article-detail')}>
+            <div className="article-img-placeholder">
+              <span className="img-label">CFO × AI</span>
+            </div>
+            <div className={`art-cat ${ARTICLES[0].catClass}`}>{ARTICLES[0].cat}</div>
+            <h2 className="article-title">{ARTICLES[0].title}</h2>
+            <p className="article-excerpt">{ARTICLES[0].subtitle}</p>
+            <div className="article-meta">
+              <span>何斌</span>
+              <span className="meta-sep"></span>
+              <span>{ARTICLES[0].readTime}阅读</span>
+              <span className="meta-sep"></span>
+              <span>{ARTICLES[0].date}</span>
+            </div>
+          </div>
+          {ARTICLES.slice(1, 3).map(art => (
+            <div key={art.id} className="article-cell" onClick={() => setPage('article-detail')}>
+              <div className="article-img-placeholder" style={{aspectRatio:'4/3'}}>
+                <span className="img-label">{art.cat}</span>
+              </div>
+              <div className={`art-cat ${art.catClass}`}>{art.cat}</div>
+              <h3 className="article-title">{art.title}</h3>
+              <p className="article-excerpt">{art.excerpt}</p>
+              <div className="article-meta">
+                <span>何斌</span>
+                <span className="meta-sep"></span>
+                <span>{art.readTime}阅读</span>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="section-header">
+          <div className="section-title">四大内容方向</div>
+        </div>
+        <div className="columns-grid">
+          {[
+            { key: 'tax', label: 'AI财税', cls: 'col-tax', icon: '◈' },
+            { key: 'corp', label: 'AI企业落地', cls: 'col-corp', icon: '◉' },
+            { key: 'listed', label: 'AI上市公司分析', cls: 'col-listed', icon: '◇' },
+            { key: 'fin', label: 'AI金融观察', cls: 'col-fin', icon: '◆' },
+          ].map(col => (
+            <div key={col.key} className="column-block">
+              <div className={`column-header ${col.cls}`}>
+                <div className="column-icon">{col.icon}</div>
+                <div className="column-name">{col.label}</div>
+              </div>
+              {COLUMN_ARTICLES[col.key].map(art => (
+                <div key={art.id} className="col-article" onClick={() => setPage('article-detail')}>
+                  <div className="col-art-title">{art.title}</div>
+                  <div className="col-art-meta">{art.date}</div>
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* AI体检工具入口 */}
+      <div className="tool-section">
+        <div className="tool-card-inner">
+          <div className="tool-badge">免费工具</div>
+          <div className="tool-title">企业财务AI准备度体检</div>
+          <div className="tool-desc">别急着买大模型。先测你的企业处在AI进化的哪个阶段，到底配不配直接上AI。</div>
+          <div className="tool-meta">10道题 · 3分钟 · 即出结果</div>
+          <button className="btn-tool" onClick={() => setPage('assessment')}>免费体检 →</button>
+        </div>
+      </div>
+
+      {/* 微信联系 */}
+      <div className="wechat-section">
+        <div className="wechat-card">
+          <div className="wechat-title">聊聊你的企业</div>
+          <div className="wechat-desc">备注「财务AI」或「AI落地」，获取针对性建议</div>
+          <div className="wechat-id-display">{wechatId}</div>
+          <br />
+          <button className="btn-copy" id="wechatCopyBtn" onClick={() => {
+            navigator.clipboard.writeText(wechatId).catch(()=>{});
+            const btn = document.getElementById('wechatCopyBtn');
+            if(btn){ btn.textContent='已复制'; setTimeout(()=>{ btn.textContent='复制微信号'; },2000); }
+          }}>复制微信号</button>
+          <div className="wechat-note">复制后到微信搜索添加</div>
+        </div>
+      </div>
+
+      <div className="newsletter-bar">
+        <div className="nl-left">
+          <div className="nl-label">每周 · 免费订阅</div>
+          <div className="nl-title">CFO视角的AI周报</div>
+          <div className="nl-desc">精选深度文章 + 实操工具 + 本周AI政策速递，直达邮箱。</div>
+        </div>
+        <div className="nl-form">
+          <input className="nl-input" placeholder="输入您的工作邮箱" />
+          <button className="nl-btn">免费订阅</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ArticlesPage({ setPage }) {
+  const [filter, setFilter] = useState('全部');
+  const filters = ['全部', 'AI财税', 'AI企业落地', 'AI上市公司分析', 'AI金融观察'];
+  const filtered = filter === '全部' ? ARTICLES : ARTICLES.filter(a => a.cat === filter);
+  return (
+    <div className="page">
+      <div className="page-header">
+        <div className="container">
+          <div className="page-title">全部文章</div>
+          <div className="page-subtitle">基于权威数据、真实案例、可验证事实 — CFO级专业标准</div>
+        </div>
+      </div>
+      <div className="filter-bar">
+        {filters.map(f => (
+          <button key={f} className={`filter-item ${filter===f?'active':''}`} onClick={()=>setFilter(f)}>{f}</button>
+        ))}
+      </div>
+      <div className="articles-list">
+        <div>
+          {filtered.map(art => (
+            <div key={art.id} className="art-list-item" onClick={() => setPage('article-detail')}>
+              <div>
+                <div className={`ali-cat ${art.catClass}`}>{art.cat}</div>
+                <div className="ali-title">{art.title}</div>
+                <div className="ali-excerpt">{art.subtitle || art.excerpt}</div>
+                <div className="ali-meta">
+                  <span>何斌</span><span>·</span>
+                  <span>{art.readTime}阅读</span><span>·</span>
+                  <span>{art.date}</span>
+                </div>
+              </div>
+              <div className="ali-img"></div>
+            </div>
+          ))}
+        </div>
+        <div>
+          <div className="sidebar-block">
+            <div className="sidebar-title">关于作者</div>
+            <div style={{display:'flex',alignItems:'center',gap:'12px',marginBottom:'12px'}}>
+              <div style={{width:'44px',height:'44px',borderRadius:'50%',background:'var(--navy)',display:'flex',alignItems:'center',justifyContent:'center',color:'var(--gold)',fontFamily:'var(--font-serif)',fontSize:'18px',fontWeight:700,flexShrink:0}}>斌</div>
+              <div>
+                <div style={{fontWeight:600,fontSize:'14px'}}>何斌</div>
+                <div style={{fontSize:'12px',color:'var(--text-muted)'}}>17年CFO与投资实战</div>
+              </div>
+            </div>
+            <div style={{fontSize:'13px',color:'var(--text-mid)',lineHeight:1.7}}>高级会计师 · CIA · 董秘 · 金融MBA。中国500强6年，上市公司5年，亿级项目10+，尽调40+。</div>
+          </div>
+          <div className="sidebar-block">
+            <div className="sidebar-title">热门文章</div>
+            {ARTICLES.slice(0,5).map(art=>(
+              <div key={art.id} className="sidebar-item" onClick={()=>setPage('article-detail')}>{art.title}</div>
+            ))}
+          </div>
+          <div style={{background:'var(--navy)',padding:'24px'}}>
+            <div style={{fontSize:'10px',letterSpacing:'0.16em',color:'var(--gold)',textTransform:'uppercase',marginBottom:'10px'}}>免费工具</div>
+            <div style={{fontFamily:'var(--font-serif)',fontSize:'15px',color:'white',marginBottom:'8px',fontWeight:700}}>企业AI准备度体检</div>
+            <div style={{fontSize:'12px',color:'rgba(255,255,255,0.4)',lineHeight:1.7,marginBottom:'16px'}}>10道题 · 3分钟 · 即出结果</div>
+            <button className="btn-primary-sm" style={{width:'100%',padding:'10px'}} onClick={()=>setPage('assessment')}>立即体检 →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ArticleDetail({ setPage }) {
+  return (
+    <div className="page">
+      <div className="page-header" style={{padding:'28px 0'}}>
+        <div className="container">
+          <button onClick={()=>setPage('articles')} style={{background:'none',border:'none',color:'rgba(255,255,255,0.45)',fontSize:'13px',cursor:'pointer',fontFamily:'var(--font-sans)'}}>← 返回文章列表</button>
+        </div>
+      </div>
+      <div className="article-detail">
+        <div>
+          <div className="detail-cat cat-tax"><span>◈</span> AI财税</div>
+          <h1 className="detail-title">CFO的新工作：管AI，而不是管账</h1>
+          <p className="detail-subtitle">以前要3个会计凑2天的合并报表，现在大模型10分钟跑完初稿，还能顺便标记出5个异常往来款。当AI能替代80%的执行工作，财务总监的价值在哪里？</p>
+          <div className="detail-meta">
+            <div className="detail-avatar">斌</div>
+            <div>
+              <div style={{fontWeight:500,fontSize:'13px',color:'var(--text)'}}>何斌</div>
+              <div style={{fontSize:'11px',color:'var(--text-muted)'}}>高级会计师 · CIA · 董秘 · 金融MBA</div>
+            </div>
+            <span className="meta-sep" style={{height:'24px'}}></span>
+            <span>2026年4月22日</span>
+            <span className="meta-sep" style={{height:'24px'}}></span>
+            <span>9分钟阅读</span>
+            <span style={{marginLeft:'auto'}}>
+              <span className="tag" style={{color:'var(--blue)'}}>深度</span>
+            </span>
+          </div>
+          <div className="detail-content">
+            <div className="detail-img"><span style={{fontSize:'12px',color:'rgba(255,255,255,0.3)'}}>题图</span></div>
+            <p>2025年底，一家A股上市公司的CFO告诉我，他每天早上做的第一件事，不再是查看财务报表，而是检查AI Agent昨晚跑完的分析结果。"我的工作变了，"他说，"我不再是数据的整理者，我是数据的判断者。"</p>
+            <p>这不是个例。在我接触过的上市公司财务负责人中，超过70%表示，过去12个月内日常工作内容已经发生了实质性的改变。催化剂，正是大语言模型的企业级落地。</p>
+            <h3>AI能做什么，不能做什么</h3>
+            <p>现阶段的AI在财务领域能力边界很清晰：它擅长结构化数据处理、模式识别、以及基于历史数据的预测建模。但在需要商业判断、监管经验和人际沟通的场景中，依然严重依赖人类决策者。</p>
+            <blockquote>
+              "AI是一个永不疲倦的初级分析师，但它需要一个懂业务的CFO来设定问题、校验逻辑、做出最终判断。"
+              <br/><span style={{fontSize:'12px',opacity:0.6}}>— 某新能源上市公司CFO</span>
+            </blockquote>
+            <h3>财务团队的三层重构</h3>
+            <p>AI落地最成功的财务团队，都经历了三个层次的重构：第一层是工具层，将重复性工作交给AI；第二层是流程层，重新设计人机协作的工作流；第三层也是最难的，是认知层——团队成员要真正理解AI的能力边界，才能有效使用它。</p>
+            <p>这三层重构，对CFO的要求不是降低了，而是更高了。你需要既懂财务，又懂AI，还要懂组织变革管理。</p>
+          </div>
+          <div className="detail-signature">
+            何斌 | 金融MBA · 高级会计师 · 董秘 · CIA | 多年企业财务与投资分析经验。本文内容仅为专业观点分享，不构成任何投资建议。投资有风险，决策需谨慎。
+          </div>
+        </div>
+        <div>
+          <div className="sidebar-block">
+            <div className="sidebar-title">关于作者</div>
+            <div style={{textAlign:'center',padding:'8px 0 16px'}}>
+              <div style={{width:'56px',height:'56px',borderRadius:'50%',background:'var(--navy)',display:'flex',alignItems:'center',justifyContent:'center',color:'var(--gold)',fontFamily:'var(--font-serif)',fontSize:'22px',fontWeight:700,margin:'0 auto 12px'}}>斌</div>
+              <div style={{fontFamily:'var(--font-serif)',fontSize:'16px',fontWeight:700,marginBottom:'4px'}}>何斌</div>
+              <div style={{fontSize:'12px',color:'var(--text-muted)',marginBottom:'12px'}}>17年CFO与投资实战操盘手</div>
+            </div>
+            <div style={{fontSize:'12px',color:'var(--text-mid)',lineHeight:1.8}}>
+              高级会计师 · CIA · 董秘 · 金融MBA。中国500强6年，上市公司5年，主导亿级项目10+，参与尽调40+。2026年全职探索AI重构企业财税。
+            </div>
+          </div>
+          <div className="sidebar-block">
+            <div className="sidebar-title">相关文章</div>
+            {ARTICLES.slice(1,5).map(art=>(
+              <div key={art.id} className="sidebar-item">{art.title}</div>
+            ))}
+          </div>
+          <div style={{background:'var(--navy)',padding:'24px'}}>
+            <div style={{fontSize:'10px',letterSpacing:'0.16em',color:'var(--gold)',textTransform:'uppercase',marginBottom:'10px'}}>聊聊你的企业</div>
+            <div style={{fontFamily:'var(--font-serif)',fontSize:'15px',color:'white',marginBottom:'8px',fontWeight:700}}>加微信直接沟通</div>
+            <div style={{fontSize:'12px',color:'rgba(255,255,255,0.4)',lineHeight:1.7,marginBottom:'16px'}}>备注「财务AI」，获取针对性建议</div>
+            <button className="btn-primary-sm" style={{width:'100%',padding:'10px'}} onClick={()=>setPage('home')}>联系何斌</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function AssessmentPage({ setPage }) {
+  const [current, setCurrent] = useState(0);
+  const [answers, setAnswers] = useState({});
+  const [done, setDone] = useState(false);
+  const questions = [
+    { q: "你的企业目前是否有专职的财务数据分析岗位？", a: ["有，2人以上","有，1人","没有，财务兼做","没有，老板直接看报表"] },
+    { q: "你们的财务数据现在主要存储在哪里？", a: ["ERP系统（如SAP、用友、金蝶）","Excel或WPS表格","纸质 + 手工录入","基本没有系统化存储"] },
+    { q: "你的财务团队每月有多少时间花在数据整理而非分析上？", a: ["不到20%","20%-50%","50%-80%","80%以上，大部分时间整理数据"] },
+    { q: "老板或管理层获取经营数据报告的方式是？", a: ["自助BI看板，随时查","财务每月固定汇报","有需要时临时请财务做","基本靠感觉和经验判断"] },
+    { q: "你们有没有做过数字化/信息化建设的经历？", a: ["有，ERP上线超过2年且正常运行","有，但用的不太好","正在推进中","没有，或者失败过"] },
+    { q: "财务团队对AI工具的接受程度如何？", a: ["已经有人在用AI辅助工作","愿意学，但不知道从哪里开始","有顾虑，担心被替代","完全不感兴趣或抵触"] },
+    { q: "你的企业目前月营收规模大概是？", a: ["1000万以上","300万-1000万","100万-300万","100万以下"] },
+    { q: "老板/决策层对AI落地的态度是？", a: ["主动推动，已有预算","感兴趣，但还在观望","持怀疑态度","没有关注这个方向"] },
+    { q: "你们最大的财务痛点是什么？", a: ["报表慢、数据不准","合规风险，不确定税务底线","看不清业务和财务的关联","融资/资本运作方面的障碍"] },
+    { q: "如果有一个工具能帮你做一件事，你最想要哪个？", a: ["自动生成月度管理报表","智能税务风险预警","AI帮我分析竞争对手财报","帮我准备融资BP和财务模型"] },
+  ];
+
+  const score = Object.values(answers).reduce((s, v) => s + (3 - v), 0);
+  const maxScore = questions.length * 3;
+  const pct = Math.round((score / maxScore) * 100);
+
+  let level, levelColor, advice;
+  if (pct >= 70) {
+    level = "AI就绪型"; levelColor = "#0D9E6E";
+    advice = "你的企业数据基础和团队意愿都不错，可以直接开始在核心财务流程中引入AI工具。建议从报表自动化和税务风险预警入手，3个月内可见成效。";
+  } else if (pct >= 40) {
+    level = "修路阶段"; levelColor = "#C47C10";
+    advice = "你的企业具备一定基础，但还需要先打好数据地基——梳理财务数据流、规范存储方式，再引入AI工具。急着买AI产品容易变成「人工智障」。";
+  } else {
+    level = "夯实基础"; levelColor = "#E84040";
+    advice = "暂时不建议直接上AI。先解决最基本的财务信息化问题：把数据从Excel和纸质迁移到系统，财务流程标准化，这才是AI落地的前提。";
+  }
+
+  if (done) {
+    return (
+      <div className="page">
+        <div className="page-header"><div className="container"><div className="page-title">体检结果</div></div></div>
+        <div style={{maxWidth:'640px',margin:'48px auto',padding:'0 32px'}}>
+          <div style={{background:'white',border:'1px solid var(--border)',padding:'40px',textAlign:'center',marginBottom:'24px'}}>
+            <div style={{fontSize:'11px',letterSpacing:'0.16em',color:'var(--text-muted)',textTransform:'uppercase',marginBottom:'16px'}}>您的企业AI准备度</div>
+            <div style={{fontFamily:'var(--font-display)',fontSize:'64px',fontWeight:700,color:levelColor,lineHeight:1,marginBottom:'8px'}}>{pct}分</div>
+            <div style={{fontFamily:'var(--font-serif)',fontSize:'24px',fontWeight:700,color:levelColor,marginBottom:'24px'}}>{level}</div>
+            <div style={{width:'100%',height:'8px',background:'var(--border)',marginBottom:'32px'}}>
+              <div style={{width:`${pct}%`,height:'100%',background:levelColor,transition:'width 1s ease'}}></div>
+            </div>
+            <div style={{fontSize:'15px',color:'var(--text-mid)',lineHeight:1.85,textAlign:'left',borderLeft:'3px solid '+levelColor,paddingLeft:'20px'}}>
+              {advice}
+            </div>
+          </div>
+          <div style={{textAlign:'center',display:'flex',gap:'12px',justifyContent:'center'}}>
+            <button className="btn-hero" onClick={()=>{setAnswers({});setCurrent(0);setDone(false);}}>重新测试</button>
+            <button className="btn-hero-outline" style={{color:'var(--text)',borderColor:'var(--border)'}} onClick={()=>setPage('home')}>加微信深聊</button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="page">
+      <div className="page-header">
+        <div className="container">
+          <div className="page-title">企业财务AI准备度体检</div>
+          <div className="page-subtitle">10道题 · 3分钟 · 基于17年CFO实战经验设计</div>
+        </div>
+      </div>
+      <div style={{maxWidth:'640px',margin:'48px auto',padding:'0 32px'}}>
+        <div style={{display:'flex',alignItems:'center',gap:'12px',marginBottom:'32px'}}>
+          <div style={{flex:1,height:'4px',background:'var(--border)'}}>
+            <div style={{width:`${((current)/questions.length)*100}%`,height:'100%',background:'var(--blue)',transition:'width 0.3s'}}></div>
+          </div>
+          <span style={{fontSize:'12px',color:'var(--text-muted)',flexShrink:0}}>{current+1} / {questions.length}</span>
+        </div>
+        <div style={{fontFamily:'var(--font-serif)',fontSize:'20px',fontWeight:700,marginBottom:'28px',lineHeight:1.5}}>
+          {questions[current].q}
+        </div>
+        <div style={{display:'flex',flexDirection:'column',gap:'12px'}}>
+          {questions[current].a.map((opt,i)=>(
+            <button key={i} onClick={()=>{
+              const newA = {...answers,[current]:i};
+              setAnswers(newA);
+              if(current < questions.length-1){ setCurrent(current+1); }
+              else { setDone(true); }
+            }} style={{
+              background: answers[current]===i ? 'var(--navy)' : 'white',
+              color: answers[current]===i ? 'white' : 'var(--text)',
+              border: `1px solid ${answers[current]===i ? 'var(--navy)' : 'var(--border)'}`,
+              padding:'14px 20px',
+              textAlign:'left',
+              fontSize:'14px',
+              fontFamily:'var(--font-sans)',
+              cursor:'pointer',
+              transition:'all 0.15s',
+              lineHeight:1.5
+            }}>
+              {opt}
+            </button>
+          ))}
+        </div>
+        {current > 0 && (
+          <button onClick={()=>setCurrent(current-1)} style={{background:'none',border:'none',color:'var(--text-muted)',fontSize:'13px',cursor:'pointer',marginTop:'20px',fontFamily:'var(--font-sans)'}}>
+            ← 上一题
+          </button>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function ServicesPage({ setPage }) {
+  const services = [
+    { num:"01", title:"企业AI财税落地咨询", desc:"为企业提供AI财税工作流的诊断、规划和实施陪跑。从现状梳理到工具选型，再到团队培训，全程覆盖。不卖焦虑，算清ROI再下手。", tags:["团队诊断","工具选型","流程设计","落地陪跑"] },
+    { num:"02", title:"CFO专项培训课", desc:"专为CFO和财务负责人设计的AI认知与实操课程。两天线下工作坊，带你亲手跑通3个核心AI财税场景，带走可复用的工作流模板。", tags:["2天线下","实操工作坊","案例教学","可复用模板"] },
+    { num:"03", title:"企业财务AI准备度诊断", desc:"别急着买AI。先测你的企业处在AI进化的哪个阶段。10道题出结果，或预约1对1深度诊断，给出「先修路还是先买车」的具体判断。", tags:["10题免费测","1对1深度诊断","行动路线图","CFO级标准"] },
+    { num:"04", title:"上市公司/融资财务咨询", desc:"IPO筹划、股权融资、并购重组的财务结构设计与尽调准备。17年亿级项目操盘经验，帮你把数字讲清楚。", tags:["IPO筹划","股权融资","并购重组","尽调准备"] },
+    { num:"05", title:"AI财报分析服务", desc:"为机构投资者和上市公司管理层提供AI驱动的财报解读、竞争对手分析和行业数据监测。前券商研究视角，CIA审计标准。", tags:["财报解读","竞品监测","行业报告","风险识别"] },
+    { num:"06", title:"企业内训与演讲", desc:"AI与财务主题的内训课和高管演讲，帮助团队建立对AI的正确认知，消除「AI焦虑」。基于真实案例，不讲废话。", tags:["内训定制","高管演讲","行业峰会","去除AI焦虑"] },
+  ];
+  return (
+    <div className="page">
+      <div className="services-hero">
+        <div className="container">
+          <div style={{display:'flex',alignItems:'center',gap:'10px',marginBottom:'20px'}}>
+            <div className="eyebrow-line"></div>
+            <div className="eyebrow-text">课程与咨询</div>
+          </div>
+          <div style={{fontFamily:'var(--font-serif)',fontSize:'40px',color:'white',fontWeight:700,marginBottom:'12px'}}>从认知到落地</div>
+          <div style={{fontSize:'15px',color:'rgba(255,255,255,0.45)',maxWidth:'480px',lineHeight:1.8}}>
+            不是卖焦虑，是帮你算清楚——你的企业到底配不配直接上AI，该花多少钱，预期回报是多少。
+          </div>
+        </div>
+      </div>
+      <div className="container">
+        <div className="services-grid">
+          {services.map(svc=>(
+            <div key={svc.num} className="service-card">
+              <div className="svc-num">{svc.num}</div>
+              <div className="svc-title">{svc.title}</div>
+              <div className="svc-desc">{svc.desc}</div>
+              <div className="svc-tags">{svc.tags.map(t=><span key={t} className="svc-tag">{t}</span>)}</div>
+            </div>
+          ))}
+        </div>
+        <div className="newsletter-bar" style={{margin:'0 0 48px'}}>
+          <div className="nl-left">
+            <div className="nl-label">合作咨询</div>
+            <div className="nl-title">聊得来，加微信</div>
+            <div className="nl-desc">备注「财务AI」或「AI落地」，我会通过。微信号：593090320</div>
+          </div>
+          <button className="btn-hero" style={{flexShrink:0}} onClick={()=>setPage('home')}>立即联系</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function MembershipPage() {
+  const plans = [
+    {
+      name:"免费订阅", price:"¥0", period:"永久免费",
+      features:["每周AI财税周报（邮件）","每月精选文章2篇","公开直播活动","基础工具推荐清单"],
+      btnText:"免费订阅", btnClass:"plan-btn-outline"
+    },
+    {
+      name:"专业会员", price:"¥399", period:"/ 年，约每月33元",
+      badge:"最受欢迎",
+      features:["全部深度文章无限阅读","完整调研报告下载","AI财税工具测评数据库","会员专属微信社群","月度线上圆桌参与权","历史文章全部存档"],
+      btnText:"立即开通", btnClass:"plan-btn-solid", featured:true
+    },
+    {
+      name:"企业会员", price:"¥2,999", period:"/ 年，5个账号",
+      features:["包含专业会员全部权益","团队共享账号×5","季度线下闭门会资格","1对1工具选型咨询（1次）","企业内训优先预约","定制报告折扣"],
+      btnText:"联系购买", btnClass:"plan-btn-outline"
+    }
+  ];
+  return (
+    <div className="page">
+      <div className="page-header" style={{textAlign:'center',padding:'64px 0 48px'}}>
+        <div className="container">
+          <div className="eyebrow-text" style={{marginBottom:'16px'}}>会员计划</div>
+          <div style={{fontFamily:'var(--font-serif)',fontSize:'40px',color:'white',fontWeight:700,marginBottom:'12px'}}>为严肃的财务决策者而建</div>
+          <div style={{fontSize:'15px',color:'rgba(255,255,255,0.45)',maxWidth:'500px',margin:'0 auto',lineHeight:1.8}}>没有流量噪音，没有广告植入。只有经过深度研究的一手内容，帮你做出更好的决策。</div>
+        </div>
+      </div>
+      <div className="container">
+        <div className="plans-grid">
+          {plans.map(plan=>(
+            <div key={plan.name} className={`plan-card ${plan.featured?'featured-plan':''}`}>
+              {plan.badge && <div className="plan-badge">{plan.badge}</div>}
+              <div className="plan-name">{plan.name}</div>
+              <div className="plan-price">{plan.price}</div>
+              <div className="plan-period">{plan.period}</div>
+              <div className="plan-divider"></div>
+              {plan.features.map((f,i)=>(
+                <div key={i} className="plan-feature">
+                  <svg className="check" viewBox="0 0 16 16" fill="none">
+                    <circle cx="8" cy="8" r="7" stroke={plan.featured?'rgba(255,255,255,0.3)':'var(--border)'} strokeWidth="1"/>
+                    <path d="M5 8l2 2 4-4" stroke={plan.featured?'#4DA8FF':'var(--blue)'} strokeWidth="1.5" strokeLinecap="round"/>
+                  </svg>
+                  {f}
+                </div>
+              ))}
+              <button className={`plan-btn ${plan.btnClass}`}>{plan.btnText}</button>
+            </div>
+          ))}
+        </div>
+        <div style={{textAlign:'center',padding:'0 0 48px',color:'var(--text-muted)',fontSize:'13px'}}>
+          支持支付宝、微信、银行转账 · 企业可开发票 · 不满意7天退款
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function AboutPage({ setPage }) {
+  return (
+    <div className="page">
+      <div className="page-header" style={{padding:'48px 0'}}>
+        <div className="container">
+          <div className="page-title">关于何斌</div>
+          <div className="page-subtitle">17年CFO与投资实战 · 用AI重构企业财务工作方式</div>
+        </div>
+      </div>
+      <div className="about-layout">
+        <div>
+          <div className="about-lead">
+            不是教你怎么用工具，是帮你算清楚——你的企业到底配不配直接上AI，该花多少钱，预期回报是多少。
+          </div>
+          <div className="about-body">
+            <p>
+              何斌，17年企业财务与投资实战。中国500强（双胞胎集团）工作6年，上市公司（江西恒大）工作5年，主导并购重组、IPO筹划、股权投资等亿级项目10+，参与尽职调查项目40+。
+            </p>
+            <p>
+              2026年2月起，全职做「有二财经」——一个专注于AI在企业财税与金融领域应用的独立媒体与知识社区。内容标准：必须基于权威数据、真实案例、可验证事实。CFO级专业标准，不是「据报道」。
+            </p>
+            <p>
+              <strong>有二财经的核心定位：</strong>AI落地企业 / AI改变财税 / AI金融观察 / 上市公司AI应用。站在老板和CFO的视角，不卖焦虑，是算清楚每一笔账。
+            </p>
+          </div>
+          <div style={{marginTop:'40px'}}>
+            <div style={{fontFamily:'var(--font-serif)',fontSize:'18px',fontWeight:700,marginBottom:'16px',paddingBottom:'14px',borderBottom:'2px solid var(--text)'}}>四大内容方向</div>
+            <div className="focus-grid">
+              {[
+                {num:'01',title:'AI财税实战',desc:'AI重构记账、报税、审单、对账的完整工作流，算清ROI。包括金税四期合规风险、自动化报税边界等。'},
+                {num:'02',title:'AI企业落地',desc:'从选型到落地到团队适配，帮企业避开「买了AI变人工智障」的坑。给的是「先修路还是先买车」的具体判断。'},
+                {num:'03',title:'AI上市公司分析',desc:'AI如何重塑资本市场的信息处理：智能财报解读、风险识别、估值建模新范式。A股AI概念股跟踪。'},
+                {num:'04',title:'AI金融观察',desc:'AI在融资、投资、银行领域的前沿动态。一级市场AI化进展，以及40+尽调项目积累的一手视角。'},
+              ].map(f=>(
+                <div key={f.num} className="focus-item">
+                  <div className="focus-num">{f.num}</div>
+                  <div className="focus-title">{f.title}</div>
+                  <div className="focus-desc">{f.desc}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+        <div>
+          <div className="author-card-large">
+            <div className="author-avatar-lg">斌</div>
+            <div className="author-name-lg">何斌</div>
+            <div className="author-role-lg">17年CFO · 有二财经创始人</div>
+            <div className="author-tags">
+              <span className="author-tag highlight">高级会计师</span>
+              <span className="author-tag highlight">CIA国际注册审计师</span>
+              <span className="author-tag highlight">董秘资格（沪深两所）</span>
+              <span className="author-tag highlight">金融MBA</span>
+              <span className="author-tag">注册税务师（4门）</span>
+              <span className="author-tag">中国500强6年</span>
+              <span className="author-tag">上市公司5年</span>
+              <span className="author-tag">亿级项目10+</span>
+              <span className="author-tag">尽调40+</span>
+            </div>
+            <div className="author-bio-lg">
+              极度理性，数据驱动。讨厌浅层表达，追求真实——Dalio式极度透明。摩旅西藏2次，穿越过无人区。2026年全职探索AI与一人公司模式。
+            </div>
+          </div>
+          <div style={{background:'white',border:'1px solid var(--border)',padding:'24px'}}>
+            <div style={{fontFamily:'var(--font-serif)',fontSize:'14px',fontWeight:700,marginBottom:'12px',paddingBottom:'12px',borderBottom:'1px solid var(--border)'}}>联系何斌</div>
+            <div style={{fontSize:'13px',color:'var(--text-mid)',lineHeight:1.8,marginBottom:'16px'}}>
+              备注「财务AI」或「AI转型」，我会通过。
+            </div>
+            <div style={{textAlign:'center',background:'rgba(27,111,232,0.04)',border:'1px dashed rgba(27,111,232,0.3)',padding:'12px',fontSize:'20px',fontWeight:700,color:'var(--blue)',letterSpacing:'2px',marginBottom:'12px'}}>
+              593090320
+            </div>
+            <button className="btn-primary-sm" style={{width:'100%',padding:'10px'}} onClick={()=>{
+              navigator.clipboard.writeText('593090320').catch(()=>{});
+            }}>复制微信号</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function Footer({ setPage, brandName }) {
+  return (
+    <footer>
+      <div className="footer-grid">
+        <div>
+          <div className="logo" style={{cursor:'pointer'}} onClick={()=>setPage('home')}>
+            <span className="logo-cn">{brandName}</span>
+          </div>
+          <div className="footer-desc">站在老板和CFO的视角，AI多懂企业，企业就有多强。leaping.site</div>
+          <div style={{marginTop:'16px',fontSize:'12px',color:'rgba(255,255,255,0.3)'}}>微信：593090320 · 备注「财务AI」</div>
+        </div>
+        <div>
+          <div className="footer-col-title">内容方向</div>
+          {['AI财税','AI企业落地','AI上市公司分析','AI金融观察'].map(t=>(
+            <a key={t} className="footer-link" onClick={()=>setPage('articles')}>{t}</a>
+          ))}
+        </div>
+        <div>
+          <div className="footer-col-title">服务</div>
+          {['企业AI落地咨询','CFO培训课','企业体检工具','上市/融资咨询'].map(t=>(
+            <a key={t} className="footer-link" onClick={()=>setPage('services')}>{t}</a>
+          ))}
+        </div>
+        <div>
+          <div className="footer-col-title">更多</div>
+          {[
+            {l:'关于何斌', p:'about'},
+            {l:'会员计划', p:'membership'},
+            {l:'企业AI体检', p:'assessment'},
+            {l:'联系合作', p:'home'},
+          ].map(t=>(
+            <a key={t.l} className="footer-link" onClick={()=>setPage(t.p)}>{t.l}</a>
+          ))}
+        </div>
+      </div>
+      <div className="footer-bottom">
+        <div className="footer-copy">© 2026 有二财经 · 何斌 · leaping.site</div>
+        <div className="footer-copy">内容仅为专业观点分享，不构成投资建议</div>
+      </div>
+    </footer>
+  );
+}
+
+// ── APP ──────────────────────────────────────────────
+function App() {
+  const [page, setPage] = useState('home');
+  const [tweaks, setTweak] = useTweaks(TWEAK_DEFAULTS);
+
+  useEffect(() => {
+    document.documentElement.style.setProperty('--blue', tweaks.accentColor);
+  }, [tweaks.accentColor]);
+
+  return (
+    <>
+      <Header page={page} setPage={setPage} brandName={tweaks.brandName} />
+      {page === 'home'           && <HomePage setPage={setPage} wechatId={tweaks.wechatId} />}
+      {page === 'articles'       && <ArticlesPage setPage={setPage} />}
+      {page === 'article-detail' && <ArticleDetail setPage={setPage} />}
+      {page === 'assessment'     && <AssessmentPage setPage={setPage} />}
+      {page === 'services'       && <ServicesPage setPage={setPage} />}
+      {page === 'membership'     && <MembershipPage />}
+      {page === 'about'          && <AboutPage setPage={setPage} />}
+      <Footer setPage={setPage} brandName={tweaks.brandName} />
+
+      <TweaksPanel>
+        <TweakText id="brandName" label="品牌名称" value={tweaks.brandName} onChange={v=>setTweak('brandName',v)} />
+        <TweakColor id="accentColor" label="主题色" value={tweaks.accentColor} onChange={v=>setTweak('accentColor',v)} />
+        <TweakText id="wechatId" label="微信号" value={tweaks.wechatId} onChange={v=>setTweak('wechatId',v)} />
+      </TweaksPanel>
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>
