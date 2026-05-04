@@ -512,7 +512,7 @@
   <div class="s0-hero">
     <div class="s0-badge">A股上市自测 · 有二财经</div>
     <h1 class="s0-title">你的企业<br>离上市有多远？</h1>
-    <p class="s0-sub">大多数人以为"达标就能上"。<br>其实只算了净利润这一条。<br><br>16道题，五个维度，<br>把你的现状看清楚。</p>
+    <p class="s0-sub">大多数人以为"达标就能上"。<br>其实只算了净利润这一条。<br><br>17道题，五个维度，<br>把你的现状看清楚。</p>
     <div class="s0-dims-preview">
       <span class="s0-dim-tag">基本体量</span>
       <span class="s0-dim-tag">财务数据</span>
@@ -718,6 +718,26 @@ const sections = [
           { sxzz: 8, kcb: 8, cyb: 6, bjjs: 10 },
           { sxzz: 10, kcb: 10, cyb: 8, bjjs: 12 },
           { sxzz: 12, kcb: 12, cyb: 10, bjjs: 15 },
+        ]
+      },
+      {
+        id: 7.5,
+        text: "最近三年营收复合增长率约？",
+        hint: "（营业收入三年复合增长率，创业板第四套第一类条件之一）",
+        type: "select",
+        options: [
+          "无法计算（企业成立不足三年）",
+          "复合增长率 < 10%",
+          "复合增长率 10% ~ 20%",
+          "复合增长率 20% ~ 30%",
+          "复合增长率 ≥ 30%（创业板第四套第一类条件之一）",
+        ],
+        mapping: [
+          { sxzz: 0, kcb: 0, cyb: 0, bjjs: 0 },
+          { sxzz: 0, kcb: 2, cyb: 0, bjjs: 2 },
+          { sxzz: 3, kcb: 5, cyb: 3, bjjs: 5 },
+          { sxzz: 5, kcb: 8, cyb: 6, bjjs: 8 },
+          { sxzz: 8, kcb: 10, cyb: 15, bjjs: 12 },
         ]
       },
     ]
@@ -1127,7 +1147,13 @@ function showResult() {
   document.getElementById('resDims').innerHTML = dimHtml;
 
   // Render paths
-  const paths = buildPaths(boardScores, dimScores);
+  // Extract raw inputs for 创业板第四套判断
+  // Q1=index0(营收万), Q2=index1(市值亿), Q7=index6(三年营收), Q7.5=index7(复合增长率), Q8=index8(研发费万)
+  const szRaw = parseFloat(answers[1]) || 0;          // 市值（亿元）
+  const ysRaw = parseFloat(answers[0]) || 0;           // 营收（万元）
+  const yfRaw = parseFloat(answers[8]) || 0;           // 研发费用（万元）
+  const fzzRaw = answers[7];                            // 复合增长率选项索引
+  const paths = buildPaths(boardScores, dimScores, { szRaw, ysRaw, yfRaw, fzzRaw });
   let pathHtml = '';
   paths.forEach((p, i) => {
     pathHtml += `
@@ -1139,7 +1165,8 @@ function showResult() {
   document.getElementById('resPaths').innerHTML = pathHtml;
 }
 
-function buildPaths(boardScores, dimScores) {
+function buildPaths(boardScores, dimScores, raw) {
+  const { szRaw, ysRaw, yfRaw, fzzRaw } = raw;
   const paths = [];
   const weakDims = dimScores.map((s,i) => ({s,i})).filter(x => x.s < 70);
 
@@ -1148,6 +1175,14 @@ function buildPaths(boardScores, dimScores) {
   const boardName = BOARDS[best]?.name || best;
 
   paths.push(`当前最适合的板块为<strong>${boardName}</strong>，综合适配度约${Math.round(boardScores[best])}分。`);
+
+  // 创业板第四套判断
+  const hasGrowth = szRaw >= 30 && ysRaw >= 20000 && fzzRaw === 4;
+  const hasRnd = szRaw >= 40 && ysRaw >= 20000 && yfRaw >= 3000;
+  if (hasGrowth || hasRnd) {
+    const type = hasGrowth ? '第一类（成长型）' : '第二类（创新型）';
+    paths.push(`符合<strong>创业板第四套${type}</strong>条件——市值${hasGrowth ? '≥30亿' : '≥40亿'} + 营收≥2亿${hasGrowth ? ' + 复合增长率≥30%' : ' + 研发高投入'}`);
+  }
 
   // Weak dimensions
   if (weakDims.length > 0) {
@@ -1175,7 +1210,7 @@ function buildPaths(boardScores, dimScores) {
 
   paths.push(`完成上述准备后，建议找有经验的保荐代表人做一次预审，确认窗口期和赛道适配性。`);
 
-  return paths.slice(0, 4);
+  return paths.slice(0, 5);
 }
 
 function copyWechat() {
