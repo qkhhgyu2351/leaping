@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>宠物体验赛道 · 全维研究手册（讨论初稿）</title>
+<style>
+  :root{
+    --bg:#F8FAFC; --card:#FFFFFF; --ink:#0F172A; --sub:#475569; --line:#E2E8F0;
+    --blue:#1D4ED8; --blue-bg:#EFF6FF;
+    --orange:#C2410C; --orange-bg:#FFF7ED;
+    --red:#B91C1C; --red-bg:#FEF2F2;
+    --green:#15803D; --green-bg:#F0FDF4;
+    --gold:#B45309; --gold-bg:#FFFBEB;
+    --slate:#475569; --slate-bg:#F1F5F9;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    background:var(--bg); color:var(--ink); line-height:1.75; font-size:18px;
+  }
+  /* 顶部导航 */
+  nav{
+    position:sticky; top:0; z-index:50; background:#fff; border-bottom:2px solid var(--line);
+    padding:14px 24px; display:flex; gap:10px; flex-wrap:wrap; align-items:center;
+  }
+  nav .brand{font-weight:800; font-size:17px; color:var(--blue); margin-right:8px}
+  nav a{
+    text-decoration:none; color:var(--sub); font-size:14px; padding:6px 12px;
+    border-radius:999px; background:var(--slate-bg); white-space:nowrap;
+  }
+  nav a:hover{background:var(--blue-bg); color:var(--blue)}
+  /* 容器 */
+  .wrap{max-width:1120px; margin:0 auto; padding:32px 24px 80px}
+  /* Hero */
+  .hero{
+    background:linear-gradient(135deg,#EFF6FF,#F0FDF4); border:1px solid var(--line);
+    border-radius:24px; padding:44px 40px; margin-bottom:36px;
+  }
+  .hero h1{font-size:46px; font-weight:900; letter-spacing:-1px; line-height:1.2}
+  .hero .sub{font-size:20px; color:var(--sub); margin-top:12px}
+  .hero .meta{margin-top:18px; font-size:15px; color:var(--slate); display:flex; gap:18px; flex-wrap:wrap}
+  .hero .meta b{color:var(--ink)}
+  /* 脉络时间线 */
+  .timeline{margin-top:28px; border-left:3px solid var(--blue); padding-left:24px; display:flex; flex-direction:column; gap:14px}
+  .tl-item{font-size:16px; color:var(--sub)}
+  .tl-item b{color:var(--ink)}
+  .tl-item .dot{display:inline-block; width:10px; height:10px; background:var(--blue); border-radius:50%; margin-left:-33px; margin-right:18px; vertical-align:middle; box-shadow:0 0 0 4px #fff}
+  /* Section */
+  section{margin-bottom:48px; scroll-margin-top:80px}
+  .sec-head{display:flex; align-items:baseline; gap:16px; border-bottom:3px solid var(--ink); padding-bottom:12px; margin-bottom:24px}
+  .sec-num{
+    font-size:22px; font-weight:900; color:#fff; background:var(--ink);
+    width:46px; height:46px; border-radius:12px; display:flex; align-items:center; justify-content:center; flex-shrink:0;
+  }
+  .sec-head h2{font-size:32px; font-weight:900}
+  .sec-head .en{font-size:16px; color:var(--sub); margin-left:auto; font-weight:600}
+  /* 卡片 */
+  .card{background:var(--card); border:1px solid var(--line); border-radius:18px; padding:26px 28px; margin-bottom:20px; box-shadow:0 1px 2px rgba(15,23,42,.04)}
+  .card h3{font-size:23px; font-weight:800; margin-bottom:12px}
+  .card h4{font-size:19px; font-weight:800; margin:18px 0 8px; color:var(--slate)}
+  .card p{margin:8px 0; color:var(--ink)}
+  .card .muted{color:var(--sub); font-size:16px}
+  /* 表格 */
+  table{width:100%; border-collapse:collapse; margin:14px 0; font-size:16px}
+  /* 窄屏：表格横向滚动，避免多列表格在手机上挤字 */
+  @media(max-width:700px){
+    table{display:block; width:max-content; min-width:100%; max-width:100%; overflow-x:auto; -webkit-overflow-scrolling:touch}
+    .data-table{font-size:14px}
+    /* 手机上导航不吸顶、横向滚动一行，避免占满屏顶挡住正文 */
+    nav{position:static; flex-wrap:nowrap; overflow-x:auto; white-space:nowrap; padding:10px 16px}
+    nav a{padding:6px 10px; font-size:13px}
+  }
+  th,td{border:1px solid var(--line); padding:11px 14px; text-align:left; vertical-align:top}
+  th{background:var(--slate-bg); font-weight:800; color:var(--ink)}
+  tbody tr:nth-child(even){background:#FBFCFE}
+  .num{font-weight:800; color:var(--blue)}
+  /* 标签 */
+  .tag{display:inline-block; font-size:13px; font-weight:800; padding:3px 10px; border-radius:999px; margin-right:6px}
+  .tag.fact{background:var(--blue-bg); color:var(--blue)}
+  .tag.view{background:var(--orange-bg); color:var(--orange)}
+  .tag.risk{background:var(--red-bg); color:var(--red)}
+  .tag.ok{background:var(--green-bg); color:var(--green)}
+  .tag.gold{background:var(--gold-bg); color:var(--gold)}
+  /* 标注块 */
+  .callout{border-radius:14px; padding:16px 20px; margin:14px 0; font-size:16px; border-left:6px solid}
+  .callout.fact{background:var(--blue-bg); border-color:var(--blue)}
+  .callout.view{background:var(--orange-bg); border-color:var(--orange)}
+  .callout.risk{background:var(--red-bg); border-color:var(--red)}
+  .callout.ok{background:var(--green-bg); border-color:var(--green)}
+  .callout.gold{background:var(--gold-bg); border-color:var(--gold)}
+  .callout b{font-weight:900}
+  /* 网格 */
+  .grid{display:grid; gap:18px}
+  .grid.two{grid-template-columns:1fr 1fr}
+  .grid.three{grid-template-columns:repeat(3,1fr)}
+  @media(max-width:820px){.grid.two,.grid.three{grid-template-columns:1fr}}
+  .mini{background:#fff; border:1px solid var(--line); border-radius:14px; padding:18px 20px}
+  .mini h4{font-size:18px; margin-bottom:6px}
+  .mini p{font-size:15px; color:var(--sub); margin:0}
+  .mini .big{font-size:28px; font-weight:900; color:var(--ink); display:block; margin:4px 0}
+  /* 玩家卡片 */
+  .player{border-radius:16px; padding:20px 22px; border:1px solid var(--line)}
+  .player.fail{background:var(--red-bg); border-color:#FCA5A5}
+  .player.win{background:var(--green-bg); border-color:#86EFAC}
+  .player.tbd{background:var(--gold-bg); border-color:#FCD34D}
+  .player h4{font-size:20px; margin-bottom:4px}
+  .player .role{font-size:14px; font-weight:800; margin-bottom:10px}
+  .player.fail .role{color:var(--red)} .player.win .role{color:var(--green)} .player.tbd .role{color:var(--gold)}
+  .player ul{margin:6px 0 0 18px; font-size:15px; color:var(--ink)}
+  .player ul li{margin:4px 0}
+  /* 框架7步总览 */
+  .steps{display:grid; grid-template-columns:repeat(7,1fr); gap:10px; margin:20px 0}
+  @media(max-width:980px){.steps{grid-template-columns:repeat(2,1fr)}}
+  .step{background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 12px; text-align:center}
+  .step .n{font-size:26px; font-weight:900; display:block}
+  .step .t{font-size:14px; font-weight:700; margin-top:4px}
+  .step .d{font-size:12px; color:var(--sub); margin-top:4px}
+  .c1{color:#4F46E5}.c2{color:#2563EB}.c3{color:#0891B2}.c4{color:#0D9488}.c5{color:#16A34A}.c6{color:#65A30D}.c7{color:#CA8A04}
+  /* 列表 */
+  ul.clean{margin:8px 0 8px 22px} ul.clean li{margin:6px 0}
+  /* 页脚 */
+  footer{margin-top:60px; border-top:2px solid var(--line); padding-top:24px; color:var(--sub); font-size:15px}
+  .kpis{display:flex; gap:14px; flex-wrap:wrap; margin:16px 0}
+  .kpi{flex:1; min-width:150px; background:#fff; border:1px solid var(--line); border-radius:14px; padding:16px 18px; text-align:center}
+  .kpi .v{font-size:30px; font-weight:900; color:var(--blue)}
+  .kpi .l{font-size:14px; color:var(--sub); margin-top:4px}
+  /* 致孙总导读 */
+  .letter{border-radius:20px; padding:30px 34px; margin-bottom:36px; border:2px solid var(--blue); background:linear-gradient(135deg,#EFF6FF,#FFFFFF); box-shadow:0 1px 3px rgba(29,78,216,.08)}
+  .letter .to{font-size:15px; font-weight:800; color:var(--blue); letter-spacing:1px}
+  .letter h3{font-size:25px; font-weight:900; margin:6px 0 16px}
+  .letter .body p{font-size:17px; margin:10px 0; color:var(--ink); line-height:1.8}
+  .letter .body b{color:var(--blue)}
+  .letter .sign{margin-top:16px; font-size:15px; color:var(--sub); text-align:right}
+  /* 文档核心摘要 */
+  .core{list-style:none; margin:6px 0 0; padding:0; counter-reset:c}
+  .core li{position:relative; padding:12px 0 12px 52px; border-bottom:1px solid var(--line); font-size:17px; line-height:1.75}
+  .core li:last-child{border-bottom:none}
+  .core li::before{counter-increment:c; content:counter(c); position:absolute; left:0; top:10px; width:34px; height:34px; background:var(--blue); color:#fff; border-radius:9px; font-weight:900; font-size:17px; display:flex; align-items:center; justify-content:center}
+  .core li b{color:var(--blue)}
+  /* 一页纸速览 */
+  .exec-summary{background:linear-gradient(135deg,#EFF6FF,#F0FDF4); border:2px solid var(--blue); border-radius:20px; padding:32px 36px; margin-bottom:36px}
+  .exec-summary h3{font-size:26px; font-weight:900; margin-bottom:16px; color:var(--blue)}
+  .exec-grid{display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; margin-top:16px}
+  @media(max-width:820px){.exec-grid{grid-template-columns:1fr}}
+  .exec-item{background:#fff; border-radius:14px; padding:18px; border:1px solid var(--line)}
+  .exec-item .ei-label{font-size:13px; color:var(--sub); font-weight:700; margin-bottom:4px}
+  .exec-item .ei-val{font-size:22px; font-weight:900; color:var(--ink)}
+  .exec-item .ei-sub{font-size:13px; color:var(--sub); margin-top:4px}
+  /* 数据速查表 */
+  .data-table{font-size:15px}
+  .data-table td:first-child{font-weight:700; white-space:nowrap; width:35%}
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="brand">⚡ 阅读目录链接</span>
+  <a href="#tosum">文档导读</a>
+  <a href="#core">核心摘要</a>
+  <a href="#exec">一页速览</a>
+  <a href="#frame">方法论</a>
+  <a href="#s1">①定边界</a>
+  <a href="#s2">②量盘子</a>
+  <a href="#s3">③找命门</a>
+  <a href="#scenes">三大场景</a>
+  <a href="#s4">④画玩家</a>
+  <a href="#formulas">成败公式</a>
+  <a href="#s5">⑤算单元</a>
+  <a href="#playbook">打法框架</a>
+  <a href="#cases">标杆样本</a>
+  <a href="#s6">⑥看外力</a>
+  <a href="#s7">⑦建判断</a>
+  <a href="#decide">进入决策</a>
+  <a href="#data">数据速查</a>
+  <a href="#todo">待核实/索引</a>
+</nav>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <div class="hero">
+    <h1>宠物体验赛道 · 全维研究手册（讨论初稿）</h1>
+    <div class="sub">用资本视角把"萌宠情绪消费新连锁"这条赛道从里到外拆透</div>
+    <div class="meta">
+      <span><b>出品</b>：何斌投研工作台（小斌 LeapAI）</span>
+      <span><b>日期</b>：2026-08-08</span>
+      <span><b>视角</b>：资深行业分析 + 交易分析双视角</span>
+    </div>
+    <div class="timeline">
+      <div class="tl-item"><span class="dot"></span><b>素材深读</b>：8/5 沟通逐字稿 + 分析卡 + 工商截图，三件交叉验证</div>
+      <div class="tl-item"><span class="dot"></span><b>行业研究</b>：白皮书 / 毕马威 / QYResearch / 仲量联行 / 21经济 5 份资料</div>
+      <div class="tl-item"><span class="dot"></span><b>政策锚定</b>：六部委《促消费实施方案》"宠物周边"条款入档</div>
+      <div class="tl-item"><span class="dot"></span><b>失败解剖</b>：派多格 7000/2000 三层死因 + 新瑞鹏崩塌 + 美团即时零售冲击</div>
+      <div class="tl-item"><span class="dot"></span><b>方法论</b>：确立"快速认识一个行业的 7 步框架"</div>
+      <div class="tl-item"><span class="dot"></span><b>进入决策</b>：战略→执行→战术→资金→合规→团队六层 + 事实/观点/风险库</div>
+    </div>
+  </div>
+
+  <!-- 致孙总导读 -->
+  <section id="tosum">
+    <div class="letter">
+      <div class="to">文档导读（初稿说明）</div>
+      <h3>这份稿子是什么，怎么用</h3>
+      <div class="body">
+        <p>这份《宠物体验赛道 · 全维研究手册》是讨论初稿，不是定稿，也非投资建议。目的是在动手前，先把"宠物体验 / 服务连锁"这条赛道从里到外看清楚——钱在哪、坑在哪、最后谁要怎么样才能活下来活好。</p>
+        <p><b>1. 这是初稿，必须经现实打磨。</b> 里面的数据、模型、判断，现阶段来自公开资料与一线口述。每一条结论，都要等我们自己第一家店开出来、拿到真实账目，才算真正落地。研究是起点，不是终点。</p>
+        <p><b>2. 研究是手段，业务落地才是目的。</b> 再漂亮的行业分析，最后都要回到一件事：店能不能自己活、自己赚钱。分析服务于决策，不服务于"看起来专业"。</p>
+        <p><b>3. 业务落地，看三把尺子：</b></p>
+        <p>· <b>客户指向清楚</b>——先想清"为谁服务"：是综合体客流、社区周边，还是线上宠主？客群不清，门店白开。</p>
+        <p>· <b>产品布局合理</b>——食品做流量、服务做利润，结构不能反。洗护 / 寄养 / 体验是利润主战场，零售只是入口。</p>
+        <p>· <b>产生正向现金流</b>——一切以单店模型跑通、回本周期为锚。没有正向现金流的扩张，只是把坑挖得更大。</p>
+        <p>一句话：方向我看对了，但赢不赢，取决于能不能先让某家店它自己转起来，正向循环。稿子作为参考、拍砖、补料、纠偏。</p>
+        <div class="sign">— 何斌</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 文档核心摘要 -->
+  <section id="core">
+    <div class="card" style="border:2px solid var(--ink)">
+      <h3>📌 文档核心摘要（一图读懂全稿）</h3>
+      <ul class="core">
+        <li><b>赛道真实且在增长</b>：2025 城镇犬猫消费 3126 亿（+4.1%），全产业链 8114 亿；增长已从"养宠数量"切换到"单宠消费力（ARPU）"驱动。</li>
+        <li><b>利润在主服务端</b>：食品占 53.7% 只是流量入口，前端服务虽仅占 6.5% 却毛利 50–70%——这是唯一能跑通的商业逻辑。</li>
+        <li><b>连锁化是真实缺口，但极难填</b>：连锁化率仅 ~22%（Top30 占 3.4%），九成是夫妻店；难点在于"规模化后还能保持夫妻店的成本结构"。</li>
+        <li><b>命门是单店模型</b>：派多格 7000 开 5000 关、新瑞鹏 3 年亏 37 亿，死法雷同——单店没跑通就上规模。先跑通，再谈复制。</li>
+        <li><b>业态与模式选择</b>：综合体集合店天花板最高（暂无公认成功样板）；社区店被"综合体体验 + 即时零售"两端夹击；联营优于已崩信誉的加盟。</li>
+        <li><b>平台截流标品、服务不可替代</b>：美团 / 淘宝闪购拿走粮药零售，洗护 / 寄养等线下服务无法被替代——零售做入口，服务做利润。</li>
+        <li><b>资本在观望，等模型跑通</b>：2024 仅 29 笔投资（历史低点），要看到"可批量复制的单店 P&L"才重注。落地三把尺子见上封导读。</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 一页纸速览 -->
+  <section id="exec">
+    <div class="exec-summary">
+      <h3>📋 一页纸速览：30 秒读完核心结论</h3>
+      <div class="exec-grid">
+        <div class="exec-item">
+          <div class="ei-label">市场规模</div>
+          <div class="ei-val">3126 亿</div>
+          <div class="ei-sub">城镇犬猫消费(2025) · +4.1% · 全产业链 8114 亿</div>
+        </div>
+        <div class="exec-item">
+          <div class="ei-label">利润命门</div>
+          <div class="ei-val">服务毛利 50–70%</div>
+          <div class="ei-sub">食品=流量(53.7%) · 服务=利润(6.5%但高毛利)</div>
+        </div>
+        <div class="exec-item">
+          <div class="ei-label">连锁化率</div>
+          <div class="ei-val">~22%（Top30 仅 3.4%）</div>
+          <div class="ei-sub">美国 30% · 九成是夫妻店 · 缺口真实但难填</div>
+        </div>
+        <div class="exec-item">
+          <div class="ei-label">最大风险</div>
+          <div class="ei-val">单店模型未跑通就扩张</div>
+          <div class="ei-sub">派多格 70%+ 关店率 · 新瑞鹏 3 年亏 37 亿</div>
+        </div>
+        <div class="exec-item">
+          <div class="ei-label">平台冲击</div>
+          <div class="ei-val">淘宝闪购 GMV 首超美团</div>
+          <div class="ei-sub">2026 分水岭 · 标品零售被截流 · 服务不可替代</div>
+        </div>
+        <div class="exec-item">
+          <div class="ei-label">资本态度</div>
+          <div class="ei-val">2024 全年仅 29 笔投资</div>
+          <div class="ei-sub">历史低点 · 服务+活体仅占 12.1%</div>
+        </div>
+      </div>
+      <div class="callout gold" style="margin-top:18px"><b>一句话：</b>方向对、时机稍晚、执行壁垒极高。能活下来的 = 先跑通单店 + 再用人才体系解锁复制。靠资本+规模强行推连锁 = 死路。</div>
+    </div>
+  </section>
+
+  <!-- 方法论 -->
+  <section id="frame">
+    <div class="sec-head"><div class="sec-num">M</div><h2>研究框架：7 个角度</h2></div>
+    <div class="card">
+      <p class="muted">这套框架不是"写一份行业报告"，是"给自己建可证伪的判断"。本手册所有内容都按它组织：<b>定边界 → 量盘子 → 找命门 → 画玩家 → 算单元 → 看外力 → 建判断</b>。</p>
+      <div class="steps">
+        <div class="step"><span class="n c1">1</span><span class="t">定边界</span><span class="d">边界模糊，后面全错</span></div>
+        <div class="step"><span class="n c2">2</span><span class="t">量盘子</span><span class="d">规模/增速/结构</span></div>
+        <div class="step"><span class="n c3">3</span><span class="t">找命门</span><span class="d">只盯 1–2 个</span></div>
+        <div class="step"><span class="n c4">4</span><span class="t">画玩家</span><span class="d">失败更值钱</span></div>
+        <div class="step"><span class="n c5">5</span><span class="t">算单元</span><span class="d">单店/单客经济</span></div>
+        <div class="step"><span class="n c6">6</span><span class="t">看外力</span><span class="d">政策/平台/资本</span></div>
+        <div class="step"><span class="n c7">7</span><span class="t">建判断</span><span class="d">必须可证伪</span></div>
+      </div>
+      <div class="callout gold"><b>框架的魂 · 3 条铁律：</b>① 不是描述行业，是建<strong>可证伪的判断</strong>；② <strong>失败样本比成功样本更值钱</strong>（正反打）；③ <strong>找命门，不堆指标</strong>——决定死活的往往就 1–2 个。</div>
+    </div>
+  </section>
+
+  <!-- ① 定边界 -->
+  <section id="s1">
+    <div class="sec-head"><div class="sec-num">1</div><h2>定边界：研究范围</h2><span class="en">Step 1 · 边界模糊后面全错</span></div>
+    <div class="card">
+      <h3>本手册研究的"赛道"是什么</h3>
+      <p>聚焦 <b>宠物前端体验 / 服务 / 零售连锁</b> 这一层——综合体集合店、社区连锁、夫妻店、联营模型、平台门店。这是"情绪消费新连锁"故事落地的环节。</p>
+      <div class="callout view"><b>明确不研究：</b>后端食品 / 用品制造（中宠、乖宝、佩蒂等上市巨头的主场）、宠物医疗（新瑞鹏 / 瑞派的高监管赛道）。原因：前端玩家"玩不了后端"，价值缝隙只在<strong>服务与体验</strong>。</div>
+      <h4>为什么边界要划清</h4>
+      <p class="muted">3126 亿城镇犬猫消费里，食品占 53.7%、医疗 27.6%——前端服务只占 <span class="num">6.5%</span>。若把整个赛道当"3126 亿的生意"去讲，会把"最小最薄的一块"误当成"整个大盘的机会"。边界划错，后面的所有判断都会偏。</p>
+    </div>
+  </section>
+
+  <!-- ② 量盘子 -->
+  <section id="s2">
+    <div class="sec-head"><div class="sec-num">2</div><h2>量盘子：行业大盘</h2><span class="en">Step 2 · 规模·增速·结构</span></div>
+
+    <div class="kpis">
+      <div class="kpi"><div class="v">3126亿</div><div class="l">城镇犬猫消费(2025) +4.1%</div></div>
+      <div class="kpi"><div class="v">8114亿</div><div class="l">全产业链规模</div></div>
+      <div class="kpi"><div class="v">1.15万亿</div><div class="l">2028 预测(全产业链)</div></div>
+      <div class="kpi"><div class="v">1.26亿</div><div class="l">城镇犬猫只数 +1.8%</div></div>
+    </div>
+
+    <div class="card">
+      <h3>结构：钱在食品，机会在服务 <span class="tag fact">事实</span></h3>
+      <table>
+        <tr><th>品类</th><th>消费占比</th><th>毛利特征</th><th>线上替代率</th><th>启示</th></tr>
+        <tr><td>食品</td><td class="num">53.7%</td><td>5–30%</td><td>70%+</td><td>流量来源，不能当利润</td></tr>
+        <tr><td>医疗</td><td class="num">27.6%</td><td>30–50%</td><td>低</td><td>高监管，前端难进</td></tr>
+        <tr><td>用品</td><td class="num">12.2%</td><td>30–40%</td><td>65%+</td><td>线上价格倒挂</td></tr>
+        <tr><td><b>服务</b></td><td class="num">6.5%</td><td><b>50–70%</b></td><td>&lt;20%</td><td><b>利润主战场，最薄但空间最大</b></td></tr>
+      </table>
+      <div class="callout gold"><b>核心洞察：</b>食品是流量，服务才是利润。门店靠食品引流、靠服务（洗护/寄养/美容，毛利 50–70%）赚钱——这是唯一跑通的商业逻辑。任何想靠卖粮赚钱的连锁，都死在电商面前。</div>
+    </div>
+
+    <div class="grid two">
+      <div class="card">
+        <h3>数量减速，ARPU 踩油门 <span class="tag fact">事实</span></h3>
+        <ul class="clean">
+          <li>城镇犬猫 1.26 亿只，增速仅 <b>+1.8%</b></li>
+          <li>但消费规模 <b>+4.1%</b> → 单宠消费力在加速</li>
+          <li>单犬年均 <b>3006 元</b> / 单猫 <b>2085 元</b></li>
+          <li>猫增速(5.2%)超犬(3.2%)，2028 猫将首超犬</li>
+          <li>赛道已从"数量驱动"转向 <b>ARPU 驱动</b></li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>五大宏观驱动力（长期） <span class="tag fact">事实</span></h3>
+        <ul class="clean">
+          <li>收入增长（中产扩大）</li>
+          <li>城镇化（消费场景集中）</li>
+          <li>老龄化（空巢老人养宠）</li>
+          <li>单身经济（单身率上升）</li>
+          <li>家庭结构变化（不婚不育→宠物替代）</li>
+        </ul>
+        <p class="muted">全是非短期、十年级结构性趋势；情绪/精神消费主线与拉布布、剧本杀、露营同逻辑。</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>政策顺风：六部委《促消费实施方案》 <span class="tag fact">事实</span></h3>
+      <p>2025-11-25 印发、11-26 发布，二十届四中全会后首个促消费文件。第（九）条"拓展多元兴趣消费供给"原文：</p>
+      <div class="callout fact"><b>"积极发展宠物周边、动漫、潮服潮玩等兴趣消费产品。"</b> 同条鼓励商超/购物中心改造引入谷店、集合型潮玩店。</div>
+      <ul class="clean">
+        <li><b>定性 = 兴趣/情绪消费</b>（与动漫、潮玩并列），非刚需消费</li>
+        <li>口径偏"<b>周边产品 + 新场景</b>"，未直接点名服务/医疗/活体</li>
+        <li><b>"严控风险、确保安全"是前置条件</b> → 预付费卡、活体受更严监管（正好卡派多格死穴）</li>
+      </ul>
+      <div class="callout view"><b>对赛道的意义：</b>政策顺风确定，但红利更偏"卖货型/产品型"门店；"服务型"门店要够政策红利，得靠"新场景体验业态"这条暗线去贴。<strong>政策红利 ≠ 单店盈利，两件事不能混。</strong></div>
+    </div>
+
+    <div class="card">
+      <h3>📌 宠物用品消费已超过婴幼儿用品 <span class="tag view">关键信号</span></h3>
+      <p>约三年前（2023 年前后），<b>宠物用品的消费金额首次超过婴幼儿用品</b>——养宠物的钱花得比养孩子的还多。这不是偶然现象，而是结构性拐点的信号：</p>
+      <ul class="clean">
+        <li><b>人口趋势交叉</b>：出生率持续走低 vs 养宠率稳步上升，两条曲线已在某处交汇并持续拉开差距</li>
+        <li><b>消费心理迁移</b>：年轻群体将情感投射从"下一代"转移到"毛孩子"，宠物承担了陪伴/社交/身份表达多重功能</li>
+        <li><b>品类对标</b>：宠物食品对标婴幼儿配方奶粉（高频刚需）、宠物用品对标母婴用品（丰富 SKU+高复购）、宠物服务对标早教/托育（体验型消费）——整个宠物消费链正在"复刻"母婴赛道的成长路径，只是时间压缩了</li>
+        <li><b>⚠ 待权威验证</b>：此数据源自行业讨论口径（何斌口述"三年前超过了婴幼儿用品"），具体统计来源待补（艾瑞/白皮书/国家统计局均未直接给出此对比数字）。方向性判断可信，精确数值需二次核验</li>
+      </ul>
+      <div class="callout view"><b>意义：</b>如果宠物赛道正在走母婴赛道的老路（2010-2020 母婴爆发期），那么前端服务连锁的窗口期可能还有 3–5 年——但前提是有人能先跑通单店模型。</div>
+    </div>
+  </section>
+
+  <!-- ③ 找命门 -->
+  <section id="s3">
+    <div class="sec-head"><div class="sec-num">3</div><h2>找命门：单店模型</h2><span class="en">Step 3 · 只盯 1–2 个</span></div>
+    <div class="card">
+      <h3>这条赛道的命门只有一个：单店模型是否正向 <span class="tag risk">命门</span></h3>
+      <p>派多格 7000 开 5000 关、新瑞鹏规模越大越亏，根子都是同一个——<strong>单店经济没跑通就上规模</strong>。决定一门宠物门店生意死活的指标就这一组：<b>坪效 / 回本周期 / 复购率 / 净利率</b>。</p>
+      <div class="callout gold"><b>铁律：</b>必须先拿到第一家店 <b>≥6 个月真实 P&L</b>（月营业额、坪效、复购率、净利率），验证可回本，<b>再谈第二家 / 再谈融资</b>。派多格、新瑞鹏都是反例——先做规模再想单店，规模越大亏越多。</div>
+      <h4>为什么"服务"是命门而非"卖货"</h4>
+      <ul class="clean">
+        <li>电商打不了"服务"——这是线下唯一不被颠覆的地盘</li>
+        <li>宠物是高频刚需，洗护一年 <b>12–24 次</b>，复购极强</li>
+        <li>但洗护客单价涨不动（中型犬 ~150 元，破 100 元就难涨）→ <strong>靠"量"（会员复购）不靠"价"</strong></li>
+        <li>会员体系是杠杆：会员年均消费比非会员 <b>高 40%</b></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 三大核心场景 -->
+  <section id="scenes">
+    <div class="sec-head"><div class="sec-num">S</div><h2>三大核心场景</h2><span class="en">宠物消费发生的三个物理空间</span></div>
+    <div class="card">
+      <p class="muted">根据一线从业者（孙海波）的实战划分，宠物消费行为集中在三个场景。理解这三个场景的流量特征和优先级，是设计门店模型的前提。</p>
+
+      <div class="grid three" style="margin-top:18px">
+        <div class="mini">
+          <h4>🏞 场景一：公园 / 社交空间</h4>
+          <span class="big">人宠社交场</span>
+          <p><b>形态：</b>城市公园、人才公园、社区广场、下沉广场周边</p>
+          <p><b>行为：</b>遛狗、宠物比赛/游玩、周末带宠出行、跳广场舞人群顺带接触</p>
+          <p><b>特点：</b>高频日常、免费流量、强社交属性、"人从社交空间"是情绪消费新业态</p>
+          <p><b>局限：</b>难以标准化变现、依赖公共资源、一线成熟度高、二三线城市尚空白</p>
+        </div>
+        <div class="mini" style="border:2px solid var(--blue)">
+          <h4>🛍️ 场景二：综合体 / 购物中心 ⭐重点</h4>
+          <span class="big">最大流量口</span>
+          <p><b>形态：</b>购物中心内零售门店（主力层或下沉广场店）</p>
+          <p><b>行为：</b>逛街顺便买玩具/食品/用品、咨询、体验区互动</p>
+          <p><b>特点：</b>流量绝对值最大、规模效益最好、每个县域都有综合体</p>
+          <p><b>优势：</b>下沉广场 = 白天门店 + 晚上广场舞人流自然引流</p>
+          <p><b>当前重心：</b>多数玩家现阶段重点布局综合体场景</p>
+        </div>
+        <div class="mini">
+          <h4>📱 场景三：线上 / App</h4>
+          <span class="big">功能性+社交</span>
+          <p><b>形态：</b>小程序/App、美团/淘宝闪购店铺、私域社群</p>
+          <p><b>行为：</b>买粮/用品（功能性）、宠主社交/分享（社交）</p>
+          <p><b>特点：</b>覆盖非到店时段、延长用户生命周期、数据沉淀</p>
+          <p><b>局限：</b>无法承载"体验"——洗护/寄养/医疗必须线下</p>
+        </div>
+      </div>
+
+      <div class="callout view" style="margin-top:18px"><b>场景优先级排序（实战结论）：</b>综合体 &gt; 公园社交 &gt; 线上。原因：综合体的流量绝对值和规模效益远超其他两个场景，且每个县域经济体都有购物中心，可复制性最强。线上是补充而非主战场。</div>
+    </div>
+
+    <div class="card">
+      <h3>联营 vs 加盟：为什么选联营 <span class="tag view">模式选择</span></h3>
+      <p>传统加盟模式的信誉已崩（派多格黑猫投诉闭店跑路潮），"现在卖加盟很难卖"。一线玩家正在转向<b>联营</b>模式：</p>
+      <table>
+        <tr><th>维度</th><th>传统加盟</th><th>联营</th></tr>
+        <tr><td>关系本质</td><td>总部卖品牌/供应链给加盟商</td><td>相互投资、利益深度绑定</td></tr>
+        <tr><td>风险分配</td><td>加盟商承担全部经营风险</td><td>双方共担风险</td></tr>
+        <tr><td>总部收益</td><td>加盟费+培训费+供应链返点（确定收入）</td><td>利润分成（与门店盈亏挂钩）</td></tr>
+        <tr><td>管控力度</td><td>弱（加盟商自生自灭）</td><td>强（帮扶计划+联合运营）</td></tr>
+        <tr><td>口碑风险</td><td>高（一家关店毁全牌）</td><td>低（总部有动力保每家店存活）</td></tr>
+        <tr><td>适合谁</td><td>想快速铺规模的总部</td><td>想做长期品牌的团队</td></tr>
+      </table>
+      <div class="callout ok"><b>联营的核心逻辑：</b>"我们也不是加盟……做联营就是相互之间的投资。"——输出品牌+供应链+培训+运营帮扶，共享利润。总部不再赚"确定的钱"（加盟费），而是跟门店一起赚"不确定但更大的钱"（经营利润）。这是从"收割者"到"合伙人"的根本转变。</div>
+    </div>
+
+    <div class="card">
+      <h3>科技延展方向：芯片 + 私域社交 <span class="tag view">未来想象空间</span></h3>
+      <p>宠物赛道的科技属性常被低估。两个已出现苗头的方向：</p>
+      <div class="grid two">
+        <div>
+          <h4>🔹 宠物芯片 / 数字身份</h4>
+          <ul class="clean">
+            <li>活体植入芯片已是成熟技术（防丢/医疗档案/身份认证）</li>
+            <li>延伸可能：芯片→App→健康数据→保险/医疗服务闭环</li>
+            <li>商业价值：将一次性交易变成持续性数据服务</li>
+            <li>现状：硬件成本低，但数据生态尚未形成</li>
+          </ul>
+        </div>
+        <div>
+          <h4>🔹 私域社交 / 新消费强链接</h4>
+          <ul class="clean">
+            <li>宠主天然有社交需求——"拿着狗狗跟同样养宠的人一起玩"</li>
+            <li>私域社群（微信群/小程序圈子）= 低成本复购放大器</li>
+            <li>参考逻辑：Keep（健身私域）→ 宠物版 Keep = 训练记录+健康追踪+社区</li>
+            <li>价值：打造"新消费的强链接"，把低频到店变成高频在线互动</li>
+          </ul>
+        </div>
+      </div>
+      <div class="callout view"><b>定位：</b>科技不是当前生存的关键（当前关键是单店模型跑通），但是未来放大估值的杠杆。融资故事里需要"科技赋能"这一章，但落地顺序一定是：先跑通单店 → 再建数字化 → 最后讲科技故事。</div>
+    </div>
+  </section>
+
+  <!-- ④ 画玩家 -->
+  <section id="s4">
+    <div class="sec-head"><div class="sec-num">4</div><h2>画玩家：正反打</h2><span class="en">Step 4 · 失败更值钱</span></div>
+    <p class="muted" style="margin-bottom:18px">成功样本教你"别人怎么活"，失败样本教你"死穴在哪、别踩"。本赛道最该研究的是失败方。</p>
+
+    <h3 style="margin:8px 0 14px">🔴 失败样本（死亡教科书）</h3>
+    <div class="grid three">
+      <div class="player fail">
+        <h4>派多格</h4><div class="role">加盟连锁 · 反面最大教材</div>
+        <ul>
+          <li>累计 <b>7000+</b> 店，在营 <b>2000+</b>（关店率 &gt;70%）</li>
+          <li>新店平均寿命 <b>100 天</b></li>
+          <li>总部赚培训费(132万/校区)+供应链返点(零售利润90%归总部)</li>
+          <li>三层死因：收割加盟商 / 标准化走形式 / 押错社区小店模型</li>
+        </ul>
+      </div>
+      <div class="player fail">
+        <h4>新瑞鹏</h4><div class="role">宠物医疗连锁 · 规模负效应</div>
+        <ul>
+          <li>3 年亏 <b>37 亿</b>，毛利从 37% 崩到 <b>5%</b></li>
+          <li>人工+租金占成本 <b>72%</b></li>
+          <li>并购 1600+ 医院，买来壳、留不住人（兽医）</li>
+          <li>已撤回 IPO</li>
+        </ul>
+      </div>
+      <div class="player fail">
+        <h4>派特鲜生</h4><div class="role">综合体大店 · 资本也救不了</div>
+        <ul>
+          <li>盒马侯毅操盘，200㎡，2025/2 开业</li>
+          <li>首店开业仅 <b>9 个月全关</b>（18 家全关）</li>
+          <li>转线上"宠天天"</li>
+          <li>刚拿 2500 万美元天使轮打水漂</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- A股宠食六杰 -->
+    <h3 style="margin:26px 0 14px">📊 A股宠食六杰：上游的真实面貌 <span class="tag fact">上市公司数据</span></h3>
+    <div class="card">
+      <p class="muted">A股 25 家宠物相关上市公司，集中在食品/用品制造端。<b>零服务连锁上市公司</b>——因为服务连锁的利润率和标准化程度撑不起 A 股估值逻辑。以下是六家代表性宠食公司的 2025 年报核心数据：</p>
+      <table>
+        <tr><th>公司</th><th>代码</th><th>2025营收</th><th>毛利率</th><th>核心业务</th><th>关键问题</th></tr>
+        <tr><td><b>乖宝宠物</b></td><td>301498</td><td class="num">67.7亿</td><td class="num">42.5%</td><td>自有品牌(麦富迪)+代工</td><td>营销费用高企</td></tr>
+        <tr><td><b>中宠股份</b></td><td>002891</td><td class="num">52.2亿</td><td>~20%</td><td>境外ODM为主(64%出口)</td><td>境外依赖+汇率风险</td></tr>
+        <tr><td><b>佩蒂股份</b></td><td>300673</td><td>~15亿</td><td>~22%</td><td>咬胶/零食出口</td><td>单一品类风险</td></tr>
+        <tr><td><b>天元宠物</b></td><td>301335</td><td>~25亿</td><td>~17%</td><td>宠物用品/窝垫</td><td>纯代工低毛利</td></tr>
+        <tr><td><b>路斯股份</b></td><td>002696</td><td>~8亿</td><td>~15%</td><td>宠物零食烘干</td><td>规模小+竞争加剧</td></tr>
+        <tr><td><b>源飞宠物</b></td><td>001388</td><td>~10亿</td><td>~18%</td><td>宠物牵引/用品</td><td>外销主导</td></tr>
+      </table>
+      <div class="callout risk"><b>共同困境："增收不增利"</b> —— 六家销售费用合计 28亿+，原材料上涨+电商价格战双重挤压利润率。纯食品/用品赛道已经红海，上游竞争激烈。这反过来说明：<strong>前端服务连锁如果跑通模型，反而是差异化蓝海</strong>——因为所有人都在卷后端制造，没人卷前端服务。</div>
+      <div class="callout view"><b>对前端玩家的意义：</b>上市宠食公司都在找第二增长曲线（向下延伸做渠道/品牌），但它们做不了服务（基因不同）。前端服务连锁如果能做出品牌，反而可能成为这些公司未来的并购标的——前提是你先证明自己活得下来。</div>
+    </div>
+
+    <h3 style="margin:26px 0 14px">🟢 成功 / 存活样本（四条活路）</h3>
+    <div class="grid two">
+      <div class="player win">
+        <h4>宠物家</h4><div class="role">直营 + 洗护垂直 + SOP</div>
+        <ul>
+          <li>近 40 家直营、200+ 美容师、洗护 110 万+ 次</li>
+          <li>会员复购率 <b>62%</b>，会员年均消费 <b>+40%</b></li>
+          <li>慢但稳，资本认可（16 家店融近亿）</li>
+        </ul>
+      </div>
+      <div class="player win">
+        <h4>瑞派</h4><div class="role">医疗连锁 · 稳健对照</div>
+        <ul>
+          <li>548 家医院、70 城，2025H1 首次盈利</li>
+          <li>估值 <b>73 亿</b>（港股 IPO 进行中）</li>
+          <li>同样受兽医缺口 10 万+ 制约</li>
+        </ul>
+      </div>
+      <div class="player win">
+        <h4>小佩 PETKIT</h4><div class="role">智能硬件高端切入</div>
+        <ul>
+          <li>不走门店连锁，主攻智能硬件</li>
+          <li>城市中产差异化，科技+精致避价格战</li>
+          <li><b>未上市</b>（曾传筹备港股 IPO，7 轮融资近 10 亿）</li>
+        </ul>
+      </div>
+      <div class="player win">
+        <h4>圣宠 / 袖虎</h4><div class="role">强管控加盟 / 生态闭环</div>
+        <ul>
+          <li>圣宠 1300+ 加盟店 + 商务部备案 + 严培训兜质量</li>
+          <li>袖虎：繁育+门店+医疗闭环，高毛利重资产</li>
+          <li>都避开"收割加盟商"死穴</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 卡路狸模式 -->
+    <div class="card" style="margin-top:20px">
+      <h4>🆕 卡路狸新型模式（2025-2026 反例） <span class="tag ok">创新样本</span></h4>
+      <p>社区小店赛道中出现的新物种，试图破解传统社区店的死亡螺旋：</p>
+      <ul class="clean">
+        <li><b>核心差异</b>：引入即时零售（美团闪购占收入 <b>60%</b>）+ 基础洗护服务（30%）</li>
+        <li><b>月净利</b>：1–1.4 万元，净利率 18–25%</li>
+        <li><b>宣称提升</b>：比传统社区店模式高 <b>300%</b></li>
+        <li><b>逻辑</b>：线上线下协同引流，省掉纯线下的死流量期（社区店白天几乎无客流的问题被即时配送订单填补）</li>
+      </ul>
+      <div class="callout view"><b>⚠ 存疑项：</b>"比传统高300%"的对比基准不清晰（传统模式月净利本身波动极大，差的时候为负）；公开信息有限，建议拿到具体 P&L 后再下判断。但方向值得注意——<b>即时零售+线下服务的双渠协同</b>可能是社区店唯一的活路。</div>
+    </div>
+
+    <div class="card" style="margin-top:20px">
+      <h4>核心教训（派多格给赛道留下的） <span class="tag risk">铁律</span></h4>
+      <div class="callout risk"><b>"连锁不能靠收割加盟商活着，必须靠单店真正赚到钱才能活。"</b> 先规模、再想单店，结果 7000 开 5000 关。活下来的赢家（宠物家/小佩/圣宠/袖虎）没有一个是靠"卖货"或"纯加盟铺店"跑出来的。</div>
+    </div>
+  </section>
+
+  <!-- 失败公式 × 成功要素 -->
+  <section id="formulas">
+    <div class="sec-head"><div class="sec-num">F</div><h2>成败底层规律</h2><span class="en">已被反复验证的公式</span></div>
+
+    <div class="grid two">
+      <div class="card" style="border-left:6px solid var(--red)">
+        <h3>💀 失败三公式（死亡定律）</h3>
+        <div class="callout risk" style="margin:12px 0">
+          <p><b>公式一：规模快于模型 = 死亡</b></p>
+          <p class="muted">新瑞鹏、派多格的失败本质相同——单店没跑通就用资本推规模，人工/租金吃掉一切利润。速度越快，亏得越多。</p>
+        </div>
+        <div class="callout risk" style="margin:12px 0">
+          <p><b>公式二：加盟等于甩锅 = 口碑雪崩</b></p>
+          <p class="muted">用加盟换规模，加盟商服务质量无法管控。宠物行业最致命差评是"弄死了我的猫/狗"——一条社交媒体帖子就能摧毁品牌。</p>
+        </div>
+        <div class="callout risk" style="margin:12px 0">
+          <p><b>公式三：全依赖零售 = 活不过电商</b></p>
+          <p class="muted">2024 以后，以零售为主的实体门店面临美团闪购+淘宝闪购双重碾压。零售只能是工具，不能是主业。</p>
+        </div>
+      </div>
+
+      <div class="card" style="border-left:6px solid var(--green)">
+        <h3>✅ 成功五要素（从活下来的玩家提炼）</h3>
+        <div class="callout ok" style="margin:12px 0">
+          <p><b>要素一：高频服务锁定复购</b></p>
+          <p class="muted">洗护每月 1–2 次，一旦建立信任极难打断。宠物家 62% 复购率证明了这一点。服务做好 = 自带粘性 = 不烧营销。</p>
+        </div>
+        <div class="callout ok" style="margin:12px 0">
+          <p><b>要素二：会员体系是杠杆</b></p>
+          <p class="muted">有会员订阅的门店年客单价比无会员的高 40%。年卡/月卡解决现金流 + 锁定场景消费。</p>
+        </div>
+        <div class="callout ok" style="margin:12px 0">
+          <p><b>要素三：选址决定生死</b></p>
+          <p class="muted">综合体流量 > 社区流量 > 公园流量。但综合体租金也最贵，需足够大体量覆盖成本。</p>
+        </div>
+        <div class="callout ok" style="margin:12px 0">
+          <p><b>要素四：人才是真正壁垒</b></p>
+          <p class="muted">连锁化做不起来，核心原因是美容师不够且不稳定。解决人才体系 = 解决连锁最大瓶颈。</p>
+        </div>
+        <div class="callout ok" style="margin:12px 0">
+          <p><b>要素五：县域是蓝海</b></p>
+          <p class="muted">三四线城市连锁化率更低、竞争更弱、房租更低。县域增速 34.7%，远超一线。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 按玩家打法框架 -->
+  <section id="playbook">
+    <div class="sec-head"><div class="sec-num">P</div><h2>打法框架：不同玩家的胜负手</h2><span class="en">按角色定位选路线</span></div>
+
+    <div class="grid two">
+      <div class="card">
+        <h3>🏢 玩家 A：综合体大集合店</h3>
+        <div class="callout ok"><b>关键成功要素</b></div>
+        <ul class="clean">
+          <li><b>选址</b>：TOP 级购物中心，下沉广场优先（白天门店+晚上广场舞人流）</li>
+          <li><b>业态密度</b>：设施+活动+体验三位一体，不能缺</li>
+          <li><b>服务主导</b>：洗护/寄养/体验区占收入 50%+，零售只做引流</li>
+          <li><b>会员体系</b>：入会即锁定复购</li>
+        </ul>
+        <div class="callout risk"><b>死亡红线</b></div>
+        <ul class="clean">
+          <li>营业额低于月租金 3 倍 → 迟早出局</li>
+          <li>购物中心免租/低租扶持期结束后现金流危机</li>
+          <li>没有单店数据就去融资 = 架火上烤</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>🏪 玩家 B：社区连锁 / 联营</h3>
+        <div class="callout ok"><b>可能性的正确路线</b></div>
+        <ul class="clean">
+          <li>直营 + 标准化 SOP + 自建培训体系</li>
+          <li>即时零售双渠道（美团+淘宝闪购）</li>
+          <li><b>坚决不碰纯加盟</b>（信誉已崩，派多格前车之鉴）</li>
+          <li>资金不够时走<b>联营</b>（利益绑定优于割韭菜）</li>
+        </ul>
+        <div class="callout risk"><b>死亡陷阱</b></div>
+        <ul class="clean">
+          <li>社区小店被两端夹击：综合体碾压体验 + 即时配送截走标品</li>
+          <li>不做即时零售 = 白天死流量期无解</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>👤 玩家 C：个体户 / 夫妻店</h3>
+        <div class="callout ok"><b>最优策略</b></div>
+        <ul class="clean">
+          <li>接入美团+淘宝闪购（线上引流+即时零售节点）</li>
+          <li>提升服务标准化（考正规美容师/健康管理师证书）</li>
+          <li>建私域社群（微信群+宠物圈）</li>
+          <li><b>不要盲目开第二家</b>，除非第一家净利润稳定超 3 万/月</li>
+        </ul>
+        <div class="callout view"><b>天花板</b>：个体户的天花板就是自己——赚得到钱但做不大。想突破必须转型为上述 A 或 B。</div>
+      </div>
+
+      <div class="card">
+        <h3>💰 玩家 D：资本 / 投资人</h3>
+        <div class="callout view"><b>短期判断：不适合 VC</b></div>
+        <ul class="clean">
+          <li>没有跑通的模型、没有可见上市路径、存活率 &lt;30%</li>
+          <li>100 店×月净利 1 万×20PE = 2.4 亿估值，对 VC 无吸引力</li>
+        </ul>
+        <div class="callout ok"><b>值得盯的两个窗口</b></div>
+        <ul class="clean">
+          <li><b>窗口一</b>：综合体集合店出现验证标杆（ROI&gt;20%、18 月回本）→ 并购/快速复制窗口</li>
+          <li><b>窗口二</b>：县域出现区域龙头（10 城 50 店以上稳定盈利）→ PE 支持全国化窗口</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 标杆样本拆解：三大玩家实战 -->
+  <section id="cases">
+    <div class="sec-head"><div class="sec-num">C</div><h2>标杆样本拆解：三大玩家实战</h2><span class="en">真实品牌对照 · 2026-08</span></div>
+
+    <div class="callout view">本赛道"方向对、执行难"，至今无公认成功复制样板。下面三个样本覆盖集合店/综合体的三种典型打法，是理解"资本能放大规模、放大不了盈利"的最佳教材。派特鲜生（鲜食社交，9 个月闭店）作为已退场对照，详见"失败解剖"脉络。</div>
+
+    <div class="kpis">
+      <div class="kpi"><div class="v">2000万+</div><div class="l">电力 · 年营收历史峰值（单店活）</div></div>
+      <div class="kpi"><div class="v">60+店</div><div class="l">幺社 · 覆盖 40 城（金融物种）</div></div>
+      <div class="kpi"><div class="v">1.34亿</div><div class="l">宠胖胖 · 2025 宠物营收（上市仍亏）</div></div>
+    </div>
+
+    <div class="card">
+      <h3>三种业态横向对比 <span class="tag fact">事实·截至 2026-08</span></h3>
+      <table class="data-table">
+        <thead><tr><th>样本</th><th>业态 / 打法</th><th>单店模型</th><th>规模化</th><th>资本化</th><th>状态</th></tr></thead>
+        <tbody>
+          <tr><td>电力宠物百货</td><td>服务 + 零售双轮</td><td>年营收曾超 2000 万；西岸店客单 300–400 元</td><td>单店 / 区域，未跨城复制</td><td>未融资，靠零售效率</td><td><span class="tag ok">活着·单店活</span></td></tr>
+          <tr><td>幺社宠物 YAOSHE</td><td>活体金融（宠粮月付）</td><td>月付锁 2 年消费；10 万用户</td><td>60+ 店 / 40 城</td><td>天使轮</td><td><span class="tag ok">规模化·金融物种</span></td></tr>
+          <tr><td>宠胖胖 / 大千生态</td><td>资本驱动综合体（已上市）</td><td>1000㎡ 投 300–400 万；坪效 600；月亏 20%</td><td>34 家 / 21 城，目标 100+5000</td><td>A股 603955，定增 7.17 亿</td><td><span class="tag gold">上市·单店仍亏</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 电力 -->
+    <div class="card">
+      <h3>⚡ 电力宠物百货 · 服务双轮的样本</h3>
+      <div class="callout fact"><b>一句话</b>：中国首个宠物百货商超，沪上"宠物百货天花板"，在派特鲜生等跨界玩家集体退潮时还活着、还在开。</div>
+      <h4>背景与打法</h4>
+      <p class="muted">2019-05 创立；创始人魏伟（EDC）4A 广告 / 品牌零售运营出身，节奏克制——先建设中高端宠物品牌，2023 才做"百货"新业态。门店演进：武定路首店 → 前滩 / 万象城 / C·PARK → 西岸梦中心 → 2025-06-28 迁长宁来福士 4.0「独栋电力乐园」（思卜堂古建，1000㎡ 双层，300+ 品牌，2 万+ SKU）。<b>主动从海粟 C·PARK 迁出</b>——而海粟后来派特鲜生也退了、宠物业态塌到只剩一家摄影店，证明那个场子整体没跑通，电力靠选址判断提前跳船。</p>
+      <p>空间公式 = 室内零售 + 双宠物公园（自带小院 + 600㎡ 草坪）+ 人宠餐厅。EDC「铁三角」：开店本质 = 服务 + 零售双轮，回归效率·体验·盈利能力；<b>主动避开活体 / 医疗</b>重监管雷区，放大零售供应链，统一会员系统锁粘性。最聪明一招：把"遛宠需求"从成本变资产——用免费公园引流、再用高颜值选品 / 服务转化，破解"人流 ≠ 转化"。</p>
+      <h4>关键数据</h4>
+      <ul class="clean">
+        <li>年营收曾<b>超 2000 万</b>（门店层面历史值）</li>
+        <li>西岸梦中心店客单价 <b>300–400 元</b>，周末全天大客流，与楼上酒店联动寄养</li>
+        <li>但 2000 万营收 ≠ 净利，回本周期 / 人效 / 利润均未披露</li>
+      </ul>
+      <div class="callout risk"><b>风险</b>：仍是单店 / 区域样本，全国复制模型未验证；重资产（1000㎡ 古建 + 市中心租金）；创始人强依赖；奢侈选品是情绪消费，抗周期待观察；下沉 / 外地模型无数据。</div>
+      <div class="callout view"><b>对本赛道的启示</b>：综合体店能活，前提"铁三角"缺一不可；电力证明了"遛宠人流可转化 + 避开医疗活体 + 零售老手操盘"这条路，但<b>它还没证明能复制</b>——与整个赛道"无公认成功样板"一致。</div>
+    </div>
+
+    <!-- 幺社 -->
+    <div class="card">
+      <h3>🐱 幺社宠物 YAOSHE · 活体金融的样本</h3>
+      <div class="callout fact"><b>一句话</b>：活体零售 + 金融分期 + 供应链绑定的连锁样本，用"卖猫 + 宠粮月付"把获客成本压到极低、再用 24 期合约锁住 2 年消费。</div>
+      <h4>背景与打法</h4>
+      <p class="muted">2020 年创立；主体为杭州幺社宠物科技（杜鹿网络全资控股）+ 上海幺社宠物（特许经营备案，法人陈立刚），天使轮。核心模式"无忧养宠，宠粮月付"：① 活体零售（卖猫）作获客入口；② 顾客签 2 年 24 期合约，基于<b>支付宝分段付</b>每月代扣"宠物钱包"，钱沉淀在幺社小程序商城强制买物资——把"卖猫利润"前置 + 把 2 年复购锁死；③ 自研商城 + 绑比瑞吉 / 网易天成 / 伯纳天纯 / 玫斯等粮企变现。</p>
+      <h4>关键数据</h4>
+      <ul class="clean">
+        <li><b>60+ 门店 / 40 城</b>（北上深广杭蓉长沙等），年签约额近亿元，年售猫过万只，服务用户超 10 万</li>
+        <li>自建 3 座繁育中心 + 筛选 1 万+ 宠舍；支付宝芝麻信用 550 分以上才有购买资格</li>
+        <li>售后：365 天猫瘟 / 传腹 / 犬瘟包退，730 天重疾死亡解约退余款；终身 4V1 管家</li>
+        <li>海外：新加坡 YAOSHE HUB（VivoCity，AVS 持牌品种猫领养 / 售卖）</li>
+      </ul>
+      <div class="callout risk"><b>风险</b>：月付本质 = 锁定 2 年幺社商城消费，用户高频质疑"骗钱"（官网自承每天被质疑千百次）；"星期猫"信任雷区；加盟扩张管控（派多格死因）；消费金融合规。</div>
+      <div class="callout view"><b>对本赛道的启示</b>：幺社证明"低客单获客 + 长期消费绑定"可规模化到 60+ 店——这是喵上它"联营综合体"尚未验证的路径；但它不是"体验场景"逻辑，而是"金融 + 供应链"逻辑，跨城轻复制仍未被证明。</div>
+    </div>
+
+    <!-- 宠胖胖 -->
+    <div class="card">
+      <h3>🏛 宠胖胖 / 大千生态 · 资本驱动的样本</h3>
+      <div class="callout fact"><b>一句话</b>：步步高系孵化的宠物综合体品牌，2025-03 装入 A 股大千生态，是赛道唯一已上市综合体样本，但 1.34 亿宠物营收换来 1.23 亿亏损。</div>
+      <h4>资本图谱</h4>
+      <p class="muted">段永平（OPPO/vivo 拆分者）→ 哥哥<b>段力平</b>（2025-12 接任大千生态董事长）+ 张源（步步高系元老，实控人）+ 丁燚（原 vivo 中国区总裁，任宠物业务总裁）。2024-11 苏州步步高 3.68 亿拿下大千生态控股权；2025-03 把宠胖胖注入全资子公司江苏千宠家。<b>本质是"困境资产重组 + 体系内资产嫁接"，非外部收购。</b></p>
+      <h4>业态与单店模型（华源证券专家纪要）</h4>
+      <p>超级 MALL 900–1500㎡ 直营，13 大功能区（活体 + 洗护 + 零售 + 撸猫馆 + 异宠动物园），日均停留 2.5h（传统店 0.8h）。单店投入 300–400 万（1000㎡）；坪效仅 <b>600 元/㎡</b>；进店转化 <b>5–6%</b>；<b>开业后月均亏损约 20%（40–50 万/月）</b>；营收结构以活体销售（毛利 40–50%）为核心，商品毛利低（食品不足 10%）。</p>
+      <h4>资本与财务</h4>
+      <ul class="clean">
+        <li>门店半年 26→34 家（21 城），靠 OPPO/vivo 经销商投资 80% + 公司配资 20% 驱动；目标 100 家 MALL + 5000 卫星店</li>
+        <li>定增 7.17 亿补流，<b>发行价 25.46 元 vs 市价 17 元，倒挂 48%</b>；经营现金流持续为负</li>
+        <li>2025 营收 3.64 亿（+217%），但<b>归母净利 -1.23 亿</b>；宠物业务 1.34 亿（占 36.8%）成第一大板块，销售费用 +27 倍；2026H1 预亏继续扩大</li>
+        <li>营收 &gt; 3 亿未触退市；股价 45→17 元、股东减持</li>
+      </ul>
+      <div class="callout risk"><b>风险</b>：单店未跑通（月亏 20%、坪效低、转化低）；增收不增利；资本运作痕迹重（上交所曾问询营收真实性）；活体政策风险；现金流脆弱依赖定增。</div>
+      <div class="callout view"><b>对本赛道的启示</b>：第四种物种"资本驱动综合体（已上市）"，补全"A 股零服务连锁"判断（实为借壳 / 资产注入）；证明<b>资本能放大规模，放大不了盈利能力</b>——与电力、幺社共同印证单店模型是全行业未解之题。</div>
+    </div>
+  </section>
+
+  <!-- ⑤ 算单元 -->
+  <section id="s5">
+    <div class="sec-head"><div class="sec-num">5</div><h2>算单元：门店经济学</h2><span class="en">Step 5 · 单店/单客经济</span></div>
+    <div class="card">
+      <h3>三种业态的生死账本 <span class="tag fact">事实·行业估算</span></h3>
+      <table>
+        <tr><th>指标</th><th>夫妻店/个体户</th><th>社区连锁小店</th><th>综合体集合大店</th></tr>
+        <tr><td>启动资金</td><td>5–20 万</td><td>30–80 万</td><td class="num">100–300 万</td></tr>
+        <tr><td>月净利(良好)</td><td>0.8–2 万</td><td>0.5–2 万</td><td class="num">10–20 万</td></tr>
+        <tr><td>净利率</td><td>20–40%</td><td>5–15%</td><td>10–25%(若爆满)</td></tr>
+        <tr><td>存活率</td><td><b>高</b></td><td><b>低(70%+关闭)</b></td><td>未知(太新)</td></tr>
+        <tr><td>可复制性</td><td>极差</td><td>中(模板化难)</td><td>待验证</td></tr>
+        <tr><td>资本故事价值</td><td>无</td><td>有限</td><td class="num">最强</td></tr>
+        <tr><td>适合谁</td><td>个人创业</td><td>轻资产加盟玩家</td><td>有资本背景团队</td></tr>
+      </table>
+      <div class="callout view"><b>为什么连锁化率上不去：</b>夫妻店自己干不计入人工成本、零房租、客情是护城河 → 单店很赚；一扩张雇人，成本结构立刻崩。所以国内九成是夫妻店，连锁率永远低。</div>
+    </div>
+
+    <div class="card">
+      <h3>店型光谱：没有一种店通吃</h3>
+      <div class="grid three">
+        <div class="mini"><h4>夫妻店</h4><span class="big">90%+</span><p>低房租+熟人复购；无标准、难扩张</p></div>
+        <div class="mini"><h4>社区小店 60–80㎡</h4><span class="big">派多格</span><p>贴近社区；打不过即时配送+综合体</p></div>
+        <div class="mini"><h4>综合体大店 400–1000㎡</h4><span class="big">盒马系</span><p>流量+体验；租金高、坪效压力</p></div>
+        <div class="mini"><h4>闪电仓</h4><span class="big">毛球药局</span><p>24h 即时履约；只做标品、无体验</p></div>
+        <div class="mini"><h4>医疗重资产</h4><span class="big">新瑞鹏</span><p>高毛利刚需；资质+医生缺口 10 万+</p></div>
+        <div class="mini"><h4>待验证综合体</h4><span class="big">样本待开</span><p>新店待开业；模型未验、待现场数据</p></div>
+      </div>
+      <div class="callout gold"><b>一句话：</b>每个店型吃不同的钱。派多格的错是<strong>用社区小店去吃本该被即时零售吃掉的那块标品生意</strong>。</div>
+    </div>
+
+    <div class="card">
+      <h3>夫妻店：看起来低端，其实最赚钱 <span class="tag view">被低估的物种</span></h3>
+      <div class="grid two">
+        <div>
+          <h4>典型画像</h4>
+          <ul class="clean">
+            <li>面积：60–80 平</li>
+            <li>人员：1–2 人（自己就是美容师）</li>
+            <li>位置：社区口岸</li>
+            <li>房租：极低或自有（无租金压力）</li>
+            <li>获客：邻里口碑 + 社区自然客流</li>
+          </ul>
+        </div>
+        <div>
+          <h4>经济模型</h4>
+          <ul class="clean">
+            <li>月营业额：2–5 万元</li>
+            <li>成本结构：食材/耗材 20% + 房租(极低) + 人工(自己干不计) = 综合成本率 ≈ 40–50%</li>
+            <li>月净利：<b>8000–20000 元</b></li>
+            <li>净利率：<b>20–40%</b></li>
+            <li>回本周期：6–18 个月</li>
+          </ul>
+        </div>
+      </div>
+      <h4>为什么夫妻店赚钱却做不大？</h4>
+      <ul class="clean">
+        <li><b>赚钱原因</b>：人工不计入成本（自己干）、零房租或极低、客情关系是护城河（客户跟着人不跟着品牌）、不用烧营销</li>
+        <li><b>做不大原因</b>：一扩张就要雇人 → 人进来成本结构立刻崩掉 → 从净利 40% 掉到 10%以下</li>
+        <li><b>这就是为什么国内九成是夫妻店，连锁率永远上不去</b></li>
+      </ul>
+      <div class="callout fact"><b>权威佐证：</b>艾媒咨询张毅："大城市宠物医疗和护理门店绝大多数以中小型的夫妻店形式存在，大多能实现盈利，盈利前景相当乐观。"</div>
+      <div class="callout gold"><b>对连锁玩家的启示：</b>夫妻店的存在说明"宠物店这个生意本身能赚钱"——问题出在"规模化"这件事上，而不是"宠物店"这个业态上。谁能解决"规模化之后还能保持夫妻店的成本结构"，谁就能赢。</div>
+    </div>
+  </section>
+
+  <!-- ⑥ 看外力 -->
+  <section id="s6">
+    <div class="sec-head"><div class="sec-num">6</div><h2>看外力：政策·平台·资本</h2><span class="en">Step 6 · 外部变量</span></div>
+    <div class="grid two">
+      <div class="card">
+        <h3>🏛 政策 <span class="tag fact">顺风</span></h3>
+        <ul class="clean">
+          <li>六部委方案"宠物周边"入国家级促消费文件</li>
+          <li>定性兴趣/情绪消费，获合法性背书</li>
+          <li>利于政府引导基金、综合体招商、地方补贴对接</li>
+          <li>但"严控风险"前置 → 预付费/活体监管更严</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>🛒 平台（美团 / 淘宝闪购） <span class="tag risk">降维冲击</span></h3>
+        <ul class="clean">
+          <li>美团宠物商家 <b>3 万+</b>，用品订单 <b>+40%</b>，闪电仓网点 <b>+127%</b></li>
+          <li>毛球药局无人仓：20:00 后订单占 <b>70%</b>，30–45 分钟达</li>
+          <li><b>2026 分水岭：淘宝闪购即时零售 GMV 首超美团闪购</b></li>
+          <li>标品(粮/药)被截走 → 社区小店只卖货必死</li>
+        </ul>
+        <div class="callout ok" style="margin-top:10px"><b>正确应对：</b>零售(接入平台)做流量入口+现金流；服务(洗护/寄养)做利润——分工清晰，不能混。</div>
+      </div>
+    </div>
+    <div class="card">
+      <h3>💰 资本：钱为什么不进来 <span class="tag fact">事实</span></h3>
+      <div class="kpis">
+        <div class="kpi"><div class="v">634笔</div><div class="l">2014–2025 宠物 PEVC 总投资</div></div>
+        <div class="kpi"><div class="v">29笔</div><div class="l">2024 全年（历史低点）</div></div>
+        <div class="kpi"><div class="v">12.1%</div><div class="l">服务+活体占 634 笔比例</div></div>
+      </div>
+      <ul class="clean">
+        <li><b>没有可验证的连锁复制模型</b>——投资人押连锁是赌单店跑通后几何复制，至今无"可批量复制的单店 P&L"</li>
+        <li><b>服务依赖人，是连锁天敌</b>——美容师短缺、认证体系不成熟</li>
+        <li><b>估值逻辑打不通</b>——100 店×月净利 1 万×20PE = 2.4 亿，对 VC 无吸引力；只有叠医疗(新瑞鹏路线)才撑得起估值，但那是另一个高监管赛道</li>
+      </ul>
+      <div class="callout view"><b>资本重关注的两个窗口：</b>① 出现"跑通的综合体样本"(18 月回本)→ 并购/复制窗口；② 县域出现区域龙头(10 城 50 店盈利)→ PE 介入窗口。</div>
+    </div>
+  </section>
+
+  <!-- ⑦ 建判断 -->
+  <section id="s7">
+    <div class="sec-head"><div class="sec-num">7</div><h2>建判断：赛道结论</h2><span class="en">Step 7 · 可证伪</span></div>
+    <div class="card">
+      <h3>一句话判断 <span class="tag gold">结论</span></h3>
+      <p style="font-size:21px; font-weight:800">方向对、时机稍晚、执行壁垒极高。市场真实、升级趋势不可逆、连锁化缺口是真的——但过去十年死在这的公司证明：<strong>靠资本+规模强行推连锁不可行。能活下来的，一定是先跑通单店、再用人才体系解锁复制的那一批。</strong></p>
+    </div>
+    <div class="grid two">
+      <div class="card">
+        <h4>✅ 可拍胸脯的事实</h4>
+        <ul class="clean">
+          <li>3126 亿 / 全产业链 8114 亿</li>
+          <li>连锁化率 ~22%（Top30 仅占 3.4%）</li>
+          <li>服务毛利 50–70%，前端服务仅占 6.5%</li>
+          <li>县域增速 34.7%</li>
+          <li>派多格 7000/2000、回本 18–36 月</li>
+          <li>启动 100–300 万、会员消费 +40%</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>🟠 必须标"我认为"的观点</h4>
+        <ul class="clean">
+          <li>综合体集合店 = 当前最高天花板业态（<b>但尚无公认成功样板</b>）</li>
+          <li>服务必须主业、零售只是流量工具</li>
+          <li>联营 &gt; 加盟</li>
+          <li>成功概率：自建大店 ~30% / 入成熟队 40–50% / 加盟 &lt;20%</li>
+          <li>县域比一线更好打</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 进入决策手册 -->
+  <section id="decide">
+    <div class="sec-head"><div class="sec-num">D</div><h2>赛道进入决策手册</h2><span class="en">战略→执行→战术→资金→合规→团队</span></div>
+
+    <div class="callout gold"><b>总判断：能进，但门槛比表面高得多。成功概率取决于"以什么姿势进"。</b> 机会真实（3126亿/连锁化率不足22%/综合体爆发/政策顺风），但过去十年死的比活的多，死法雷同：规模快于模型、人工吃毛利、标准化流于形式。</div>
+
+    <div class="grid two">
+      <div class="card">
+        <h3>🔵 战略层</h3>
+        <ul class="clean">
+          <li><b>综合体集合店是唯一高天花板业态</b>（但尚无公认成功样板，风险敞口未闭合）</li>
+          <li><b>服务必须为主业</b>，零售只是流量工具——想靠卖粮必死在电商</li>
+          <li><b>联营 &gt; 加盟</b>（加盟信誉已崩，派多格最大反面教材）</li>
+          <li><b>县域/下沉可能比一线更好打</b>：竞争弱、租金低、增速 34.7%</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>🟠 执行层（最易被低估的死亡地带）</h3>
+        <ul class="clean">
+          <li><b>人才是真正瓶颈，不是资金</b>：美容师短缺+高流动，一走复购崩</li>
+          <li><b>单店先跑通再扩张 = 铁律</b>（派多格/新瑞鹏反例）</li>
+          <li><b>服务标准化比想象难</b>：手艺/感知/突发处理无法靠 SaaS 替代</li>
+          <li>从第一家店建数据基建：客户流失预警、复购率、人流低谷</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>🟢 战术层</h3>
+        <ul class="clean">
+          <li><b>选址最重要</b>：日均客流≥2万、消费力中上、宠物友好、有下沉广场</li>
+          <li><b>会员体系从第一天做</b>：年卡/月卡锁复购+解决预付现金流</li>
+          <li><b>双渠道不可缺一</b>：线下做服务体验，线上(美团+淘宝)做零售引流</li>
+          <li><b>私域社群</b>是低成本复购放大器</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>🔴 资金层（最易踩坑）</h3>
+        <ul class="clean">
+          <li><b>坑1 低估启动金</b>：综合体需 150–300 万，备 1.5 倍+6 月缓冲</li>
+          <li><b>坑2 高估回本</b>：盈亏平衡要求月租 3–4 倍流水，回本 18–36 月</li>
+          <li><b>坑3 过早融资+对赌</b>：单店没跑通去融资=架火上烤，对赌扭曲每个决策</li>
+          <li><b>坑4 政府引导基金非免费钱</b>：落地/就业/退出约束，条款看清</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="grid two">
+      <div class="card">
+        <h3>⚠ 合规层（地雷不是门槛）</h3>
+        <ul class="clean">
+          <li>活体销售受《动物防疫法》监管</li>
+          <li>兽医诊疗需《动物诊疗许可证》</li>
+          <li>美容师从业资质、大型店可能涉环评</li>
+          <li>预付费卡是监管重点（六部委"严控风险"）</li>
+          <li>新瑞鹏崩塌根因之一是违规扩张——处罚记录直接黄了融资/上市</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>👥 团队层（底座）</h3>
+        <ul class="clean">
+          <li>三角结构缺一个就是短板：</li>
+          <li>· 懂服务运营（管 SOP）</li>
+          <li>· 懂流量（私域+平台）</li>
+          <li>· 懂资本（融资+财务）</li>
+          <li><b>创始团队质量权重超过任何其他因素</b></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>进入铁律 & 成功概率 <span class="tag gold">决策锚</span></h3>
+      <div class="callout risk"><b>四条件齐全才进：</b>① 可验证的首家单店 + ② 解决人才绑定方案 + ③ 18 个月以上现金储备 + ④ 愿意慢跑的耐心。缺任一个，成功概率砍半。</div>
+      <table>
+        <tr><th>进入姿势</th><th>成功概率</th><th>说明</th></tr>
+        <tr><td>从零自建大集合店</td><td class="num">~30%</td><td>投入重、验证周期长</td></tr>
+        <tr><td>入成熟队、资本+资源角</td><td class="num">40–50%</td><td>取决于对方单店模型是否成立、你对执行层控制力弱</td></tr>
+        <tr><td>走加盟路线</td><td class="num">&lt;20%</td><td>不建议碰（信誉已崩）</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <!-- 数据速查表 -->
+  <section id="data">
+    <div class="sec-head"><div class="sec-num">&</div><h2>数据速查表</h2><span class="en">全部关键数字一览</span></div>
+    <div class="card">
+      <table class="data-table">
+        <tr><td>城镇犬猫消费市场规模（2025）</td><td class="num">3126 亿元</td><td>+4.1% YoY | 2026白皮书</td></tr>
+        <tr><td>全产业链规模（2025）</td><td class="num">8114 亿元</td><td>CAGR ~8% | QYResearch</td></tr>
+        <tr><td>2028 全产业链预测</td><td class="num">1.15 万亿元</td><td>—</td></tr>
+        <tr><td>城镇犬猫数量</td><td class="num">1.26 亿只</td><td>+1.8% YoY | 2026白皮书</td></tr>
+        <tr><td>单犬年均消费</td><td class="num">3006 元</td><td>+1.5%</td></tr>
+        <tr><td>单猫年均消费</td><td class="num">2085 元</td><td>+3.2%</td></tr>
+        <tr><td>宠物服务消费占比</td><td class="num">6.5%</td><td>约 203 亿 | 2026白皮书</td></tr>
+        <tr><td>服务品类毛利率</td><td class="num">50–70%</td><td>洗护/寄养/医疗 | QYResearch</td></tr>
+        <tr><td>全国宠物门店数</td><td class="num">~10.5 万家</td><td>| QYResearch</td></tr>
+        <tr><td>连锁化率</td><td class="num">中国 ~22% / 美国 30%</td><td>Top30 仅占 3.4% | QYResearch</td></tr>
+        <tr><td>夫妻店比例</td><td class="num">约九成</td><td>| 行业估算</td></tr>
+        <tr><td>派多格新店平均存活期</td><td class="num">100 天</td><td>| 21世纪经济报道</td></tr>
+        <tr><td>派多格累计开店 / 在营</td><td class="num">7000+ / 2000+</td><td>关店率 ≈70% | 21世纪经济报道</td></tr>
+        <tr><td>派多格加盟费（现价）</td><td class="num">1.6 万 / 5年</td><td>原价 6.8万/13.8万 | 大幅降价</td></tr>
+        <tr><td>派多格培训费（单校区/年）</td><td class="num">~132 万元</td><td>总部真正利润来源</td></tr>
+        <tr><td>派多格供应链虹吸比例</td><td class="num">90%</td><td>门店零售利润流向总部</td></tr>
+        <tr><td>新瑞鹏 3 年累计净亏损</td><td class="num">37 亿元</td><td>2020-2022 | 招股书</td></tr>
+        <tr><td>新瑞鹏峰值/崩塌后毛利率</td><td class="num">27-37% → ~5%</td><td>扩张后崩塌</td></tr>
+        <tr><td>新瑞鹏人工+租金成本占比</td><td class="num">72%</td><td></td></tr>
+        <tr><td>新瑞鹏并购医院数量</td><td class="num">1600+</td><td></td></tr>
+        <tr><td>瑞派宠物医院数量</td><td class="num">548 家</td><td>70城 | 2025H1首盈</td></tr>
+        <tr><td>瑞派估值</td><td class="num">73 亿元</td><td>港股IPO进行中</td></tr>
+        <tr><td>宠物家会员复购率</td><td class="num">62%</td><td></td></tr>
+        <tr><td>会员 vs 非会员年消费溢价</td><td class="num">+40%</td><td></td></tr>
+        <tr><td>宠物家累计洗护次数</td><td class="num">110 万+ 次</td><td></td></tr>
+        <tr><td>美团宠物平台商家数</td><td class="num">3 万+</td><td></td></tr>
+        <tr><td>美团宠物用品订单增速</td><td class="num">+40% YoY</td><td></td></tr>
+        <tr><td>美团闪电仓宠物网点增速</td><td class="num">+127% YoY</td><td></td></tr>
+        <tr><td>淘宝闪购 vs 美团闪购（2026）</td><td class="num">GMV 首超</td><td>分水岭事件</td></tr>
+        <tr><td>毛球药局夜间订单占比</td><td class="num">70%</td><td>20:00后 | 30-45分钟达</td></tr>
+        <tr><td>2014-2025 宠物 PEVC 总投资</td><td class="num">634 笔</td><td></td></tr>
+        <tr><td>2024 全年 PEVC 投资笔数</td><td class="num">29 笔</td><td>历史低点</td></tr>
+        <tr><td>服务+活体投资占总比</td><td class="num">12.1%</td><td>最冷子赛道</td></tr>
+        <tr><td>县域连锁门店增速</td><td class="num">34.7% YoY</td><td>| QYResearch</td></tr>
+        <tr><td>上海购物中心宠物业态新开占比</td><td class="num">9.5%</td><td>服务类第3 | 仲量联行</td></tr>
+        <tr><td>成都宠物业态增幅</td><td class="num">+122%</td><td>0.36%→0.8% | 仲量联行</td></tr>
+        <tr><td>乖宝宠物 2025 营收 / 毛利率</td><td class="num">67.7 亿 / 42.5%</td><td>A股最高</td></tr>
+        <tr><td>中宠股份 2025 营收 / 出口占比</td><td class="num">52.2 亿 / 64%</td><td>境外依赖</td></tr>
+        <tr><td>六家宠食公司合计销售费用</td><td class="num">28 亿+</td><td>增收不增利</td></tr>
+        <tr><td>宠主选店首要标准 Top2</td><td class="num">专业服务好 63.3% / 离得近 60.2%</td><td>| 2026白皮书</td></tr>
+        <tr><td>卡路狸月净利 / 净利率</td><td class="num">1-1.4 万 / 18-25%</td><td>宣称比传统+300%</td></tr>
+        <tr><td>派特鲜生存活期</td><td class="num">9 个月</td><td>18家全关 | 2500万美元打水漂</td></tr>
+        <tr><td>综合体大店启动资金</td><td class="num">100-300 万</td><td>装修+铺货+押金</td></tr>
+        <tr><td>综合体大店回本周期</td><td class="num">18-36 月</td><td>若顺利</td></tr>
+        <tr><td>夫妻店月净利 / 净利率</td><td class="num">0.8-2 万 / 20-40%</td><td></td></tr>
+        <tr><td>宠物用品超婴幼儿用品</td><td class="num">约 2023 年前后</td><td>⚠ 方向可信，精确数待权威验证</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <!-- 待核实 + 索引 -->
+  <section id="todo">
+    <div class="sec-head"><div class="sec-num">+</div><h2>待核实 & 资料索引</h2><span class="en">闭环 · 可追溯</span></div>
+    <div class="card">
+      <h3>⚠ 待核实清单（联网恢复后补证）</h3>
+      <ul class="clean">
+        <li><b>新瑞鹏"5 年被处罚 17 次"</b> —— 现有资料仅载亏损 37 亿/毛利 5%，处罚次数待查（来源：Claude Code 分析，需外部核验）</li>
+        <li><b>综合体"日均客流≥2 万"阈值</b> —— 资料无此数字，属经验量化，待查来源</li>
+        <li><b>卡路狸模式详细 P&L</b> —— 公开信息有限，月净利"比传统高 300%"对比基准不清，建议标来源</li>
+        <li><b>"宠物用品消费 3 年前超过婴幼儿用品"精确统计</b> —— 何斌口述，方向可信，但需艾瑞/白皮书/国家统计局等权威出处交叉验证</li>
+        <li><b>上海三大综合体品牌（电力/大王/火星）实际运营数据</b> —— 仅有开业信息，无 P&L 或存活状态更新</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>📚 资料索引（参考资料文件夹）</h3>
+      <table>
+        <tr><th>文件</th><th>类型</th><th>用途</th></tr>
+        <tr><td>00_README_索引.md</td><td>索引</td><td>阅读路线 + 三层数据交叉验证</td></tr>
+        <tr><td>01_2026中国宠物行业白皮书_央视原文摘录.md</td><td>行业大盘</td><td>3126亿/结构/消费趋势</td></tr>
+        <tr><td>04_QYResearch_2026连锁宠物店行业全景洞察.md</td><td>赛道</td><td>三级梯队/单店模型/蓝海</td></tr>
+        <tr><td>05_它经济出圈_线下实体吸金_仲量联行.md</td><td>综合体</td><td>新租数据/上海案例</td></tr>
+        <tr><td>03_派多格_21经济报道转载.md</td><td>失败样本</td><td>加盟连锁系统性风险</td></tr>
+        <tr><td>06_六部委促消费实施方案_宠物周边.md</td><td>政策</td><td>宠物周边条款原文+分析</td></tr>
+        <tr><td>毕马威_2025中国宠物行业市场报告.pdf</td><td>PDF 8.1MB</td><td>KPMG 官方原始报告</td></tr>
+        <tr><td>宠物服务赛道深度分析报告_20260808.md</td><td>底稿</td><td>用户亲撰全维分析（本手册主要源）</td></tr>
+        <tr><td>宠物体验赛道_深度研究研判.md</td><td>研判</td><td>三层穿透（公司/行业/赛道）</td></tr>
+        <tr><td>other/宠物体验赛道_沟通原版摘录.md</td><td>会议</td><td>8/5 沟通逐字稿摘录（三大场景/联营/科技延展源）</td></tr>
+        <tr><td>other/2026年 8 月 5 日与孙海波及熊总权美女沟通事务_原文.docx</td><td>会议</td><td>2800 行逐字转写稿（原始素材）</td></tr>
+        <tr><td>快速认识一个行业_7步框架.png</td><td>图示</td><td>方法论一页图（浅底大字号）</td></tr>
+        <tr><td>宠物体验赛道研究手册（讨论初稿）.html</td><td>本手册</td><td>当前文件（讨论初稿 v2，14 缺口已补）</td></tr>
+      </table>
+    </div>
+
+    <footer>
+      <p><b>框架说明：</b>本手册以"7 步行业研究框架"（定边界→量盘子→找命门→画玩家→算单元→看外力→建判断）为骨架，以"资本视角 + 正反打"为纬线，整合 2026-08-08 全天讨论与 5 份研究辅助资料。</p>
+      <p style="margin-top:8px">标注系统：<span class="tag fact">事实</span> 可证伪数据 · <span class="tag view">观点</span> 判断须标"我认为" · <span class="tag risk">风险/命门</span> 进入赛道前必过 · <span class="tag ok">成功要素</span> · <span class="tag gold">铁律/结论</span>。</p>
+      <p style="margin-top:8px">本手册供内部研究使用，不构成投资建议。数据截止 2026-08-08。</p>
+    </footer>
+  </section>
+
+</div>
+</body>
+</html>

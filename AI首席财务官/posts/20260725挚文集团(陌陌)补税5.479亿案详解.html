@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>陌陌（挚文集团）5.48 亿补税案全拆解 · AI 首席财务官</title>
+<link rel="icon" type="image/png" href="../assets/brand/favicon.png">
+<style>
+:root{
+  --bg:#f7f7f4; --panel:#FFFFFF; --ink:#182631; --ink2:#2c3642; --muted:#687784;
+  --line:#ced8df; --accent:#B4654A; --brick:#B4654A; --slate:#315B6B; --wash:#eef2f3;
+  --ease:cubic-bezier(.23,1,.32,1);
+}
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  .topbar{position:sticky;top:0;z-index:20;height:74px;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:0 clamp(22px,5vw,74px);background:rgba(247,247,244,.93);border-bottom:1px solid var(--line);backdrop-filter:blur(18px)}
+  .brand{display:flex;align-items:center;gap:12px}.brand img{width:44px;height:44px;object-fit:contain}.brand strong{font:600 17px/1 "Noto Serif SC",serif;color:var(--slate);letter-spacing:.01em}
+  .back{display:inline-flex;align-items:center;gap:8px;padding:9px 0;border-bottom:1px solid var(--slate);color:var(--slate);font-size:12px;transition:.18s var(--ease)}.back:hover{color:var(--brick);border-color:var(--brick)}
+  .wrap{width:100%;max-width:1040px;margin:0 auto;padding:56px 28px 80px;}
+  body { background: var(--bg); color: var(--ink); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif; margin: 0; line-height: 1.85; font-size: 17px; -webkit-font-smoothing: antialiased; }
+  .title { font-size: 30px; font-weight: 800; letter-spacing: 0.5px; line-height: 1.3; }
+  .subtitle { font-size: 18px; color: #2c3642; margin-top: 12px; font-weight: 500; line-height: 1.5; }
+  .source { font-size: 14px; color: #687784; margin-top: 12px; border-left: 4px solid #ced8df; padding-left: 12px; line-height: 1.6; }
+  .section { margin-top: 40px; }
+  .sec-head { font-size: 22px; font-weight: 800; color: #182631; display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
+  .sec-num { background: #315B6B; color: #FFFFFF; font-size: 17px; font-weight: 800; width: 32px; height: 32px; border-radius: 9px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .card { background: #eef2f3; border-radius: 14px; padding: 22px 24px; margin-top: 14px; border: 1px solid #ced8df; }
+  .fact-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+  @media (max-width: 720px){ .fact-grid{grid-template-columns:1fr;} }
+  .fact { background: #FFFFFF; border-radius: 12px; padding: 16px 18px; border: 1px solid #ced8df; }
+  .fact .k { font-size: 14px; color: #687784; font-weight: 600; }
+  .fact .v { font-size: 22px; font-weight: 800; margin-top: 6px; color: #182631; }
+  .fact .v.amt { color: #B4654A; }
+  .fact .note { font-size: 13px; color: #687784; margin-top: 6px; font-style: italic; }
+  .timeline { margin-top: 14px; position: relative; padding-left: 52px; }
+  .timeline::before { content: ""; position: absolute; left: 19px; top: 10px; bottom: 10px; width: 3px; background: #ced8df; }
+  .tl-item { position: relative; margin-bottom: 24px; }
+  .tl-item:last-child { margin-bottom: 0; }
+  .tl-dot { position: absolute; left: -52px; top: 2px; width: 32px; height: 32px; border-radius: 50%; background: #315B6B; color: #FFFFFF; font-size: 14px; font-weight: 800; display: flex; align-items: center; justify-content: center; }
+  .tl-top { display: flex; align-items: baseline; flex-wrap: wrap; gap: 8px; }
+  .tl-phase { font-size: 17px; font-weight: 800; color: #315B6B; }
+  .tl-desc { font-size: 16px; line-height: 1.7; margin-top: 4px; color: #182631; }
+  .tl-desc .mut { color: #687784; }
+  .chain { display: flex; flex-direction: column; gap: 0; margin-top: 6px; }
+  .chain .node { border-radius: 12px; padding: 14px 18px; color: #FFFFFF; font-weight: 800; font-size: 16px; display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .chain .node small { font-weight: 600; font-size: 13px; opacity: .85; }
+  .n1 { background: #112c4f; }
+  .n2 { background: #B4654A; }
+  .n3 { background: #315B6B; }
+  .n4 { background: #8fa3b0; color: #182631; }
+  .chain .arrow { text-align: center; font-size: 14px; font-weight: 800; color: #687784; padding: 4px 0; }
+  .rule { display: flex; align-items: flex-start; gap: 14px; background: #FFFFFF; border-radius: 12px; padding: 18px 20px; margin-top: 12px; border: 1px solid #ced8df; }
+  .rule .tag { font-size: 14px; font-weight: 800; color: #FFFFFF; border-radius: 8px; padding: 6px 12px; flex-shrink: 0; white-space: nowrap; }
+  .tag-red { background: #B4654A; }
+  .tag-blue { background: #315B6B; }
+  .tag-grn { background: #3f7d5c; }
+  .rule .body { font-size: 16px; line-height: 1.7; }
+  .rule .body b { color: #182631; }
+  .trap { background: #f7eeea; border: 2px solid #B4654A; border-radius: 14px; padding: 22px 24px; margin-top: 14px; }
+  .trap .th { font-size: 19px; font-weight: 800; color: #B4654A; margin-bottom: 10px; line-height: 1.4; }
+  .trap p { font-size: 16px; line-height: 1.7; margin-top: 8px; }
+  .escape { background: #eef4f0; border: 2px solid #3f7d5c; border-radius: 14px; padding: 22px 24px; margin-top: 14px; }
+  .escape .th { font-size: 19px; font-weight: 800; color: #3f7d5c; margin-bottom: 10px; }
+  .escape p { font-size: 16px; line-height: 1.7; margin-top: 8px; }
+  .bignum { background: #FFFFFF; border: 2px solid #B4654A; border-radius: 14px; padding: 26px 24px; margin-top: 14px; text-align: center; }
+  .bignum .n { font-size: 46px; font-weight: 800; color: #B4654A; line-height: 1.2; }
+  .bignum .s { font-size: 16px; color: #687784; margin-top: 6px; }
+  .dark { background: #112c4f; color: #FFFFFF; border-radius: 14px; padding: 26px 28px; margin-top: 14px; }
+  .dark .th { font-size: 19px; font-weight: 800; margin-bottom: 12px; color: #ffd9a8; }
+  .dark p { font-size: 16px; line-height: 1.8; }
+  .dark b { color: #ffd9a8; }
+  .vs { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px; }
+  @media (max-width: 720px){ .vs{grid-template-columns:1fr;} }
+  .vs .cell { background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.18); border-radius: 12px; padding: 16px 18px; }
+  .vs .cell .h { font-weight: 800; font-size: 16px; color: #ffd9a8; margin-bottom: 6px; }
+  .vs .cell p { font-size: 15px; line-height: 1.7; }
+  .foot { margin-top: 40px; font-size: 13px; color: #687784; border-top: 1px solid #ced8df; padding-top: 16px; line-height: 1.7; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../index.html"><img src="../assets/brand/aicfo-symbol.png" alt="AI 首席财务官"><strong>AI 首席财务官</strong></a>
+  <a class="back" href="../index.html">← 返回首页</a>
+</header>
+<div class="wrap">
+
+  <div class="title">陌陌（挚文集团）5.48 亿补税案 · 全拆解</div>
+  <div class="subtitle">红筹架构"空壳红利"终结的第一颗子弹：2025.8 收到通知 → 2026.3 舆论发酵 → 2026.7.24 信托新规总攻</div>
+  <div class="source">跨境税务 · 标志性案例。数据来源：挚文集团 2025 年二季报 / 三季报、国家税务总局 2018 年第 9 号公告、《内地与香港税收安排》第 10 条、中新社 2026.7.20 报道、Withers 律所分析。</div>
+
+  <!-- 1. 时间线 -->
+  <div class="section">
+    <div class="sec-head"><span class="sec-num">1</span>时间线（从上市到补税，全程 11 年）</div>
+    <div class="card">
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-dot">1</div>
+          <div class="tl-top"><span class="tl-phase">2014.12</span></div>
+          <div class="tl-desc">陌陌登陆纳斯达克，采用经典红筹 VIE 架构（开曼 → 香港 → WFOE → 运营实体）。</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot">2</div>
+          <div class="tl-top"><span class="tl-phase">2025.8.27</span></div>
+          <div class="tl-desc">北京陌陌（WFOE）收到税务机关通知：<b>停用 5% 优惠税率</b>，改按 <b>10% 标准税率</b>代扣预提税。</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot">3</div>
+          <div class="tl-top"><span class="tl-phase">2025.9</span></div>
+          <div class="tl-desc">二季报披露，计提 <b>5.479 亿元</b>（约 7650 万美元），其中 <b>3.561 亿</b>已汇出。</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot">4</div>
+          <div class="tl-top"><span class="tl-phase">2026.3</span></div>
+          <div class="tl-desc">舆论发酵，被称为"跨境税务监管升级的标志性案例"，股价一周跌 <b>5.23%</b>。</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot">5</div>
+          <div class="tl-top"><span class="tl-phase">2026.7.20</span></div>
+          <div class="tl-desc">中新社发文，财税专家定调：此案证明<span class="mut">"形式合规"的空壳避税模式行不通</span>。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. 架构 -->
+  <div class="section">
+    <div class="sec-head"><span class="sec-num">2</span>架构与"空壳三宗罪"</div>
+    <div class="card">
+      <div class="chain">
+        <div class="node n1">开曼 Momo Inc.（纳斯达克上市主体）<small>顶层控股</small></div>
+        <div class="arrow">▼ 100% 控股</div>
+        <div class="node n2">香港 Momo Hong Kong（中间层）<small>⚠ 被否"受益所有人"</small></div>
+        <div class="arrow">▼ 100% 控股</div>
+        <div class="node n3">北京陌陌（WFOE 外商独资）<small>境内运营核心</small></div>
+        <div class="arrow">▼ 协议控制（VIE）</div>
+        <div class="node n4">境内运营实体（陌陌 / 探探）<small>产生利润</small></div>
+      </div>
+      <div class="trap">
+        <div class="th">香港壳公司为什么被认定为"导管公司"？</div>
+        <p>✕ 无实际办公场所、无本地雇员；</p>
+        <p>✕ 无独立经营决策权（单一董事，由美国母公司任命）；</p>
+        <p>✕ 收到境内股息后 <b>3 个工作日内</b>即转付开曼母公司 → <b>纯资金通道</b>。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 核心机制 -->
+  <div class="section">
+    <div class="sec-head"><span class="sec-num">3</span>核心机制：5% 优惠被取消</div>
+    <div class="escape">
+      <div class="th">✓ 想享受的优惠：5%</div>
+      <p>条件（须同时满足）：① 香港居民企业；② 持股境内企业 ≥ 25%；③ 是股息的<b>"受益所有人"</b>——依据《内地-香港税收安排》第 10 条。</p>
+    </div>
+    <div class="trap">
+      <div class="th">✕ 实际适用的税率：10%</div>
+      <p>标准预提税率：非居民企业取得中国境内股息，按《企业所得税法》缴 <b>10%</b>。香港壳因无"受益所有人"资格，5% 优惠被取消，<b>补到 10%</b>。</p>
+    </div>
+    <div class="card">
+      <div class="rule"><span class="tag tag-blue">判定依据</span><div class="body">国家税务总局公告 <b>2018 年第 9 号</b>（"受益所有人"规则），源自 OECD 反避税 <b>BEPS 行动第 6 项</b>（防止协定滥用）。核心原则——<b>"实质重于形式"</b>。负面清单：无实质经营 / 收到所得 12 个月内转付 50%+ 给第三国 / 资产人员规模与所得不匹配 / 对所得无控制权。</div></div>
+    </div>
+  </div>
+
+  <!-- 4. 算账 -->
+  <div class="section">
+    <div class="sec-head"><span class="sec-num">4</span>5.479 亿是怎么算出来的</div>
+    <div class="bignum">
+      <div class="n">5.479 亿元</div>
+      <div class="s">≈ 7650 万美元 · 注意：这是"补缴的税率差额"（5%→10% 的 5 个点），不是总税额</div>
+    </div>
+    <div class="card">
+      <div class="fact-grid" style="grid-template-columns:1fr 1fr;">
+        <div class="fact"><div class="k">已支付股息补差</div><div class="v amt">3.561 亿</div><div class="note">2024 年 + 2025 上半年已分红息，按 5%→10% 补差额；已于 2025.9 汇出 · 倒推已分红息 ≈ 71.2 亿</div></div>
+        <div class="fact"><div class="k">未分配留存收益补提</div><div class="v amt">1.918 亿</div><div class="note">截至 2025.3.31 尚未分配的利润计提预提税 · 倒推留存收益 ≈ 38.4 亿</div></div>
+      </div>
+      <div class="rule" style="margin-top:14px"><span class="tag tag-red">公式</span><div class="body">补税额 = 境内分出利润 × <b>5%（差额）</b>← 原本按 5% 交了，现在补到 10%，只补 5 个点。合计：<b>(71.2 + 38.4) 亿 × 5% ≈ 5.48 亿</b>。</div></div>
+    </div>
+  </div>
+
+  <!-- 5. 冲击 -->
+  <div class="section">
+    <div class="sec-head"><span class="sec-num">5</span>对公司的冲击</div>
+    <div class="card">
+      <div class="fact-grid">
+        <div class="fact"><div class="k">净亏</div><div class="v amt">1.39 亿</div><div class="note">2025 Q2 单季（去年同期净利 3.98 亿），公司归因 5.479 亿预提税</div></div>
+        <div class="fact"><div class="k">股价</div><div class="v amt">−5.23%</div><div class="note">2026.3.3–3.6 一周跌幅，收 6.16 美元</div></div>
+        <div class="fact"><div class="k">成本</div><div class="v amt">×2</div><div class="note">未来向境外分红，预提税永久从 5% 翻倍到 10%</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. 与信托新规关系 -->
+  <div class="section">
+    <div class="sec-head"><span class="sec-num">6</span>和"信托新规"什么关系？</div>
+    <div class="dark">
+      <div class="th">同一场反避税战争，陌陌是前哨战，新规是总攻</div>
+      <div class="vs">
+        <div class="cell"><div class="h">▶ 陌陌案（2025.8）</div><p>武器：否定香港壳"受益所有人" → 预提税 <b>5%→10%</b>（企业所得税层面）</p></div>
+        <div class="cell"><div class="h">▶ 信托新规（2026.7.24）</div><p>武器：离岸信托设立 / 存续 / 终止全链条征 <b>20% 个税</b>（个人层面）</p></div>
+      </div>
+      <p style="margin-top:14px">同根：都是<b>"实质重于形式"</b>、都是堵红筹 / VIE 避税口子。</p>
+      <p style="margin-top:10px">影响范围：所有红筹 / VIE 架构企业——<b>阿里、京东、B 站</b>等同样面临税务重估风险。<br>陌陌证明：税务局有能力、有意愿<b>穿透架构打到钱</b>；六个月后，新规把这条路彻底封死。</p>
+    </div>
+  </div>
+
+  <div class="foot">数据来源：挚文集团 2025 年二季报 / 三季报、国家税务总局 2018 年第 9 号公告、《内地与香港税收安排》第 10 条、中新社 2026.7.20 报道、Withers 律所分析。仅作财经知识科普，不构成任何投资或税务建议。</div>
+</div>
+</body>
+</html>

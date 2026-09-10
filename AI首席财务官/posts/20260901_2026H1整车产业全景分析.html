@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-page-node-id="3veTOzlb3XCUbyqRdp5D6G">
+<head data-page-node-id="xXp0U2uEGn7JpPoFLvzmjb">
+<meta charset="UTF-8" data-page-node-id="HGjnrGw1sZhx56EtjeiffK">
+<meta name="viewport" content="width=device-width, initial-scale=1" data-page-node-id="TjsMwmGSaAT1FUFnJlcDNc">
+<title>2026上半年整车产业深度分析 · 三重挤压拐点</title>
+<link rel="stylesheet" href="https://miaoda.feishu.cn/fonts/css2?family=Noto+Serif+SC:wght@600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" data-page-node-id="Hfb2i09rokC91vwn2zFHFH">
+<style>
+:root{
+  --navy:#1B3A6B; --navy2:#274C8A; --navy3:#3A5F9E;
+  --ice:#E8F4FD; --ice2:#F4F9FD;
+  --red:#C0392B; --red-soft:#FBE9E7; --red-line:#E3B4AC;
+  --green:#1F7A4D; --green-soft:#E7F3EC;
+  --gold:#B8860B; --gold-soft:#FBF3E2;
+  --ink:#16233A; --gray:#5A6B85; --line:#D4E2F0;
+  --card:#FFFFFF;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif;
+  background:var(--ice); color:var(--ink); line-height:1.7;
+  -webkit-font-smoothing:antialiased;
+}
+.serif{font-family:'Noto Serif SC',serif;}
+a{color:var(--navy2);}
+.container{max-width:1180px;margin:0 auto;padding:0 24px;}
+section{position:relative;}
+
+/* ===== 顶部导航 ===== */
+nav{
+  position:sticky;top:0;z-index:50;
+  background:rgba(232,244,253,0.92);backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line);
+}
+nav .inner{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:10px 0;}
+nav .brand{font-weight:700;color:var(--navy);font-size:15px;margin-right:12px;white-space:nowrap;}
+nav a{
+  text-decoration:none;color:var(--ink);font-size:13px;font-weight:500;
+  padding:6px 10px;border-radius:8px;white-space:nowrap;
+}
+nav a:hover{background:rgba(27,58,107,0.08);color:var(--navy);}
+
+/* ===== HERO ===== */
+.hero{
+  background:linear-gradient(150deg,#14294a 0%,var(--navy) 55%,var(--navy2) 100%);
+  color:#fff;padding:72px 0 64px;overflow:hidden;
+}
+.hero .kicker{font-size:13px;letter-spacing:3px;color:#9fc0e6;font-weight:500;margin-bottom:18px;}
+.hero h1{
+  font-size:clamp(30px,4.6vw,52px);line-height:1.2;font-weight:900;
+  max-width:760px;margin-bottom:16px;
+}
+.hero .sub{font-size:clamp(14px,1.6vw,17px);color:#c8d9ef;max-width:680px;font-weight:300;}
+.hero .meta{margin-top:26px;font-size:12.5px;color:#8fb0d8;line-height:1.9;}
+.nums{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:44px;
+}
+.num{
+  background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.14);
+  border-radius:16px;padding:22px 22px 20px;
+}
+.num .v{font-size:clamp(34px,4vw,46px);font-weight:900;color:#FFD166;line-height:1;}
+.num .v.red{color:#FF8A80;}
+.num .k{margin-top:10px;font-size:14px;color:#e6eef8;font-weight:500;}
+.num .d{margin-top:4px;font-size:12px;color:#9fc0e6;}
+
+/* ===== 章节通用 ===== */
+.chapter{padding:58px 0 30px;scroll-margin-top:60px;}
+.chapter .head{margin-bottom:26px;}
+.chapter .tag{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:12px;font-weight:700;letter-spacing:1.5px;color:var(--navy);
+  background:rgba(27,58,107,0.08);padding:5px 12px;border-radius:20px;margin-bottom:14px;
+}
+.chapter .tag.red{color:var(--red);background:var(--red-soft);}
+.chapter h2{font-size:clamp(22px,2.8vw,30px);font-weight:900;color:var(--navy);line-height:1.3;}
+.chapter .lead{font-size:15.5px;color:var(--gray);margin-top:10px;max-width:900px;}
+.chapter h3{font-size:17px;font-weight:700;color:var(--navy);margin:26px 0 10px;}
+.chapter .judge{
+  background:var(--card);border-left:4px solid var(--red);
+  padding:14px 18px;border-radius:0 12px 12px 0;margin:18px 0;font-size:15px;
+}
+.chapter .judge.green{border-left-color:var(--green);}
+.pill{
+  display:inline-block;font-size:12px;font-weight:700;color:#fff;
+  background:var(--navy);padding:3px 10px;border-radius:12px;margin-right:6px;
+}
+.pill.red{background:var(--red);} .pill.green{background:var(--green);} .pill.gold{background:var(--gold);}
+.big-num{
+  font-size:clamp(40px,6vw,66px);font-weight:900;color:var(--red);
+  font-family:'Noto Serif SC',serif;line-height:1;
+}
+.big-num.navy{color:var(--navy);}
+.big-num.green{color:var(--green);}
+
+/* ===== 表格 ===== */
+.tbl-wrap{overflow-x:auto;margin:16px 0;border-radius:12px;border:1px solid var(--line);background:var(--card);}
+table{border-collapse:collapse;width:100%;min-width:640px;font-size:13px;}
+th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--line);white-space:nowrap;}
+th{background:var(--navy);color:#fff;font-weight:600;position:sticky;top:0;}
+tbody tr:nth-child(even){background:var(--ice2);}
+tbody tr:hover{background:#eaf2fb;}
+td .neg{color:var(--red);font-weight:600;}
+td .pos{color:var(--green);font-weight:600;}
+.note{font-size:12px;color:var(--gray);margin:6px 2px 0;}
+
+/* ===== 图表 ===== */
+.chart{margin:22px 0;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;}
+.chart img{width:100%;height:auto;display:block;border-radius:8px;}
+.chart .cap{font-size:12.5px;color:var(--gray);margin-top:10px;padding-top:10px;border-top:1px dashed var(--line);}
+.chart .cap b{color:var(--navy);}
+
+/* ===== 证据列表 / 卡片 ===== */
+.evidence{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;margin:16px 0;}
+.ev{
+  background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;
+}
+.ev .t{font-weight:700;font-size:14px;color:var(--navy);}
+.ev .n{font-size:22px;font-weight:900;margin:6px 0;color:var(--ink);}
+.ev .n small{font-size:12px;color:var(--gray);font-weight:400;}
+.ev .src{font-size:11.5px;color:var(--gray);margin-top:6px;border-top:1px dashed var(--line);padding-top:6px;}
+.ev .src b{color:var(--navy);}
+.quote{
+  background:var(--ice2);border-left:3px solid var(--navy3);
+  padding:12px 16px;margin:14px 0;font-size:13.5px;color:var(--ink);border-radius:0 10px 10px 0;
+}
+.quote .who{display:block;margin-top:6px;font-size:11.5px;color:var(--gray);}
+
+/* ===== 阵营分类 ===== */
+.camps{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin:16px 0;}
+.camp{border-radius:12px;padding:16px;border:1px solid var(--line);background:var(--card);}
+.camp .tt{font-weight:700;font-size:14px;margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+.camp ul{list-style:none;}
+.camp li{font-size:13px;padding:4px 0;border-bottom:1px dashed var(--line);display:flex;gap:8px;}
+.camp li:last-child{border-bottom:none;}
+.camp li b{color:var(--navy);}
+.dot{width:8px;height:8px;border-radius:50%;display:inline-block;flex:0 0 8px;margin-top:8px;}
+
+/* ===== 结论区 ===== */
+.closing{
+  background:linear-gradient(150deg,#14294a 0%,var(--navy) 60%,var(--navy2) 100%);
+  color:#e8eef7;padding:60px 0;
+}
+.closing h2{color:#fff;font-size:clamp(22px,2.8vw,30px);font-weight:900;margin-bottom:14px;}
+.closing .lead{color:#b9cde6;margin-bottom:24px;max-width:880px;font-size:15px;}
+.signals{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;margin:20px 0;}
+.sig{background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.13);border-radius:12px;padding:16px;}
+.sig .idx{font-size:12px;color:#FFD166;font-weight:700;letter-spacing:1px;}
+.sig .txt{margin-top:8px;font-size:13.5px;color:#dce7f4;}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px;}
+@media(max-width:768px){.split{grid-template-columns:1fr;}}
+.bull,.bear{background:rgba(255,255,255,0.07);border-radius:12px;padding:18px;border:1px solid rgba(255,255,255,0.13);}
+.bull .tt{color:#7FD8A8;font-weight:700;margin-bottom:10px;}
+.bear .tt{color:#FF8A80;font-weight:700;margin-bottom:10px;}
+.bull li,.bear li{font-size:13.5px;padding:3px 0;color:#dce7f4;}
+
+/* ===== 附录 ===== */
+.appendix{padding:52px 0 72px;background:var(--ice2);}
+.appendix .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px;margin-bottom:16px;}
+.appendix h3{font-size:16px;color:var(--navy);margin-bottom:12px;font-weight:700;}
+.appendix ul{list-style:none;}
+.appendix li{font-size:13.5px;padding:5px 0;border-bottom:1px dashed var(--line);display:flex;gap:10px;}
+.appendix li:last-child{border-bottom:none;}
+.appendix li .fn{color:var(--navy);font-weight:600;flex:0 0 auto;}
+.appendix li .fd{color:var(--gray);}
+.appendix .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;}
+.footer{padding:22px 0;text-align:center;font-size:12px;color:var(--gray);border-top:1px solid var(--line);background:var(--ice);}
+
+/* ===== 数字区 ===== */
+.stat-line{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin:8px 0;}
+.stat-line .lbl{font-size:14px;color:var(--gray);}
+
+/* ===== details 折叠 ===== */
+details{
+  background:var(--card);border:1px solid var(--line);border-radius:12px;padding:0;margin:12px 0;overflow:hidden;
+}
+summary{
+  cursor:pointer;padding:14px 18px;font-weight:700;font-size:14px;color:var(--navy);
+  list-style:none;display:flex;justify-content:space-between;align-items:center;
+}
+summary::-webkit-details-marker{display:none;}
+summary::after{content:"＋";color:var(--navy3);font-weight:700;}
+details[open] summary::after{content:"－";}
+details .body{padding:0 18px 16px;font-size:13.5px;color:var(--gray);}
+</style>
+</head>
+<body data-page-node-id="ytadiE0bgNFVS0JQmuQl2j">
+
+<!-- ============ 导航 ============ -->
+<nav data-page-node-id="FCE7HFngWyeaBpTRFJ43AS">
+  <div class="container inner" data-page-node-id="0HgunpUuxQqhIcuFuxhGOl">
+    <span class="brand serif" data-page-node-id="PR0Lbbsfk3CNaebwYM57gr">整车半年报 · 2026H1</span>
+    <a href="#summary" data-page-node-id="v9hlzBECz2bKYwkdAdzAlI">执行摘要</a>
+    <a href="#table" data-page-node-id="ZNhWIkTKgn2YdEuZtDHx0Q">核心数据</a>
+    <a href="#p1" data-page-node-id="4DNkCDg4aPRUb7PQyzKj1m">十大问题</a>
+    <a href="#camps" data-page-node-id="6Qo4YgTyNcOa12Bf1M2Gv9">分化图谱</a>
+    <a href="#conclusion" data-page-node-id="lwuimchXGDHwUIBdXAZXda">结论展望</a>
+    <a href="#appendix" data-page-node-id="jCB01JoUnKIOjGBTU4q3Q5">数据底稿</a>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero" data-page-node-id="J5o0lnmCeDT9j2lMc5nJat">
+  <div class="container" data-page-node-id="E5pKhL31Hu1gAYpXeCtVEV">
+    <div class="kicker" data-page-node-id="CeZC9P5SMUJEaEnxYW4trR">全量精读 19 家整车上市公司 2026 半年报 / 中期报告 / 10-Q</div>
+    <h1 class="serif" data-page-node-id="Q2uynsDwBmq2Oi5F3Ra2wJ">2026 上半年整车产业深度分析<br data-page-node-id="O4Tbl77kYzCCsHS6h0bXFR">系统性危机与结构性分化</h1>
+    <p class="sub" data-page-node-id="gCZ7iVuC3166Xqhi8AEUWz">这不是普通周期下行，而是电动化转型下半场 + 政策退坡 + 全球贸易摩擦叠加的"三重挤压"拐点。需求端、利润端、资金端同时施压，谁在赚钱、谁在亏损、谁在压供应商账期——用 19 份半年报的原始数据说话。</p>
+    <div class="meta" data-page-node-id="NM4H2CDp5DRCAFe4f42FaY">分析范围：上汽 / 广汽 / 长安 / 北汽蓝谷 / 比亚迪 / 赛力斯 / 长城 / 江淮 / 江铃 / 北京汽车 / 吉利 / 奇瑞 / 零跑 / 小鹏 / 理想 / 特斯拉 / 小米 / 岚图 / 蔚来<br data-page-node-id="WPEVy2dhF9uV91GTvzFXVC">提取方式：PyMuPDF 逐页全文提取 · 超 200 万字符 · 每个结论标注出处与核验状态</div>
+    <div class="nums" data-page-node-id="DuIC7B7pMFuRUoZDznV4OB">
+      <div class="num" data-page-node-id="8ratQYoHTMH5H0heAXYVKv"><div class="v red" data-page-node-id="ndaBJMy6jVjUMxBDxXVEtl">-24.3%</div><div class="k" data-page-node-id="zfyg5czIE66xLgl6nlcuQ9">国内乘用车零售量崩塌式下滑</div><div class="d" data-page-node-id="tsmeX2Oy0etdZAtPimMW8n">比亚迪国内 -30.7% · 奇瑞国内 -41.7%</div></div>
+      <div class="num" data-page-node-id="rOIEaVj9vCTYLuEaKbT3Ca"><div class="v" data-page-node-id="9Nq75myxYnhW0XJGBn1MpW">仅 3 家</div><div class="k" data-page-node-id="PGMEhSx0xp8DoREjSzFNke">19 家中归母净利正增长</div><div class="d" data-page-node-id="pqqlf3XqXpfECxbJpTzhHU">零跑 · 江铃 · 特斯拉；4 家由盈转亏（蔚来为亏损大幅收窄，仍为负，不计入）</div></div>
+      <div class="num" data-page-node-id="GgjK5g59vg3KEYt7bcQX0s"><div class="v red" data-page-node-id="mOYVqbFr0LFGp36tOc0S4F">超 320 亿</div><div class="k" data-page-node-id="mfBtpgNQwKsWjg70UR0fly">三家公司经营现金流合计净流出</div><div class="d" data-page-node-id="WClZ1MSCVQCWNMCVci6aGt">赛力斯 / 小鹏 / 北京汽车</div></div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ 执行摘要 ============ -->
+<section id="summary" class="chapter" data-page-node-id="ss1RpQ6qI4OMIQv7F7kicv">
+  <div class="container" data-page-node-id="UfHGQC44NbTjbKRPUGJ1Xr">
+    <div class="head" data-page-node-id="6Ec2PV6ajyQC3DMmRIa4Ic">
+      <span class="tag" data-page-node-id="CxVJFf9TjvwodkslSlWAH0">EXECUTIVE SUMMARY</span>
+      <h2 data-page-node-id="VF7W7fsGBKJWlwPT8ZbCtS">三个数字看懂 2026H1 整车产业</h2>
+    </div>
+
+    <div class="judge" data-page-node-id="ONOnERE69rsw9RIBbeX1TF">核心判断：2026H1 是整车产业的"三重挤压"拐点——<b data-page-node-id="B1zJPcp9kPxccsf33Y6uY9">需求端（国内 -24.3%）、利润端（价格战绞杀）、资金端（现金流反噬）</b>同时施压，而非正常周期波动。</div>
+
+    <div class="evidence" data-page-node-id="Qj0xTqGZ3c0h6X8SOjFwYI">
+      <div class="ev" data-page-node-id="agTWcgSRLG70VQ05cdswq9">
+        <div class="t" data-page-node-id="tkMrdpt7Fp8e2QAgrfC1fg">数字一 · 国内市场崩塌</div>
+        <div class="n" data-page-node-id="k3H3odsloeplLZ8X7j0UdT">-24.3%<small data-page-node-id="QHaGyhPBMW53HrAeeLieXf"> 零售量同比</small></div>
+        <div data-page-node-id="X9IroZRNqkh8p284ceuEq0">以旧换新边际递减 + 新能源购置税退坡 + 价格战透支需求三重叠加。19 家中国内收入下滑超 12 家：比亚迪国内 -30.7%、奇瑞国内 -41.7%、长安中国区 -27.7%。<b data-page-node-id="pztGjVe6nmJCOGOfA5cg6L">没有出口对冲的公司，收入直接两位数下滑。</b></div>
+      </div>
+      <div class="ev" data-page-node-id="BtcRVDTKSdCmPRzFO0Qz9r">
+        <div class="t" data-page-node-id="k4SQbMJSVnjkE6wSSvsvLi">数字二 · 盈利近乎全员熄火</div>
+        <div class="n" data-page-node-id="29LYGbPG13byrWcDqeX5oN">仅 3 家<small data-page-node-id="KlBLf8F3TVxcphU2ueXEo4"> 净利正增长</small></div>
+        <div data-page-node-id="DCuaqABoc7u1k6KncABey3">零跑（+530% 低基数）、江铃（+0.8%）、特斯拉（+0.6%）。<b data-page-node-id="neW6vtAIGrhrBJ2X4sUb3T">4 家由盈转亏</b>（理想 +17.43→-39.94、北京汽车 +3.60→-15.94、赛力斯 +29.41→-17.17、岚图 +4.64→-3.89），另有广汽、小鹏 2 家亏损扩大，其余全部下滑。长城营收 +10.6% 但净利 -61.1%——<b data-page-node-id="DXVDGs5msnWWyV05tPEFdr">"增收不增利"成行业病。</b></div>
+      </div>
+      <div class="ev" data-page-node-id="jNukvgJBK0oVQuTe9izJ70">
+        <div class="t" data-page-node-id="PTlkGPpoBkv8TI03iq6407">数字三 · 现金流静默挤压</div>
+        <div class="n" data-page-node-id="fwYdgpsjHAqScBxMAbD0FH">超 320 亿<small data-page-node-id="EPOA4GD41p1TGmDQudM4zC"> 三家合计净流出</small></div>
+        <div data-page-node-id="FqtAGXcLQ0nFBACXlyg3xD">赛力斯 +142亿→-124亿、小鹏 +76亿→-117亿、北京汽车 +20亿→-82亿。<b data-page-node-id="kYdR6oHEjHrs4eNvAORvw4">"以账期换利润"的模式开始反噬，净利润骗不了人，现金流才是试金石。</b></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 核心数据总表 ============ -->
+<section id="table" class="chapter" data-page-node-id="tBPl1Sk5VyPbUuXwiHEr5H">
+  <div class="container" data-page-node-id="nXT8Egdd3a3Rtb2f26vyp6">
+    <div class="head" data-page-node-id="KFtXfjcPFnu5xCbkKogpBL">
+      <span class="tag" data-page-node-id="JcoND9CdWGFhnf1R6109FG">CORE DATA</span>
+      <h2 data-page-node-id="dZuP6vnvIQB1w8GqZbGS0W">19 家核心数据总表</h2>
+      <p class="lead" data-page-node-id="9O1deoBiTXtWZPEIl8o7gF">单位：亿元人民币（特斯拉按 1 USD = 7.2 CNY 折算）；同比为与 2025 年同期比较。</p>
+      <p class="note" data-page-node-id="zdme78LDo0riotKe4THoan"><b data-page-node-id="0PtK175lwqDuHbkVnP8Bdd">盈亏分布：19 家中 10 家盈利、9 家亏损。</b>盈利合计约 650.05 亿——小米 141.86、比亚迪 123.25、特斯拉 114.55、吉利 90.91、奇瑞 85.67、上汽 51.52、长城 24.65、长安 8.17、江铃 7.39、零跑 2.08；亏损合计约 −191.87 亿——广汽 −44.67、理想 −39.94、小鹏 −31.21、北汽蓝谷 −19.38、赛力斯 −17.17、北京汽车 −15.94、蔚来 −12.18、江淮 −7.49、岚图 −3.89。<b data-page-node-id="WA3HtFGgMDgUKSphhlVRbG">口径警示</b>：小米为集团口径（含手机 / IoT，汽车业务仍亏损）、特斯拉按 1 USD = 7.2 CNY 折算，二者与纯整车公司不完全可比，合计值仅供量级参考，不宜解读为"行业净赚 458 亿"。</p>
+    </div>
+    <div class="tbl-wrap" data-page-node-id="WnL0Z71SPwhBzJCpCvhP35">
+      <table data-page-node-id="g2WI24AcvrMmADyELwVpAa">
+        <thead data-page-node-id="2gdrjAXHxhu37cjrvXicFf">
+          <tr data-page-node-id="CwW47WwDGOHv7e7e3ohMw5"><th data-page-node-id="pg9XsF1f6K8M93Ya49w38k">公司</th><th data-page-node-id="b0sVDzNnscZX0JvQ4yImJG">营业收入</th><th data-page-node-id="KkebzIda6IxYZZwgqTwX4j">同比</th><th data-page-node-id="qkQZ7DbBQ5z3grgdSOr90C">归母净利</th><th data-page-node-id="lh0x4ocRwMAqZwIHhENlEF">同比</th><th data-page-node-id="hJ87I853ALYfdDC53CrkA2">毛利率</th><th data-page-node-id="mIf3cbQy17xBOdt0RJpc4N">经营现金流</th><th data-page-node-id="wvG4kciRrcYnvpGAvRes0b">研发费用率</th></tr>
+        </thead>
+        <tbody data-page-node-id="nQJQqMqsZ6OivYuHO2GpYu">
+          <tr data-page-node-id="p5qLKEShFN9s7lwhLYKe3G"><td data-page-node-id="lMNlhPjrg4CnNOIUyNBKCI">比亚迪</td><td data-page-node-id="TG4TdQ9siD6Njt409cFYl4">3,448.15</td><td class="neg" data-page-node-id="Ao9FJCzI4JzsaAtUGQPFMf">-7.1%</td><td data-page-node-id="PJmXfKP9t9EdVbHMlN3VK1">123.25</td><td class="neg" data-page-node-id="uW87TNijj3LLIXNiLt8Qel">-20.5%</td><td data-page-node-id="llPats0bJfOTjlMzkRHTcY">18.85%</td><td data-page-node-id="5DNZB80d7lOtwU3KcaV4RL">+373.35</td><td data-page-node-id="3Ctmp5Rz2Ajz3pkVgMpTAU">8.37%</td></tr>
+          <tr data-page-node-id="xdCK0iH2vgxtRJMf370mUP"><td data-page-node-id="80AQTq3hrh2yETgEotRiei">特斯拉</td><td data-page-node-id="coFteS1VXcrwX7Q9qRGKdw">3,644.86</td><td class="pos" data-page-node-id="Y4NzXxqvfXPEFHjjkFTSFz">+21.0%</td><td data-page-node-id="Q5mq7Ojdut5HnHRpi6ZbvX">114.55</td><td class="pos" data-page-node-id="NiGSN96n5tUkofZ1qwgF07">+0.6%</td><td data-page-node-id="3l679KHwjv66PE4k4SWOoK">18.7%</td><td data-page-node-id="zs49xrXRUBdOxGr38FjGbo">+621.65</td><td data-page-node-id="6AcPh3gQrKzZt186gvM2ao">8.5%</td></tr>
+          <tr data-page-node-id="P1Z15daCOzJxNa5VlhIFDW"><td data-page-node-id="UAH7ApbSMrreRiX6P9V9D6">小米集团</td><td data-page-node-id="UxMdmZwFhSXm9K4R1FDEe0">2,080.63</td><td class="neg" data-page-node-id="pTTJsgLGbuUuaX6R2pEV81">-8.4%</td><td data-page-node-id="FasOZmoqTKybrpUt8Eubi5">141.86</td><td class="neg" data-page-node-id="meLGzLd1BnTdKzPR5TGzYv">-37.9%</td><td data-page-node-id="D7xhNPHM8KBmCCqXr74EDS">20.9%</td><td data-page-node-id="ChAlBaaor28e3y0QFvBncH">+20.50</td><td data-page-node-id="iV896htlEvD78FvI2j5uW6">8.7%</td></tr>
+          <tr data-page-node-id="iP57WJAL9Vsj4bFzYmWS2M"><td data-page-node-id="8bauAeUxIcWd5cFBLnGL5I">上汽集团</td><td data-page-node-id="F2aNVl0bmW8GTmwWgS7BNU">2,949.87</td><td class="pos" data-page-node-id="EiKGOQcBuz6B9ojpD24z4f">+0.2%</td><td data-page-node-id="H2g3tgCpr09l7LoarJHZPY">51.52</td><td class="neg" data-page-node-id="Mo9HFu8LMOFNC4NqSzOBoD">-14.4%</td><td data-page-node-id="Tt0twWgmkcfo7QX9MnzLaG">12.6%</td><td data-page-node-id="8q7nUEiziFVAQdEdQ19eVh">+543.03</td><td data-page-node-id="lmPFzPNS2IOgyp2GSGsH8A">2.75%</td></tr>
+          <tr data-page-node-id="nhMfhZFNp2rJSKCkX5iwQF"><td data-page-node-id="LQxzcpuZiHkH50Pj2ZjEan">吉利汽车</td><td data-page-node-id="gZA07ItwDVwiEQjdn7B0lK">1,736.00</td><td class="pos" data-page-node-id="NCfbsE7GP22qRGK3DJQCHX">+15.0%</td><td data-page-node-id="cMhyqnkQDPbJiSmHCICGSw">90.91</td><td class="neg" data-page-node-id="iY2wgP9U9Yiimq1k0agz7t">-1.8%</td><td data-page-node-id="MWVzEquxKOHMCtk2CVGEOH">17.9%</td><td data-page-node-id="A4IfCC7gfUuwYApnf1gP2F">+199.24</td><td data-page-node-id="dTS9GxkgeaRzoH0PCwieHy">5.30%</td></tr>
+          <tr data-page-node-id="TG8yEGjUCLUjg0qiF0AI2V"><td data-page-node-id="4PmjL6SKze5qA4vPXGP0ws">奇瑞汽车</td><td data-page-node-id="sPZ5pD5LdDSIdAC79siky5">1,432.80</td><td class="pos" data-page-node-id="Wl5cdk0w7WPgbIqOwZmhnl">+1.2%</td><td data-page-node-id="n2bjlSsmiLJe4FyeJG1FeN">85.67</td><td class="neg" data-page-node-id="JTtuHisBvrq05BsbR9jDs3">-11.7%</td><td data-page-node-id="3iz3BWDwxGjUnJZa0qDeQg">16.1%</td><td data-page-node-id="vyJrZICdeQIZ5cozDx56z0">+377.62</td><td data-page-node-id="aCNhYFFsqz70SJKw92OETG">4.66%</td></tr>
+          <tr data-page-node-id="ouAR7LnEy2Fu2stgZ7WXnV"><td data-page-node-id="EMFoVNwOzALx8pIDvIKlIa">长城汽车</td><td data-page-node-id="HRHJMWO553vUUtErHHHlrz">1,021.01</td><td class="pos" data-page-node-id="w1WQNnMBOfNrpV4BVVU1y2">+10.6%</td><td data-page-node-id="uRV5EzxH2jjgR5CLyTrZUU">24.65</td><td class="neg" data-page-node-id="GTSlHtbSrqr43D2GHNuJHi">-61.1%</td><td data-page-node-id="FX83OfWwTFpp6ERnUxyFhp">18.37%</td><td data-page-node-id="CqtBSlAmWkbJIMfK2bx2uS">+104.36</td><td data-page-node-id="0JIuYEEXhrbaeGXcQI0FOM">4.47%</td></tr>
+          <tr data-page-node-id="UTrCDueCVUxGEuAJI0kAaZ"><td data-page-node-id="rNMCWi1ieTlWULAKdOKWI0">长安汽车</td><td data-page-node-id="eoFBmAIgE7QUWrR2g9pHUQ">656.34</td><td class="neg" data-page-node-id="1UMpLOejh00U3Wjbu77Rmf">-9.7%</td><td data-page-node-id="UE8xr9qZ4BhYVQftGrpA1q">8.17</td><td class="neg" data-page-node-id="17tWBj0d47YZysNL3f8T5c">-64.3%</td><td data-page-node-id="fXkoWrEC1jHvX4vy3311TY">14.50%</td><td class="neg" data-page-node-id="cEw5EfqIlJ2XcAQ40Shc0q">-114.13</td><td data-page-node-id="4GpYJrHLENCsq5jrNUl0Kf">4.81%</td></tr>
+          <tr data-page-node-id="kIp4h9GlTwUipzno3dg46k"><td data-page-node-id="7hgNpBKQEk0t7ToSttt7gA">蔚来</td><td data-page-node-id="yNMxJwrxsT95C97SRZiBlS">576.70</td><td class="pos" data-page-node-id="UUaGFwpkNZcXsVESeHtwPd">+85.8%</td><td class="neg" data-page-node-id="vCeVRbcAVq3QAWnjFZNY2I">-12.18</td><td data-page-node-id="iALbfVMvvkSEly0MhC2uEo">亏损收窄89.9%</td><td data-page-node-id="l5uujcqCUFlBhIk1G3glo5">18.7%</td><td data-page-node-id="wHy4XXYLWfw9HUO479RiIy">未单列</td><td data-page-node-id="t1A8Foi3T0hbCMRIDodMeq">7.0%</td></tr>
+          <tr data-page-node-id="ZrWrA7ajzffsBywtryjIIG"><td data-page-node-id="9WeCg5Y69to1zPZeoo8doT">北京汽车</td><td data-page-node-id="9Cw4KrPeRrgIX2arJAM3TI">577.26</td><td class="neg" data-page-node-id="n6ito9ojtBTHA2TP7j5r2R">-29.9%</td><td class="neg" data-page-node-id="FUf8ldSoxsD6zG3tSdGIoo">-15.94</td><td class="neg" data-page-node-id="2leh1XJ5uXtYPDF3FEBYJJ">由盈转亏</td><td data-page-node-id="ERMwZtrKYcEt8agwtjHjNY">10.06%</td><td class="neg" data-page-node-id="DMxi6yE263t9u7koU5k16O">-82.33</td><td data-page-node-id="qT7SyIYdns2G3aZ48Y6gY8">1.96%</td></tr>
+          <tr data-page-node-id="FduQ2g4fxUZYJ0raNDHJLF"><td data-page-node-id="TgSBHLKDKeFrZl7VjLFCOF">赛力斯</td><td data-page-node-id="CTtie5O5phxZiS2H0w1joU">574.93</td><td class="neg" data-page-node-id="zyxmp5XLoXL3og0P3DIh9a">-7.9%</td><td class="neg" data-page-node-id="zKbQPTGp0QJXjp8xAYGABX">-17.17</td><td class="neg" data-page-node-id="ILo0Xf58vPqI8RDfFdzgAy">由盈转亏</td><td data-page-node-id="2l77DRjy9IzztPOLIE8KOB">23.30%</td><td class="neg" data-page-node-id="VNkNCf8i6AtoMpiUJosjPS">-123.76</td><td data-page-node-id="DYykYiawiJGg9LV3zokH15">6.49%</td></tr>
+          <tr data-page-node-id="ONEA3Uhl4f1YWby0XQoQPu"><td data-page-node-id="a4X7I0LXIHwAIZv5D3MVVD">广汽集团</td><td data-page-node-id="4GTzPFDFftHbZaQDaGh1Qg">461.21</td><td class="pos" data-page-node-id="nhIXRi9d7CzB7Ens8wlRF4">+9.4%</td><td class="neg" data-page-node-id="uccAhkTWjWhOkt4BvGBt9h">-44.67</td><td class="neg" data-page-node-id="FHefINICXyGk1dbYHrs78w">亏损扩大</td><td class="neg" data-page-node-id="GIn0elT74CbP8EPAFQU98E">-2.51%</td><td class="neg" data-page-node-id="HdAkTHoYjrh6CIx4vHisS7">-71.04</td><td data-page-node-id="owFO3j9wmILZkpQTK8ECrP">2.13%</td></tr>
+          <tr data-page-node-id="RWjGln14gr9G0nFcq4MiQG"><td data-page-node-id="E6SEnNhTUcNwq0o1Zsloz4">理想汽车</td><td data-page-node-id="KgKASD8mzW75YlgKCiKkrb">486.50</td><td class="neg" data-page-node-id="uwUYmbXH3ljtJviKCCueu6">-13.4%</td><td class="neg" data-page-node-id="VdbtdIOXjwGAfF3VNXPgc0">-39.94</td><td class="neg" data-page-node-id="EVlEvx6OWkgIEbbQnwur9k">由盈转亏</td><td data-page-node-id="lcqkL74enP17PmjcK0jXxS">9.5%</td><td class="neg" data-page-node-id="nTr34JFayEpOvC8HxErcon">-60.76</td><td data-page-node-id="XpS2Zeh8sHXYekWuubBGb2">11.30%</td></tr>
+          <tr data-page-node-id="La3u3aqbBbjSAtHqJm9hIU"><td data-page-node-id="0Lmj6E7EAwWFhu2yYnYA1L">零跑汽车</td><td data-page-node-id="VKDqi8gmFmfA437iMBHpxz">381.07</td><td class="pos" data-page-node-id="52Yxve0XdkCXCOFqJJPOJ8">+57.2%</td><td data-page-node-id="2ZyFpXwWnztg8QV2HjkvKm">2.08</td><td class="pos" data-page-node-id="GEmCGm6nPZO4fAFY2waPZm">+530%</td><td data-page-node-id="rs3rELZcZqo7CUvQAlkcfq">11.7%</td><td data-page-node-id="w6aNLP2FdcpIOdwAhJ7dpf">+21.70</td><td data-page-node-id="pmsJqlaV5vpXOMaxpcy3jN">6.08%</td></tr>
+          <tr data-page-node-id="NyComfYe9W4rr23gsXRRnA"><td data-page-node-id="cvGJ1qjRF39amJEziK0ovD">小鹏汽车</td><td data-page-node-id="6ytqaVBASQktsnuhDhbYKe">327.77</td><td class="neg" data-page-node-id="hz2h4LfhxoybP5hVIKTxAd">-3.8%</td><td class="neg" data-page-node-id="a9QjA5Z2W8cIENDJQihPwM">-31.21</td><td class="neg" data-page-node-id="IC0B5IfFXzrYFhsw47mSDW">亏损扩大173%</td><td data-page-node-id="7fDARy4bsrIL8aGJy914yM">20.6%*</td><td class="neg" data-page-node-id="JLtzCo7cbKI3AKDxCNWVFH">-117.20</td><td data-page-node-id="BToZpPfWlJb4UA7Sj3I2qG">17.76%</td></tr>
+          <tr data-page-node-id="LmdLofcw24ZbmDBBPhNJjp"><td data-page-node-id="hFbIBO4gVidjI9u3RSGVL5">江淮汽车</td><td data-page-node-id="BXhc1t8juKrI8YfaMhni56">221.30</td><td class="pos" data-page-node-id="QoYNnaELx0p3xvcYipX8WH">+14.3%</td><td class="neg" data-page-node-id="VVKr1JGBCmTQ2rctUObrKD">-7.49</td><td class="pos" data-page-node-id="7Beys8o12XOM1WKH9Brg5e">减亏</td><td data-page-node-id="nPJ4PpXv254fYsXpdlIfEl">11.14%</td><td class="neg" data-page-node-id="wObkLPK1xTUq5oYE6vGe4e">-52.88</td><td data-page-node-id="efJEVisi6Cjis5Tp6Z1loz">3.54%</td></tr>
+          <tr data-page-node-id="k7x9NAxyQEBJ6vBFbEut4Q"><td data-page-node-id="BfTf1x7VLgeW3xfIvI5AN1">江铃汽车</td><td data-page-node-id="AYvISnM0EhzHzC4adbrim4">193.62</td><td class="pos" data-page-node-id="TfpN5E2ldT0hJrW6V8DgLS">+7.0%</td><td data-page-node-id="BHlWHpptZkM4c5UlWWcWtE">7.39</td><td class="pos" data-page-node-id="mbcUdwHtGyh0DM2zM7chSG">+0.8%</td><td data-page-node-id="Uz4BFO7v8Aky9NwI86AixB">12.16%</td><td data-page-node-id="WHfRyRknXmxomVE080wp4D">+5.98</td><td data-page-node-id="mzfSr5T24mOQ3wY2TEIEct">3.40%</td></tr>
+          <tr data-page-node-id="qgWVHJ0Pjge48A5RtC8lBe"><td data-page-node-id="YiSZXvnb0t5jfoCfXSEi9m">岚图汽车</td><td data-page-node-id="Xugf43cZcsoDfPqM3z4zYC">181.59</td><td class="pos" data-page-node-id="xybaMjx1XBuwld3OKIMeYG">+42.4%</td><td class="neg" data-page-node-id="LiKviH0vC5wzC0Pi4GfoOs">-3.89</td><td class="neg" data-page-node-id="GYsU1Rdi5tuYHiE9z8CEKJ">由盈转亏</td><td data-page-node-id="5gnWleRGUJ3OpdhQW4CYhw">17.7%</td><td data-page-node-id="aqg292dAPfkqnNJvtz81HZ">+2.08</td><td data-page-node-id="KsnZ6hzdBIMxoLTCqDVnF3">5.0%</td></tr>
+          <tr data-page-node-id="m7PX3L3dm8y8hDyNyvzSAI"><td data-page-node-id="KCG9LjPF7DI5Gt51BE6juG">北汽蓝谷</td><td data-page-node-id="lx3TxFOvf6eBJmW1TUIFOx">115.97</td><td class="pos" data-page-node-id="SRKyd09uL779ezWgWBabM5">+21.9%</td><td class="neg" data-page-node-id="uISFLTAnalWEXaaSwwEdEa">-19.38</td><td class="pos" data-page-node-id="qIwk7U0rMqJGUEF6PhFAF1">减亏16%</td><td data-page-node-id="94VT6nBoKxFkgwg0w9QAWz">~4.21%</td><td class="neg" data-page-node-id="JP3qQPkGQ3FihAdZVVKXjO">-17.50</td><td data-page-node-id="HruL86ditEeKtl0mg4mC6O">9.49%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note" data-page-node-id="MSLEzAmLIBY3FLgXX4ouOw">* 小鹏 20.6% 毛利率含大众技术服务收入（71% 毛利率），汽车毛利率仅 12.1%。</p>
+    <div class="chart" data-page-node-id="vcuNd1HQdaHbFjKbqFObyf">
+      <img src="https://aka.doubaocdn.com/s/yGVm6SCTBN" alt="净利润同比增速排名" data-page-node-id="LJGjgZMwkHWxxmVL6UN6ZB">
+      <div class="cap" data-page-node-id="ZmhX8HZYQzqHOZEoApIZ30"><b data-page-node-id="y6SF8pW1uD9EdvSHyvNvbv">净利润同比增速排名</b>——19 家中仅 3 家正增长，价格战与政策退坡把利润杠杆反向放大。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 十大问题 ============ -->
+<section id="p1" class="chapter" data-page-node-id="q6mc2pWyRlvamHE4LNRqzu">
+  <div class="container" data-page-node-id="zYNu1cx0HUPW6070rvVEBO">
+    <div class="head" data-page-node-id="Gk3VCTmF0YLAxDbTNfhSr0">
+      <span class="tag red" data-page-node-id="ibBoPGQUkjaFKRhnfYMAHg">TEN STRUCTURAL PROBLEMS</span>
+      <h2 data-page-node-id="lRPDPsKDfo4SgmDG8Z7PlN">十大产业系统性问题</h2>
+      <p class="lead" data-page-node-id="ya5XLuAqktqcsmfsdvtfn3">按冲击力排序，每个结论均标注公司 + 半年报出处与核验状态。</p>
+    </div>
+
+    <!-- 问题一 -->
+    <div class="judge" data-page-node-id="a8B3T6ZKRzrRE4Xhm3EInx">
+      <span class="pill red" data-page-node-id="HZeZChTO60ofr7WMANIevH">问题 01</span> <b data-page-node-id="hkLMDf2bzasrBQNZqup9TE">国内市场崩塌式下滑——-24.3% 不是周期，是结构。</b>
+      政策退坡 + 价格战透支 + 消费信心不足三重叠加的结构性崩塌，而非正常周期性波动。
+    </div>
+    <div class="evidence" data-page-node-id="pVNgiI71FouPEJMb2dDy4p">
+      <div class="ev" data-page-node-id="BPffqSS6kMj4dfNdPY7NG9"><div class="t" data-page-node-id="ZMNFAv5U5QQ30J3I3gDXY0">比亚迪</div><div class="n" data-page-node-id="NhBhHHqHCoFNUtbCheMCye">-30.68%</div><div data-page-node-id="eq4R3FybrAmBor2orofxya">国内收入 1,635 亿，分地区收入</div><div class="src" data-page-node-id="NrhLStmYqAzpnXVH9pmSsf">出处：半年报 P28-29 【已核验】</div></div>
+      <div class="ev" data-page-node-id="uwi4dshjqaqRq9JqgBtjOK"><div class="t" data-page-node-id="YqbZcuVMQYmUyJcD7egHG5">奇瑞</div><div class="n" data-page-node-id="SEhecKOv9AIfY4ROYaIf2t">-41.7%</div><div data-page-node-id="xcqebFjOmdncKk4eE3JAFf">国内收入 443 亿，经营分部 / 地区资料</div><div class="src" data-page-node-id="gnMZUZRfEEhT6UDdOih5qI">出处：中期报告 P6 【已核验】</div></div>
+      <div class="ev" data-page-node-id="U6q8PAixNcsoQoxb1l6vdg"><div class="t" data-page-node-id="yFCiReInX6iOrPcYRJOxPZ">长安</div><div class="n" data-page-node-id="n2cGkLnzVtQhQsohMEttmk">-27.68%</div><div data-page-node-id="JnJ0ulMGfJHgM8MdnwqFNY">中国区收入 437 亿，分地区毛利率</div><div class="src" data-page-node-id="TMaTgSB5IWViBsyrvonC9z">出处：半年报 P12 【已核验】</div></div>
+      <div class="ev" data-page-node-id="vj77yQbkiLI3dAsfhgZkYG"><div class="t" data-page-node-id="Ff6gSnHa4hOujAv7OjwY7Z">长城</div><div class="n" data-page-node-id="msrOHNcZywHuj52GqQfArc">-22.53%</div><div data-page-node-id="yrxMssE987vcUIHuiFsI4l">国内销量 28.67 万辆；国内收入 458 亿（-18.8%）</div><div class="src" data-page-node-id="1OVHr2wMxKT0RyfjZgQaIF">出处：半年报 P26/28 【已核验】</div></div>
+      <div class="ev" data-page-node-id="RVyUDOlG7S0vq2b1JhEWdk"><div class="t" data-page-node-id="jnJP5Lxo9l3r8QFef0FEL5">北京汽车</div><div class="n" data-page-node-id="AMWVgSyNhIboF7XiK314uj">-34.0%</div><div data-page-node-id="aPBeqBuVn4FaS2LuqQLHsw">整车收入 522 亿，收入分析</div><div class="src" data-page-node-id="Ob6z1lX1dF21YqBuzzpzSN">出处：中期报告 P22 【已核验】</div></div>
+      <div class="ev" data-page-node-id="O7iKECjO4p7ntA2Ci7jHPZ"><div class="t" data-page-node-id="PPeeEIAJAyCt87O7f6g5ma">小鹏 / 理想</div><div class="n" data-page-node-id="lzOpsZyDNPfY461XVnZOzO">-15.8% / -7%</div><div data-page-node-id="P8NNkJTwYrbqkG6at7CVxV">小鹏交付 16.60 万辆、理想 19.35 万辆</div><div class="src" data-page-node-id="84EQd8BKDrTJO4aNVKCXTp">出处：中期报告 P1/P4 【已核验+推断】</div></div>
+    </div>
+    <div class="quote" data-page-node-id="NCV1rzC9jZdNoYIfam8jZM">"受'以旧换新'政策对市场拉动效应递减、新能源车购置税优惠政策退坡等因素影响，国内车市承压下行。"<span class="who" data-page-node-id="O1paly3CdLrqcCaZ9uuPTe">—— 上汽集团半年报 P7</span></div>
+    <div class="quote" data-page-node-id="BzaIKdJ6Z2zkSf4yGzKxhT">"置换政策边际拉动衰减 + 首购需求减弱，整车制造环节平均利润率 1.5% 近十年最低。"<span class="who" data-page-node-id="ElQSn0XM7CP3WmrHadPwzp">—— 广汽集团半年报 P25-26</span></div>
+    <p class="note" data-page-node-id="q4QEQA77aAYwMIy7CDraBD">产业含义：国内市场从"增量竞争"变为"存量厮杀"。没有出口对冲的公司（小鹏、理想、北京汽车、岚图）直接面临收入下滑；有出口的公司也只是"用海外增长掩盖国内萎缩"。</p>
+
+    <!-- 问题二 -->
+    <div class="judge" data-page-node-id="dCEpg58vLRIflzhpZTT7Bz">
+      <span class="pill red" data-page-node-id="7eDrxZlnkla58ojCj7aIAL">问题 02</span> <b data-page-node-id="nyYdCoMlamAWSKa3Ldbwu5">价格战进入深水区——毛利率全行业承压，理想暴跌 10.8pct 最惨烈。</b>
+      19 家中毛利率同比下滑超 12 家；广汽整车制造毛利率 -6.27%，卖一辆亏一辆。
+    </div>
+    <div class="tbl-wrap" data-page-node-id="iecleMEtVJI9iqvnK8qjls">
+      <table data-page-node-id="qhf0jTruZP1wMAEoDlpUI8">
+        <thead data-page-node-id="jrrnfTDa67yIuN6gzrTQmj"><tr data-page-node-id="duaPzrcmCxEaL2vtVmBl91"><th data-page-node-id="fZuFpEunFWJdcotGkWpl8Q">公司</th><th data-page-node-id="bXziTez3xpODDQqMNqZOvN">2026H1 毛利率</th><th data-page-node-id="9xpHphgdGuJzggNddBis0A">同比变化</th><th data-page-node-id="o4dG8Y4KKcVyQFv7T1oynz">核心原因</th></tr></thead>
+        <tbody data-page-node-id="kSFqFT73GdsqCbWoB8wKgd">
+          <tr data-page-node-id="LiBleXjsey0o9FF29VBD4i"><td data-page-node-id="3EHeLXptvW9JUbtfLAGLrx">理想</td><td data-page-node-id="3fcSqCWqJVOvdU7ufnAA48">9.5%（车辆 7.8%）</td><td class="neg" data-page-node-id="9LTdbBP9Tu9eIF0GQ7vvJW">-10.8pct</td><td data-page-node-id="501amRyvqhwHmJlAQHNA8o">产品组合下移 + 价格战，L6 占比提升</td></tr>
+          <tr data-page-node-id="ATeNGAlRgVXGEiFLKY8yz8"><td data-page-node-id="MUEHirzdYYpMTn1s4htrFh">赛力斯</td><td data-page-node-id="zQb0ctWQp7gdHMsAv69D6Z">23.30%</td><td class="neg" data-page-node-id="X6KCXPkQ9Lz6QyjGi3UGwH">-5.6pct</td><td data-page-node-id="v3EXhhg6NnZz0lKRahDdn9">问界降价 + 研发投入增加</td></tr>
+          <tr data-page-node-id="r1wUEelK6EJSEnatHgUXoX"><td data-page-node-id="ve44ccMnSLQBmKHBIisMo2">小米汽车</td><td data-page-node-id="5bCbCP5iuy5FYLrePbZDGh">19.6%</td><td class="neg" data-page-node-id="prz443Q643UUrD5TJnorUp">-5.3pct</td><td data-page-node-id="FmNfbsDUU2hSPUfzOkAaUH">SU7 Ultra 交付占比下降 + 核心器件涨价</td></tr>
+          <tr data-page-node-id="c0loMrTB2vAtMMc1jmbXhS"><td data-page-node-id="UM4XPXEUhAmYkppy2rG3jA">北京汽车</td><td data-page-node-id="4xT4dw8OYP5h17IjGtJaSP">10.06%</td><td class="neg" data-page-node-id="KEzjEmOLEufFZzN2BCK308">-4.41pct</td><td data-page-node-id="DWcgcBD0hPMVaBpm1weyNo">价格竞争 + 销量下降</td></tr>
+          <tr data-page-node-id="EfndvI648an00nu2iP1jFE"><td data-page-node-id="rtr8FZdJF5Czk5Fd0GkyXW">岚图</td><td data-page-node-id="6yddtYA9V210olAgYuwWj9">17.7%</td><td class="neg" data-page-node-id="O68vEsdPHq14pu5gm1G6hj">-3.7pct</td><td data-page-node-id="anNk4YLXiVHjOpP5vR21ab">碳酸锂、内存等原材料涨价</td></tr>
+          <tr data-page-node-id="hT0dX1Gi6DagG6rNRvqIFh"><td data-page-node-id="SLSvIoPh20MuBA0VGz6NGI">比亚迪</td><td data-page-node-id="NqYR6gG3SJCEsOaRCCgdbV">18.85%</td><td class="neg" data-page-node-id="ezUtT5jhRE2TkoBtXg1Rkj">-1.65pct</td><td data-page-node-id="oI6kSP1WxIBCS6GH2LaC1D">国内价格战 + 产品结构变化</td></tr>
+          <tr data-page-node-id="RhQDKZAO1JpNlIcyyzJ2Vl"><td data-page-node-id="rf3O80ObNDDVJ43QYVkWqd">广汽整车</td><td class="neg" data-page-node-id="M9kME3Nmyvg3gArlPmrJ3T">-6.27%</td><td data-page-node-id="kzNwJ0R2n2PCkKj8NNOcV3">—</td><td data-page-node-id="w3u2NNDY7haVBJc2U7deTh">主业完全不赚钱</td></tr>
+          <tr data-page-node-id="SFFJcjeBbE6PD7OdZTwYkr"><td data-page-node-id="qGPZXudnH94Q9mr2BMP7CH">特斯拉</td><td data-page-node-id="7fqsW7S59yCNpyca0eJ6Eo">18.7%</td><td class="pos" data-page-node-id="eDza6FvStC3FXLrGjS8Hmu">+1.9pct</td><td data-page-node-id="UzC8LqZABk3nEhukEtnNjg">交付增长 + 成本优化（监管积分 -49% 拖累）</td></tr>
+          <tr data-page-node-id="s9wxeGfTKSvl4wVf86C05j"><td data-page-node-id="G0kUho77NrqZoSacKKkuOW">吉利</td><td data-page-node-id="siuzbEpXCk8xjibGL96Ohw">17.9%</td><td class="pos" data-page-node-id="WBHSMAXmXPh6FWp0SGSuBm">+1.6pct</td><td data-page-node-id="htykEwMTmW7GU1l9G6E6yB">出口高毛利 + 极氪高端化</td></tr>
+          <tr data-page-node-id="BdDoe7J14CJBeC4RUAsPoe"><td data-page-node-id="sGnZYkmAfdKtwg7DpG1WAR">奇瑞</td><td data-page-node-id="EvZvJu37KivkFaduexuIQB">16.1%</td><td class="pos" data-page-node-id="FU8DypvhqhpOZUeB5w5iHs">+3.1pct</td><td data-page-node-id="NONmlNYbkaXFqvz5PIitfT">海外占比从 46% 升至 69%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note" data-page-node-id="ONld1CoPf4IjJSgRzDt3tw">关键洞察：毛利率提升的 3 家（特斯拉、吉利、奇瑞）共同特征是高毛利非核心业务 / 海外收入占比提升，而非国内汽车业务本身盈利改善。毛利率低于 10% 的公司（理想、北京汽车、北汽蓝谷 4.2%、广汽 -2.5%）已进入"卖车即亏损"危险区。</p>
+    <div class="chart" data-page-node-id="QlbOFvghpqNtbIAzwnCwse">
+      <img src="https://aka.doubaocdn.com/s/Ur8M5RparF" alt="19家毛利率排名" data-page-node-id="sXEQ7DWm6Cq82NBZFxQ6H9">
+      <div class="cap" data-page-node-id="WpJmXhlC39UBuM4xYeboff"><b data-page-node-id="knyE4bn8uqnOtYoUdbkQcG">19 家毛利率排名</b>——即使毛利率最高的赛力斯（23.3%）也同比下滑 5.6pct，没有任何品牌能在价格战中独善其身。</div>
+    </div>
+
+    <!-- 问题三 -->
+    <div class="judge" data-page-node-id="EeHRDzXopyccWd97ShCK8U">
+      <span class="pill red" data-page-node-id="H3tlOCmFmA5eh0w2D16DGJ">问题 03</span> <b data-page-node-id="oH96dzsT08BfuQ96lz93sL">增收不增利成为全行业病——19 家中仅 3 家净利润正增长。</b>
+      利润杠杆已经反转：收入端微小变化被放大为利润端剧烈波动。
+    </div>
+    <div class="evidence" data-page-node-id="Ru8erNooWWEeveUGG5xWfc">
+      <div class="ev" data-page-node-id="AmvAnzD64M6DDyrq4H0OuM"><div class="t" data-page-node-id="g8BxPF7ZANAvzWjoUJzUbf">长城汽车</div><div class="n" data-page-node-id="ystvA4ENY8vAAddLHIUUv1">+10.6% → -61.1%</div><div data-page-node-id="wVCgLnG1NePtuckaP5esiV">营收增 10%，净利润砍半还多；海外税收补贴收益收回延期 + 汇率波动</div><div class="src" data-page-node-id="BZI5oETrCkQtJcfCv5gplU">出处：半年报 【已核验】</div></div>
+      <div class="ev" data-page-node-id="PUp2Uk2j4ECfzvmMkoUB2B"><div class="t" data-page-node-id="dVHS2IUygKEB9cqlbg3xv9">岚图汽车</div><div class="n" data-page-node-id="sAsrxhXIhl51eDCU9Lp1SU">+42.4% → 转亏</div><div data-page-node-id="qUm69HW9D5z7S192q34so0">营收 182 亿暴增 42%，反而亏损 3.89 亿；三项费用率 24%，"以亏损换规模"</div><div class="src" data-page-node-id="D17jsk2zpQDdwwtIyoyEW7">出处：中期报告 【已核验】</div></div>
+      <div class="ev" data-page-node-id="3v6oxXTcxyPyDGpHHXwAEK"><div class="t" data-page-node-id="ERQ1yxlKCQqyP52qJyMeWX">长安汽车</div><div class="n" data-page-node-id="E4bCiOEG4haDB1pT0rAwcG">-9.7% → -64.3%</div><div data-page-node-id="prtE7CKUNfAGWAAuQIYptu">营收降 10%，利润降 64%，杠杆效应惊人</div><div class="src" data-page-node-id="5cI9znxv4PZWrNijPowwwk">出处：半年报 【已核验】</div></div>
+    </div>
+    <div class="chart" data-page-node-id="UKUJQNbTDP8h3PndNy6cte">
+      <img src="https://aka.doubaocdn.com/s/N7fW4v8gzK" alt="营收与净利润分化图" data-page-node-id="FVH66RH4TYyAOwAAvlk48d">
+      <div class="cap" data-page-node-id="Ox6GD15gGBMpjIUAOO8oKO"><b data-page-node-id="PqX3YgAdGwR8Ds1sg4nlzw">营收 × 净利润气泡图</b>（气泡大小 = 营收规模，绿 = 盈利，红 = 亏损）——大多数公司落在"高营收、低/负利润"区间，增收不增利是常态。</div>
+    </div>
+
+    <!-- 问题四 -->
+    <div class="judge" data-page-node-id="8uy9oLIPeAsGlyRwhDcm8R">
+      <span class="pill red" data-page-node-id="iFXwwhXTuDt4XyfRT5q0ZE">问题 04</span> <b data-page-node-id="5A7Cg9GNEcWWcuUKhW8EYl">现金流危机——赛力斯 / 小鹏 / 北京汽车合计经营现金流出超 320 亿。</b>
+      净利润可以靠非经常性损益、政府补助、会计调节美化，但经营现金流骗不了人。
+    </div>
+    <div class="tbl-wrap" data-page-node-id="LqRXujsuyfjsMF6YXiqP4V">
+      <table data-page-node-id="DsibWZNKOoqKvlXNJ2lOW1">
+        <thead data-page-node-id="H0MLhCzRKEiHvU6p1ZKyOY"><tr data-page-node-id="XOGXLlPC4Cr967wooEVtDR"><th data-page-node-id="izAah7BFJMLFbBqBYS4q30">公司</th><th data-page-node-id="IllXDm7XDBQBbT8EeEFe82">2026H1 经营现金流</th><th data-page-node-id="hNNaG3SEL3E7N5HxA64Zr8">2025H1</th><th data-page-node-id="Vsjrh3BiQWN5oUofnmROHg">变动</th></tr></thead>
+        <tbody data-page-node-id="1sgyyGPqkFOW21hrn0F5nd">
+          <tr data-page-node-id="fDsmFWqJsCGhRsdg6RInQ1"><td data-page-node-id="kQHLGUlgNwd9tQBoczNhza">赛力斯</td><td class="neg" data-page-node-id="wNG5tTYwnXSDFT3SoFmH62">-123.76 亿</td><td data-page-node-id="p62el795Phf4sXRMcuPkuY">+144.37 亿</td><td class="neg" data-page-node-id="WEIXXdCRJtaJOfUAH1YXhM">-268.13 亿</td></tr>
+          <tr data-page-node-id="lWJ3Umd4gw3Du3Zw65VmhH"><td data-page-node-id="7JFRVSPRQiiLbH4EVVatQf">小鹏</td><td class="neg" data-page-node-id="u7Sr1pRbGTTYcg1Qo4rN8D">-117.20 亿</td><td data-page-node-id="61tSAWlCpIoy2otethnEaQ">+76.40 亿</td><td class="neg" data-page-node-id="tTuzgT9oW5Cw2ZcM60FXnN">-193.6 亿</td></tr>
+          <tr data-page-node-id="pMPG9PwNtGqHa1GFYubQDr"><td data-page-node-id="nWF39XxFyAiZ10yeABaGOC">北京汽车</td><td class="neg" data-page-node-id="gnlpjCufJiSA1TTgn0uGDO">-82.33 亿</td><td data-page-node-id="tTXKqJJUr9XHcpzmFKBzZe">+19.61 亿</td><td class="neg" data-page-node-id="F1Bv9ahXzD8frIlsPs0EtS">由正转负</td></tr>
+          <tr data-page-node-id="hovDZL4la0LbJpJuEJhm03"><td data-page-node-id="Bo2lfFwKa1XHnidRiC43Yu">长安</td><td class="neg" data-page-node-id="d4SlbE2WQ8XGgtI1cNE4rc">-114.13 亿</td><td data-page-node-id="shIVlACcEGBYPjhJeXCmQD">-86.07 亿</td><td class="neg" data-page-node-id="QMBYx6tAsSft4Y2m5wNXLR">-32.6%</td></tr>
+          <tr data-page-node-id="nVwa9QvS9c29YUzCpku5zK"><td data-page-node-id="1UXlTDzHcemWyQWqpcO8NF">广汽</td><td class="neg" data-page-node-id="QL5eDix6uIzWtBr29THkhl">-71.04 亿</td><td data-page-node-id="nJM3NStVNprKYupkqlcSLD">-107.69 亿</td><td class="pos" data-page-node-id="trpTHsU7XCxvuB3DTBlp5i">少流出 34%</td></tr>
+          <tr data-page-node-id="CwHiQFrTYBuhsTVnzkYPfG"><td data-page-node-id="0yoLqKbY7FfvsgDGyHF8uA">理想</td><td class="neg" data-page-node-id="rGIpVbulsAeVqUQKS1wgiY">-60.76 亿</td><td data-page-node-id="yQZ4Z9xEJNyBCVT1PWMxsR">-47.37 亿</td><td class="neg" data-page-node-id="DuiAccvCvAgxe3NL5UknyL">持续为负</td></tr>
+          <tr data-page-node-id="wrHP7edjoCUaTb9nnkdkSp"><td data-page-node-id="t7zPmKdubOUUolIwat1As7">小米</td><td data-page-node-id="3RRlrkSmrd6cTqOzc5wzYQ">+20.50 亿</td><td data-page-node-id="nKgfwBjGAX0eD02Fi9YLh9">+280.55 亿</td><td class="neg" data-page-node-id="D38oLCCzlj1Zb2uie2Hg9h">-92.7%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="quote" data-page-node-id="pC0cZsocicBpFsuC3d1C6J">赛力斯现金流崩塌本质：应付账款从 409 亿降至 198 亿（-51.6%），对供应商付款被迫加速。<b data-page-node-id="UiUKcjZ3uFaSTVH37d6GfL">去年通过压供应商账期获得的 +142 亿现金流，今年在供应商压力下被迫回吐。</b></div>
+    <div class="quote" data-page-node-id="542Rw2r0KSD8RIbECcxwI3">小鹏现金流崩塌本质：销量 -15.8%，短期借款从 42.8 亿暴增至 100.7 亿（+135.2%），杠杆率从 41.8% 飙升至 73.2%，管理层明确提示"持续经营能力依赖外部融资"。</div>
+    <div class="chart" data-page-node-id="vtQE7h7lFQkyr2zcafDyir">
+      <img src="https://aka.doubaocdn.com/s/r1VpsOzAyZ" alt="经营现金流排名" data-page-node-id="IKMb5jOVi2wsNKC1qv6JW9">
+      <div class="cap" data-page-node-id="rGSsr4MHSrSJhoXjCRY5pS"><b data-page-node-id="HPBoQ1nc5ivvdhZCmKFq9J">经营现金流排名</b>——全行业正在经历一场静默的流动性挤压，多家从大额净流入骤变为大额净流出。</div>
+    </div>
+
+    <!-- 问题五 -->
+    <div class="judge" data-page-node-id="U7Dv5CXN1jxvAbfaApzhzL">
+      <span class="pill gold" data-page-node-id="pRu7AOZd4ze1xiVHLHDGXu">问题 05</span> <b data-page-node-id="v1QQ9i3nfnrUuTPhcAhgQx">出海成为唯一增长引擎，但"出海容易盈利难"——汇率风险全行业爆发。</b>
+      奇瑞 / 长城 / 比亚迪海外收入已超国内，但海外毛利率开始下滑，汇兑损失从"收益项"变为"损失项"。
+    </div>
+    <div class="tbl-wrap" data-page-node-id="jGeToHZ4WiuZj0baE976tw">
+      <table data-page-node-id="bAFzyjpJgmqtGL074wFzhe">
+        <thead data-page-node-id="AC5hfOz13Mzhf0QpM72EMR"><tr data-page-node-id="yDQVHzPvlUCKT3Ndj7bya7"><th data-page-node-id="ldmJAjNzGavwOxqVDD5sp1">公司</th><th data-page-node-id="KsoFcs67s9bfxDAulX9CDY">海外收入</th><th data-page-node-id="NYVz7C2wgOgT3i6MDaoBGH">同比</th><th data-page-node-id="Mms6jFz9X4xNLFwKwUJuZ3">占比</th><th data-page-node-id="AgbqT6WR3S4WuoGRRzSDoH">海外毛利率</th></tr></thead>
+        <tbody data-page-node-id="qzc02O2e3pLrscM9G8OzeY">
+          <tr data-page-node-id="PRWAS2UH7OaLKN9Ez0P7DY"><td data-page-node-id="QDzSPOuADCytcwQt4IL2Gh">奇瑞</td><td data-page-node-id="r7OwFk93rtmFIrAzKmiHuU">989.68 亿</td><td class="pos" data-page-node-id="tK7IC2cBM0C5RQl6rh1gNT">+51.0%</td><td data-page-node-id="8QdoaimLL5j6UggoFgWBCQ">69.1%</td><td data-page-node-id="uCKs9TpiBtPmi2AsVRRUZi">未单独披露</td></tr>
+          <tr data-page-node-id="aAWvmrKnZgtAJJZAjaBuzX"><td data-page-node-id="gWvF7GMwiigJHuVXKxRhAI">长城</td><td data-page-node-id="r1LzP06yGJGoKIRkyGTy09">562.88 亿</td><td class="pos" data-page-node-id="inQiftBLv8wsdMk5wWnfZX">+56.8%</td><td data-page-node-id="W7fXsVra2m6AtBGZcZ2fXn">55.1%</td><td data-page-node-id="UjDld7rzA19dHVH5eBDCm6">未单独披露</td></tr>
+          <tr data-page-node-id="sjUrkLFl6dHYoLHEa3fqOK"><td data-page-node-id="vZ50DEbGfkXlOEdjVsfz7D">比亚迪</td><td data-page-node-id="O12sqWwaWjXOB4FA87caao">1,812.68 亿</td><td class="pos" data-page-node-id="sGtcrqec6EZJ92bWSlrNrD">+33.9%</td><td data-page-node-id="2pMJBYi6W3QVDXTVGNnlqu">52.6%</td><td data-page-node-id="ZzR8IZ3jnWNaZlsDf5Waq5">21.71%</td></tr>
+          <tr data-page-node-id="vCQfgfz5AtSWW0mbqtnuOQ"><td data-page-node-id="sJUnz6McBsnF6OPNKoEVJu">长安</td><td data-page-node-id="mS7UYfwGPGObYEKdF2yN3D">219.42 亿</td><td class="pos" data-page-node-id="oo03pLENvplkjPPhFGOM3b">+78.8%</td><td data-page-node-id="iuqN2AI34QRG3pCgl6eekG">33.4%</td><td class="neg" data-page-node-id="QySnwcoU76G7g3ydF2VxGw">20.13%（-2.10pct）</td></tr>
+          <tr data-page-node-id="7RYWRCH0Cj2dCdLXUO9ozw"><td data-page-node-id="E0EkxDYmJnqPq9RtrL7mbo">广汽</td><td data-page-node-id="9x2i8kiPqkPZiAygcfVVaN">140.13 亿</td><td class="pos" data-page-node-id="BXofRmkyGLGXd4ElEF1Y9E">+109.3%</td><td data-page-node-id="NAQXm7ucWwBx60XPPeuoCN">30.1%</td><td class="neg" data-page-node-id="HCcMnWc5i266b4GInu4pla">6.23%（以量补价）</td></tr>
+          <tr data-page-node-id="Dgnklls8HKy6jfB99YnViH"><td data-page-node-id="bt8gUOmGQ4EsE9rxS2Kolt">零跑</td><td data-page-node-id="AHT3bjK43Bv148Mu1UU5JA">出口 9.63 万辆</td><td class="pos" data-page-node-id="KswdCcfL5gMOKNY2j991tl">+372.6%</td><td data-page-node-id="mALaY13xtkaKmJUBJTNM0z">27.0%</td><td data-page-node-id="9VleSgGVoUeFBlsxLU3fKU">未披露</td></tr>
+          <tr data-page-node-id="KWhEi2DVPKZ1ktPLsIcCAw"><td data-page-node-id="OWA8CvxDJFSDLJqKbTyFQp">小米</td><td data-page-node-id="LsrbhtZx6E8v00RpSmMvNH">788.24 亿</td><td class="pos" data-page-node-id="RLJKbACO8xRWB3HEkHbzFO">+5.2%</td><td data-page-node-id="rYofnMAmtxHuPSML3eb9SU">37.9%</td><td data-page-node-id="mijel8zKcM9bJLs212AEX5">未单独披露</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="evidence" data-page-node-id="24UTVCcrp8NC3FbcSfKQQ0">
+      <div class="ev" data-page-node-id="30JHzz61d10NC7pT329W06"><div class="t" data-page-node-id="RQzmnsHa5bAgEREFmMOLnx">奇瑞</div><div class="n" data-page-node-id="NLx78Moq97RqKjKoQ7oMdl">差额 54.9 亿</div><div data-page-node-id="csGxqsMksngi0fbKJ4SKXr">外汇由 +33.98 亿收益转为 -20.92 亿亏损</div><div class="src" data-page-node-id="xGibDJv7kTt4h9jsPlNOBf">出处：中期报告 【已核验】</div></div>
+      <div class="ev" data-page-node-id="DK4QFBbp2B76nTvXZvkhjH"><div class="t" data-page-node-id="LvWvOSlGnWdjPhCO1P54Qm">上汽</div><div class="n" data-page-node-id="ARN6g2IlFelzG04dpmyChb">恶化 45 亿</div><div data-page-node-id="zCS1KPJSfSkxdGrA0pxFSm">财务费用由净收益 -17.83 亿转为汇兑损失 +27.46 亿</div><div class="src" data-page-node-id="1gmpB25UicthDsCkv3XOzT">出处：半年报 【已核验】</div></div>
+      <div class="ev" data-page-node-id="3qtknKytONg5DAV0ZBbI7z"><div class="t" data-page-node-id="l1PxZUj5AvEXijrBiIiNZK">特斯拉</div><div class="n" data-page-node-id="BK1dAn2KpHgLSfR0vxp7oC">恶化 10 倍+</div><div data-page-node-id="9fQQeEkwERnWLaW5hohtl2">外汇未实现损失 $5.99 亿（去年同期 $0.54 亿）</div><div class="src" data-page-node-id="SacGByXdEJ7kXNzY52FPNm">出处：10-Q 【已核验】</div></div>
+    </div>
+    <div class="chart" data-page-node-id="ZdZJDMQYUT15YX1lWLGB8E">
+      <img src="https://aka.doubaocdn.com/s/iMxIvoLiIl" alt="国内海外收入结构" data-page-node-id="jYb1kxGGkBRSPEWnI5KqAE">
+      <div class="cap" data-page-node-id="tVdo84V5ITFA1OSMUc38mw"><b data-page-node-id="dfoMVmvNQPbmg7kRtFORKD">国内 vs 海外收入结构</b>——头部三家海外收入已超国内；当国内市场萎缩、海外市场也开始"增收不增利"，全行业增长逻辑面临根本挑战。</div>
+    </div>
+
+    <!-- 问题六 -->
+    <div class="judge" data-page-node-id="t4BierJgTBKiewBxXQ4lmH">
+      <span class="pill red" data-page-node-id="I2DX1ubGWAiGFAQEd0ZqmI">问题 06</span> <b data-page-node-id="A45nxbcqIt7wZFzRDhKmeG">供应链账期系统性拉长——15/19 家 DPO 超 144 天，应付票据暴增成行业趋势。</b>
+      零跑 255.3 天、赛力斯 239.7 天、蔚来 235.0 天、奇瑞 221.1 天；供应商平均要等近 5 个月才能拿到货款。
+    </div>
+    <div class="tbl-wrap" data-page-node-id="ON5eUFVzdgb3mPXGdcNuDh">
+      <table data-page-node-id="rFDB9ht9CcvBSdpToWM6mx">
+        <thead data-page-node-id="O1uUH1BfUZRDMMRkJThsKU"><tr data-page-node-id="h39MrJm2pFcLpqCAYvS5A8"><th data-page-node-id="xV76BDxQ9g5M4amJAcZuee">公司</th><th data-page-node-id="Scq42yoEdU6ndV9VlJDxxI">应付票据期末</th><th data-page-node-id="Eyj6ZN2VyMjT5Ja8CmbKWA">期初</th><th data-page-node-id="CDJINXYZBublcHoMNlHCwl">增幅</th><th data-page-node-id="wPkE9hU5TFGTdMtn70AwHM">应付账款变化</th></tr></thead>
+        <tbody data-page-node-id="fZ9Pwp2X5TVz3jvmEB7pma">
+          <tr data-page-node-id="KpfZtPLid3Y0VtwRWgyXS4"><td data-page-node-id="E4rV4JmjdVuY7yqdN676BR">北汽蓝谷</td><td data-page-node-id="ynxNnKCe9dPdcZyHW3ICpB">84.26 亿</td><td data-page-node-id="FNMrd5yIL3M3Z9Kh38CSET">10.01 亿</td><td class="neg" data-page-node-id="gbjB13kZ2WpLS2hbV7lsru">+741.8%</td><td class="neg" data-page-node-id="lr00IHMWJhYRYHIuir3dTJ">-43.7%</td></tr>
+          <tr data-page-node-id="WjBsegg0I37BMOVMo6Ekfl"><td data-page-node-id="IXLOP2clbVsmeCRRruGLqm">奇瑞</td><td data-page-node-id="SxXTkS0ZsRIbSAUgXD8fHx">503.27 亿</td><td data-page-node-id="bwYS0ZUuwn7HPqmZHmAyUL">193.58 亿</td><td class="neg" data-page-node-id="ZfMKS5HeAgrZnPvoxpLpW0">+160.0%</td><td data-page-node-id="0ePxao4PvpJGWyqM2dFJrQ">+4.9%</td></tr>
+          <tr data-page-node-id="qGKWA1dEuYqk098pzPyDO0"><td data-page-node-id="5xuRGHmDGNnDbM1aK9DANq">比亚迪</td><td data-page-node-id="QFTOLlY9UgQEQhFtzuyzcq">534.13 亿</td><td data-page-node-id="P59gEbaUx6LETEKCah26in">224.64 亿</td><td class="neg" data-page-node-id="WtFH3E094IMroZw0OfD6WR">+137.8%</td><td class="neg" data-page-node-id="BDeJbwWuRDPgyL2VyH3o1p">-5.6%</td></tr>
+          <tr data-page-node-id="jYP0qgS5PLMMnJ2zGJhl7Q"><td data-page-node-id="QKMVuRy4VXCLMTJkK0hieO">吉利</td><td data-page-node-id="9pKPAuCBqesbg813G7LA7I">414.15 亿</td><td data-page-node-id="SdAlcEmj7HLKKCF3DRVJ1Z">206.46 亿</td><td class="neg" data-page-node-id="rGBzLDoWVZjWOxjw1YRSL6">+100.6%</td><td data-page-node-id="ThbmMTpbC6m5rmgKp5odEJ">持平</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note" data-page-node-id="76ee53IAGRqtTwu40Vy63B">北汽蓝谷极端案例：应付票据从 10 亿暴增至 84 亿（+742%），应付账款从 81 亿降至 46 亿（-44%）——本质是用 6 个月后到期的银行承兑汇票替代即期应付账款，把对供应商的付款义务进一步后延。</p>
+    <div class="chart" data-page-node-id="kXtG0rkaZO1u9P7Eg7Byak">
+      <img src="https://aka.doubaocdn.com/s/rtWe2YO6ZR" alt="DPO账期排名" data-page-node-id="CM9EdvXRBTmhOUjfWWQwj9">
+      <div class="cap" data-page-node-id="R6GHrCNuw1r2FS8i9cFA17"><b data-page-node-id="NW1MNbjqZU8IavWmNG32Hh">DPO 应付账款周转天数排名</b>——15/19 家超 144 天警戒线。这是整车产业链"利润向上游转移、风险向上游转嫁"的系统性问题，整车企业的微利建立在供应商资金被无偿占用之上。</div>
+    </div>
+
+    <!-- 问题七 -->
+    <div class="judge" data-page-node-id="ZNDuFlOpeDUiNLZU76MAYn">
+      <span class="pill red" data-page-node-id="1kDI4BaFTNDP8Hevw4i5a8">问题 07</span> <b data-page-node-id="apVg0UA7TenM36dqtC1jL2">存货高企——比亚迪 1900 亿、零跑翻倍、长城产销率仅 91.8%。</b>
+      生产节奏没有跟上需求下滑，渠道库存积压，未来减值风险巨大。
+    </div>
+    <div class="evidence" data-page-node-id="PjccbpptAR70BHwOFwelxD">
+      <div class="ev" data-page-node-id="546nYMf86SAqkqSS8sZNVT"><div class="t" data-page-node-id="RcjzhmNfEF3lucpEkxJDnv">比亚迪</div><div class="n" data-page-node-id="KIevrDiL5AqGZZiYEaSetU">1,899.91 亿<small data-page-node-id="0VJdoPVplO6Dxt9yj35Bf7"> +37.3%</small></div><div data-page-node-id="N5ojGnh9owLExjreRIbPgS">国内收入 -30.7% 背景下存货反增 37%；若计提 5% 减值即 95 亿 ≈ 上半年净利的 77%</div><div class="src" data-page-node-id="W0wDPWS8aJe0iOBZc0rOm2">出处：半年报 【已核验】</div></div>
+      <div class="ev" data-page-node-id="3aS34ZiECJbcqppm2CkLju"><div class="t" data-page-node-id="WTmWRujRgLYixnS5jPHv3l">零跑</div><div class="n" data-page-node-id="x39IBnTa8o1wFtS513ga07">+103.8%</div><div data-page-node-id="YfLgIKWBmXzCJLgrFOIHSs">管理层解释"前置备货"，但增速远超销量 +60.8%</div><div class="src" data-page-node-id="wVQ80wdGjB2yYdjUEABt8J">出处：中期报告 【已核验】</div></div>
+      <div class="ev" data-page-node-id="OlTldKMsXeEUMI9e8ogiSd"><div class="t" data-page-node-id="ih4mUDUoIE2NReD8OdCArP">长城</div><div class="n" data-page-node-id="WjZVjcN7Wty6D40knG0Zni">产销率 91.8%</div><div data-page-node-id="bYt2SzACpinq8XmqgOQLeS">产量 62.69 万辆（+8.25%）vs 销量 57.58 万辆（+1.22%），多产 5.1 万辆；国内销量 -22.5% 背景下仍维持产量增长</div><div class="src" data-page-node-id="w4HiSaYYeNcu8sqcqpv10t">出处：半年报 P26/28 【已核验】</div></div>
+      <div class="ev" data-page-node-id="1JjwBpCTkBrvkN9Kt71HD7"><div class="t" data-page-node-id="HGHOe0jgOnAbbltteWUgUF">广汽</div><div class="n" data-page-node-id="VlQXg7CoY0UtBe6KOjjTZB">239.20 亿<small data-page-node-id="Td3EmHQzGRMVpZUkiac5qW"> +45.45%</small></div><div data-page-node-id="9xG22SgGjVxR8YbEwiAcZd">远超销量增速 +2.35%，渠道积压风险最大</div><div class="src" data-page-node-id="piwVMIc3Ttq9fekovOSfzn">出处：半年报 【已核验】</div></div>
+      <div class="ev" data-page-node-id="SaLG3su6pqUrgPZTCTL6aV"><div class="t" data-page-node-id="vVInMPEjAr19j6zl7B3IVl">小鹏</div><div class="n" data-page-node-id="NuCkc9qejiVLDHdG5KNrZU">+32.3%</div><div data-page-node-id="19BkCbHeG5smndMunud7YJ">销量 -15.8% 背景下存货增长，库存积压</div><div class="src" data-page-node-id="gSAXqRIBK4RdbhlVY5c2s8">出处：中期报告 【已核验】</div></div>
+      <div class="ev" data-page-node-id="JSQom08Rf6HjKadDok2iZU"><div class="t" data-page-node-id="imBW7q05v4A2kfALAOKepe">上汽</div><div class="n" data-page-node-id="bF2DTbfzJUuIEB03Hhbn0A">888.23 亿<small data-page-node-id="kZwFbIgxZKrLsQOEHuLCHg"> +11.53%</small></div><div data-page-node-id="w3o8nx3NUNqTrHfHs3E8Al">绝对额最大，本期计提跌价 10.6 亿</div><div class="src" data-page-node-id="UD8DT9SPgBcgqAt6CbhC9u">出处：半年报 【已核验】</div></div>
+    </div>
+    <div class="chart" data-page-node-id="mVFWMjbQJpDYCmmNgQizfp">
+      <img src="https://aka.doubaocdn.com/s/VbeFU2pMzg" alt="存货增速排名" data-page-node-id="ZmmDj1TjfHUkB63MtWkChp">
+      <div class="cap" data-page-node-id="z7sKKL8oNNp7b3foS51Ftl"><b data-page-node-id="REzQaKMCTCOG7t2KDbuRB2">存货增速排名</b>——"生产惯性"与"需求崩塌"之间的错配。下半年若国内需求不能企稳，存货减值将成为压垮利润的又一根稻草。</div>
+    </div>
+
+    <!-- 问题八 -->
+    <div class="judge" data-page-node-id="ADN9t2BUYB8WxMRLrSbkL4">
+      <span class="pill red" data-page-node-id="HXdE2EAWwvF4o3deX9yNzi">问题 08</span> <b data-page-node-id="7Mxt6FtKCDh6Juz2cFZgtz">政策红利三重退坡——以旧换新 + 购置税 + 政府补助同时消退。</b>
+      过去两年支撑车市的三大政策缓冲垫正在同时消失。
+    </div>
+    <div class="tbl-wrap" data-page-node-id="5GdpnfpDEi5JRdYUV5yFKM">
+      <table data-page-node-id="6VQgjloyN6D48pAjCJK7I5">
+        <thead data-page-node-id="HDeljzBuzXgfBTVpJnf5Bt"><tr data-page-node-id="NydEMvWX71Y9j86MuAJo5t"><th data-page-node-id="hCAK8yo8EO0MRIlZyLZ8l5">政策维度</th><th data-page-node-id="caIp8lmcJg80V4gN0EAELn">具体表现</th><th data-page-node-id="t3GU1FSsiNZBHjH1ixZG08">证据来源</th></tr></thead>
+        <tbody data-page-node-id="ie37nIQPWREdUtQN44xUmq">
+          <tr data-page-node-id="jXkeJ9PlxqjLKZS78jIiQb"><td data-page-node-id="w0apU9aimcfRVRH855fcKc">以旧换新退坡</td><td data-page-node-id="EP0fvgzMR9bBYmt7DvRqLi">"拉动效应递减" / "置换政策边际拉动衰减"</td><td data-page-node-id="50rAqEBlD7d30xsU4gx2nd">上汽 P7、广汽 P25-26</td></tr>
+          <tr data-page-node-id="EfktHPLhKnxoDpv5j0PTSk"><td data-page-node-id="mdVXpvavYI6yeA8Cwwa4Ma">购置税退坡</td><td data-page-node-id="7rrVmIf8g3TGinezYfhzFL">2026 年 1 月起新能源购置税减半（上限 1.5 万），技术门槛提高</td><td data-page-node-id="gOiXNAKn7AQyRvsMto0YjV">广汽 P25-26、北汽蓝谷 P6</td></tr>
+          <tr data-page-node-id="CUhMgAa2dq59StIlaFz6S4"><td data-page-node-id="92frgHQS8DY5KnUs6SKloj">需求透支</td><td data-page-node-id="fFrNsiv48VdIXRxIKOucME">长安：微型轿车市场同比 -68.3%</td><td data-page-node-id="tNdQnbVkNobS9uyhef8iOa">长安 P8</td></tr>
+          <tr data-page-node-id="o4NozGNt1bPi2PBEC7PsAN"><td data-page-node-id="57CFl7zvWG2v2ajLCTP3bT">政府补助下降</td><td data-page-node-id="rNHyOmHGsOXVZxNGv9NiQz">岚图补助 -27.4%；小鹏其他收入净额 -59.1%</td><td data-page-node-id="GpKMOSBoIfOZwBE4Gl4SsR">岚图 P23、小鹏 P4</td></tr>
+          <tr data-page-node-id="x39AZreO2KwJ5ontrHxnMj"><td data-page-node-id="olXZkEfgYCZ1H6qyrlabQH">监管积分退坡</td><td data-page-node-id="pck0YDmGzV1rUAj6OHG50U">特斯拉监管积分收入 $526M，-49.1%；Q2 单季 -67%</td><td data-page-node-id="HW6bq89zM830W00X3Momwj">特斯拉 10-Q P31</td></tr>
+          <tr data-page-node-id="x1KNHAs3c1ogtXAxWHz2TV"><td data-page-node-id="dvEHuYrJuv5KB0LI2NtdaJ">未来政策风险</td><td data-page-node-id="3GLDO0FBwT58OJ4icGFN7T">2027 年 PHEV 开征车船税；2026 年 9 月后锂电池征消费税</td><td data-page-node-id="5KYQ8yjtXFZMn86RCSvY5H">广汽 P25-26</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note" data-page-node-id="EpbFZQuB3nQp6EDpuTLVMS">政策退坡的影响是非线性的——被政策提前透支的需求会形成"需求真空"。长安微型轿车市场 -68.3% 就是最极端证据：这部分需求对政策补贴高度敏感，补贴一退就消失。</p>
+
+    <!-- 问题九 -->
+    <div class="judge" data-page-node-id="7PnWMMowBNKHWMgch5cFZA">
+      <span class="pill red" data-page-node-id="WkhGU6FEVj69R8w5jH2Bh2">问题 09</span> <b data-page-node-id="blU3qLBDgewLz4LKhDsvNb">新势力分化加剧——零跑崛起，小鹏理想陷入困境。</b>
+      零跑 2026H1 销量 35.65 万辆（+60.8%）成为新势力第一并连续半年度盈利；小鹏理想销量下滑、亏损扩大、现金流恶化。
+    </div>
+    <div class="tbl-wrap" data-page-node-id="NpMHsZZ9kLjPCSHt5ajMYI">
+      <table data-page-node-id="CJxAYY5ccRUruFfDE57r2S">
+        <thead data-page-node-id="ayXpzWPEIw2EffApOgJAyD"><tr data-page-node-id="EELmhH7EdMDlMmKRNRIXbK"><th data-page-node-id="6fbsT2GdyhCioFGZ3S0DM3">指标</th><th data-page-node-id="7zsq0q8Hmi24Dw0IkNJgbT">零跑</th><th data-page-node-id="oDiA6ENl1Qdh91vlLfQvxz">小鹏</th><th data-page-node-id="1h60NbwS7lBBzmElQ2NdXp">理想</th><th data-page-node-id="DBGHslCwH3set7LTr1kUBF">蔚来</th></tr></thead>
+        <tbody data-page-node-id="IvWRZef3dubpdLp636aaDZ">
+          <tr data-page-node-id="ArpYHSFBar2a64pRbLeEst"><td data-page-node-id="BX31IeBX6WnVTCpDa4Snix">销量（万辆）</td><td class="pos" data-page-node-id="BR7gFmVVag3maAM2NoYsjF">35.65（+60.8%）</td><td class="neg" data-page-node-id="D3kxBrK2BZH0UC6AphImAs">16.60（-15.8%）</td><td class="neg" data-page-node-id="iNhWVVmd0fjkdSUfTwllEE">19.35（约 -7%）</td><td class="pos" data-page-node-id="4lkjSeIYFHJk8UOVHhX3sf">19.11（+67.4%）</td></tr>
+          <tr data-page-node-id="a8yNlEcn8Wpx9SrqXWHkQb"><td data-page-node-id="6jnvhGiISdWslLUIdcnDFG">营收（亿）</td><td class="pos" data-page-node-id="DXxVMEjpSm02Bm5hublijT">381.07（+57.2%）</td><td class="neg" data-page-node-id="V66XcK9YJUDcD9DW04xJZm">327.77（-3.8%）</td><td class="neg" data-page-node-id="20Vdg4GCQTmnmm99mATfVK">486.50（-13.4%）</td><td class="pos" data-page-node-id="VL6Gawj0rohsr6387X5rhD">576.70（+85.8%）</td></tr>
+          <tr data-page-node-id="5hqeUmZr76hnCtDSdEYRe2"><td data-page-node-id="kSEIjOQGF4H1AxAa3lFJYE">归母净利（亿）</td><td class="pos" data-page-node-id="EUm8S0PpuSp1siQG5gGc8P">2.08（+530%）</td><td class="neg" data-page-node-id="Ap0DucB8GnVaEDWXjj9bzo">-31.21</td><td class="neg" data-page-node-id="EwlM8jti1JALFmX6HqDgWy">-39.94</td><td class="neg" data-page-node-id="RUakKvgFF3FkTcscviwA3X">-12.18（亏损收窄89.9%）</td></tr>
+          <tr data-page-node-id="J9GmyN0c1wvBtbezZEqqtq"><td data-page-node-id="OmD13AhTcAPHGwUYAubwqC">毛利率</td><td data-page-node-id="41kbQBnG2J75QGauAbsV8E">11.7%（-2.4pct）</td><td class="neg" data-page-node-id="FxmCdgT95mJh1Mw0e2HJkn">12.1%（汽车）</td><td class="neg" data-page-node-id="WLIxa8ThNGxoqEqsRNRQUE">7.8%（汽车，-11.8pct）</td><td data-page-node-id="7AmCXyyF0jpTR0JouYqoQl">18.7%</td></tr>
+          <tr data-page-node-id="Tnv6eoW0ugvVpSGGRWpkqi"><td data-page-node-id="ZN6XoFbIUZRhvB6C2ZBagV">经营现金流（亿）</td><td class="pos" data-page-node-id="Lmu3vmhUfvqgRXKhZSQzNb">+21.70</td><td class="neg" data-page-node-id="bd1Od30nfP6nSMeE6TzJ3U">-117.20</td><td class="neg" data-page-node-id="qg9p3dTA8NFsuGYpiYynEO">-60.76</td><td data-page-node-id="1kBvK852uvsQRUKaEDFwsx">未单列</td></tr>
+          <tr data-page-node-id="AABN5kMylSXDP2h2fk6UD7"><td data-page-node-id="NBBx5tmH3j7MhTA3ocDnt9">研发费用率</td><td data-page-node-id="5kNoiRaTs3gpiO8Z7VWGiI">6.08%</td><td class="neg" data-page-node-id="NW1Kbf0EhVtrH4s5Kqe46O">17.76%</td><td data-page-node-id="LN8OB6szW1Hgov3NjqSvk0">11.30%</td><td data-page-node-id="vn13zFElbBxEiH5UmADACC">7.0%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="quote" data-page-node-id="BWLKYEELGAoV9EJh42xXw4">零跑崛起的核心逻辑：极致性价比（A10 上市 135 天第 10 万台下线）· Stellantis 合作全球化（出口 9.63 万辆 +372.6%）· 全域自研降本。但隐忧：净利率仅 0.55%，存货翻倍，无外汇对冲工具。</div>
+    <div class="quote" data-page-node-id="w9W3g5fbvCCKGLKI0orBM2">小鹏困境：老车型生命周期末期，研发费用率 17.76%（全行业最高）但商业化转化不足，短期借款 +135%。<b data-page-node-id="a1mj972e0JAaeLQMWaPHgh">新势力的下半场，不是比谁烧钱多，而是比谁能把研发转化为销量和利润。</b></div>
+
+    <!-- 问题十 -->
+    <div class="judge" data-page-node-id="sCrdQoU0Kw13xYQBmwikrr">
+      <span class="pill red" data-page-node-id="OEVAwsXY1Jla3zyrGssmFj">问题 10</span> <b data-page-node-id="JbuxrBM3m416pQpUg4uW6M">传统合资品牌崩塌——北京奔驰依赖、广汽子公司破产、长安福特微利。</b>
+      "合资利润反哺自主"的旧模式已经走到尽头。
+    </div>
+    <div class="evidence" data-page-node-id="NrOOSp2dGlfeoYzWC7ho49">
+      <div class="ev" data-page-node-id="Alg091w1okvFvVYgjLRddg"><div class="t" data-page-node-id="1UVyPdIFHjqFjAXlnPwOO3">北京汽车</div><div class="n" data-page-node-id="PPlvaxDdF9ecFlKjTdGnNE">自主亏约 29 亿</div><div data-page-node-id="mIkRWuZLckx4LuZAwmybxQ">归母净亏 15.94 亿，非控股权益 +12.48 亿（北京奔驰 49% 少数股东）；剔除北京奔驰后自主 + 北京现代亏损严重</div><div class="src" data-page-node-id="4Xl0lxGQC3OuUpBjNrKHI6">出处：中期报告 P2/P22 【已核验】</div></div>
+      <div class="ev" data-page-node-id="qxzpQozLeAtOAPuS7A2Jff"><div class="t" data-page-node-id="zrG0hM4sUDYeED44fwPjht">广汽</div><div class="n" data-page-node-id="gTCsDZYRAc1F1oPIfIyOeu">子公司破产</div><div data-page-node-id="fSBbD0gcBWLju2KB12AOI2">2026-07-22 法院受理广汽乘用车（杭州）破产清算申请；整车制造毛利率 -6.27%</div><div class="src" data-page-node-id="fpX0uPG46zs0elGcLa7dV7">出处：半年报 P33/P20 【已核验】</div></div>
+      <div class="ev" data-page-node-id="LxWEtOa6BIV0JtLIBd2iR9"><div class="t" data-page-node-id="PIdHPu3wNJUNCR5XF0MZ8A">长安</div><div class="n" data-page-node-id="YWU3wgiN1o8Au4EiU0A7Cr">福特利润 2.62 亿</div><div data-page-node-id="humJFasIVmf1ZmgJlJzPXQ">长安福特营收 136.27 亿但利润仅 2.62 亿；合肥长安净亏 0.85 亿</div><div class="src" data-page-node-id="r16WzdA1HGqfIU3D4c6seY">出处：半年报 P16-17 【已核验】</div></div>
+      <div class="ev" data-page-node-id="OEIK9L8GfmNOKvwmVWfCBq"><div class="t" data-page-node-id="DqeVIlNEmn0zoNiYyx4aef">上汽</div><div class="n" data-page-node-id="DRQFF5sTG9nzVFuaTDBV4F">智己亏 13.24 亿</div><div data-page-node-id="cNoswA7H3Js9nFVdfcW6bv">智己汽车营收 83.57 亿但归母净亏 13.24 亿，自主高端化投入产出失衡</div><div class="src" data-page-node-id="Vu2ycG5GCoIzpFpH4oaCii">出处：半年报 P16-17 【已核验】</div></div>
+    </div>
+    <p class="note" data-page-node-id="WM6QTOy3AKOYnNzrLYHCKg">产业含义：过去 20 年整车国企靠合资利润反哺自主研发，当外资品牌在新能源转型中全面落后，合资利润开始萎缩甚至亏损——"合资反哺自主"已经反转，现在是自主板块在给合资板块输血。广汽乘用车（杭州）破产清算只是开始。</p>
+  </div>
+</section>
+
+<!-- ============ 分化图谱 ============ -->
+<section id="camps" class="chapter" data-page-node-id="7dZWIk8rQg0l5S7Wo5GqGS">
+  <div class="container" data-page-node-id="CzzDbIkfQy2dyWlYidG1GC">
+    <div class="head" data-page-node-id="7Zpc4VN9O3cyiopYMYbDIy">
+      <span class="tag" data-page-node-id="0SZBi6bGCIhNiyRL1Ppt6T">STRUCTURAL DIVERGENCE</span>
+      <h2 data-page-node-id="970n9J4EkKJXabxMiHu1x8">结构性分化图谱：谁在活，谁在死</h2>
+    </div>
+    <h3 data-page-node-id="T3pwnKEbN6Mvsz22oExkmF">按盈利状态</h3>
+    <div class="camps" data-page-node-id="qDtYxP2nR15ZUvYrHA1CDT">
+      <div class="camp" data-page-node-id="26TFIElKPaCYXjlBouXgTs"><div class="tt" data-page-node-id="2cWmg7csTQCqWnUApAToBv"><span class="dot" style="background:var(--green)" data-page-node-id="hwGZGnS8fyUSPX1QtVXoAT"></span>盈利稳健</div><ul data-page-node-id="qqHqtCYkjEosIcgqk9GRdQ"><li data-page-node-id="tHdCoy6AXe55BaWBHG8YFU"><b data-page-node-id="98FB7vN8mETXEIPNWNVfO0">比亚迪 / 特斯拉 / 吉利 / 奇瑞</b></li><li data-page-node-id="QfcaQfEJQ55nBdIKr6xoPL">净利 &gt; 80 亿，有出口 / 规模效应对冲</li></ul></div>
+      <div class="camp" data-page-node-id="4mmnNZqqWCaEKaUayNO6Ap"><div class="tt" data-page-node-id="AKRQXAhn2XvGfcRw9AuC6Q"><span class="dot" style="background:var(--gold)" data-page-node-id="mGniVYZx9RoLiLbW4JL5Lc"></span>微利但危险</div><ul data-page-node-id="V6IxzzzFiWUHuY8V98lNIp"><li data-page-node-id="N5kGAg60vgzkuMxAjfuHa1"><b data-page-node-id="jrsQ0fvrclsIQ7l3bDFIlV">上汽 / 长城 / 江铃 / 零跑 / 小米</b></li><li data-page-node-id="xgTMzJ11L4hTEz0fP7VEf8">净利为正但同比下滑，或净利率 &lt; 3%</li></ul></div>
+      <div class="camp" data-page-node-id="EDL1NdufqlTBDyCncCjRvW"><div class="tt" data-page-node-id="VT1pGPNTApFBToHtA3RqSE"><span class="dot" style="background:var(--red)" data-page-node-id="TJmCXrTVHiVMhs8JEGvqS0"></span>持续亏损</div><ul data-page-node-id="X7N3mPcyHPKHHcVmcJCOYi"><li data-page-node-id="53E8zfgOIRGOILCrNr5cnd"><b data-page-node-id="H6SGUrcNrPBMc95qmWpomr">广汽 / 北汽蓝谷 / 江淮 / 小鹏 / 蔚来</b></li><li data-page-node-id="YxHxerqZCOhZTjuBkDwrmJ">亏损持续，依赖融资 / 补助</li></ul></div>
+      <div class="camp" data-page-node-id="NIac2qmZEA0IVXvedIP9o9"><div class="tt" data-page-node-id="Jo76PR2qN4IqefF7R93J6B"><span class="dot" style="background:var(--red)" data-page-node-id="7xuurH6QWQPpwdLnS9vkzh"></span>由盈转亏</div><ul data-page-node-id="UcNiG4PKIdqeG63kA4H4RI"><li data-page-node-id="afQdvc9TFkGXr5FPF4EMmS"><b data-page-node-id="pOoWQVu4F6CUuSKCoPuUbq">理想 / 北京汽车 / 赛力斯 / 岚图</b></li><li data-page-node-id="3iD6zD5E5TYB4XfvAtnnjL">2025H1 盈利，2026H1 转亏</li></ul></div>
+    </div>
+    <h3 data-page-node-id="J4mdIIb4uU0Jtfqza7ieWB">按现金流健康度</h3>
+    <div class="camps" data-page-node-id="jCTvgtsLnAjispHvhBj8ih">
+      <div class="camp" data-page-node-id="mahq3L564XrocA6z9GQjzM"><div class="tt" data-page-node-id="tq0o39oTnvj9AgsdM0f92e"><span class="dot" style="background:var(--green)" data-page-node-id="8RBS5e0YAFvH6Fct8MRp5Y"></span>现金流强劲</div><ul data-page-node-id="e2Hk71NhL53wRQl9FAxFM4"><li data-page-node-id="2vV7REz470lclBjVAGAniD"><b data-page-node-id="kcGsABaSUnHk4BXHyGSfZh">特斯拉 +622 / 上汽 +543 / 奇瑞 +378 / 比亚迪 +373 / 吉利 +199</b>（亿）</li><li data-page-node-id="w1jsEknAmQjyxySFhEDcQP">经营现金流 &gt; 100 亿，有造血能力</li></ul></div>
+      <div class="camp" data-page-node-id="4awuZoFmBjTtLDWrE4TM2O"><div class="tt" data-page-node-id="9WABaIHCJGShuYoAz8l9vB"><span class="dot" style="background:var(--gold)" data-page-node-id="7wnVXkMszerqkY6X0goFf9"></span>现金流尚可</div><ul data-page-node-id="aF8AZ6gCsjlUHByb7bDLqY"><li data-page-node-id="uTYdeeOkQoXDMvTeHp9cz1"><b data-page-node-id="B3cLTWUYsr3dj3IIp3txhW">长城 +104 / 零跑 +22 / 小米 +20.5 / 江铃 +6 / 岚图 +2</b>（亿）</li><li data-page-node-id="Ci47BemRTXwe8SpLPD9Cbn">为正但规模小或大幅下滑</li></ul></div>
+      <div class="camp" data-page-node-id="AIGgxCv9IvPvJr0tbI6qdr"><div class="tt" data-page-node-id="C3pmy2gSR4ORwZadmrmUMj"><span class="dot" style="background:var(--red)" data-page-node-id="qykTlr18OgBH61vzG058xt"></span>现金流危险</div><ul data-page-node-id="KutBkTuDuvfFO1Mq5g1eWF"><li data-page-node-id="SuiXdsaiH0TibalmFTHWNU"><b data-page-node-id="rE9eN8606HgwP8C2eLkkAW">赛力斯 -124 / 小鹏 -117 / 长安 -114 / 北京汽车 -82 / 广汽 -71 / 理想 -61 / 江淮 -53</b>（亿）</li><li data-page-node-id="IUbmbrCB8l9e0rHmPV8mox">大额净流出，依赖融资</li></ul></div>
+    </div>
+    <h3 data-page-node-id="ujmxHTJ3DOgBBdfETrv4sm">按出海能力</h3>
+    <div class="camps" data-page-node-id="RJGyFQTYHV1rqobAuTBEaC">
+      <div class="camp" data-page-node-id="YpLyIEAbpkWUZdKxeFl6r7"><div class="tt" data-page-node-id="CrHLNmjNKc8uU3iBxNJnaX"><span class="dot" style="background:var(--green)" data-page-node-id="0lciuMvAFN0KX7e0TdK8Bj"></span>出海主导型</div><ul data-page-node-id="hc5VrNyoUkirbRcwSX9YMY"><li data-page-node-id="qAt9sYNbKgU3moAVUEot8l"><b data-page-node-id="mDT4sOjrzrWXqOyAKOfwqj">奇瑞 69% / 长城 55% / 比亚迪 53%</b></li><li data-page-node-id="dAKKt5VLofu2opToA2CrtD">海外收入已超国内</li></ul></div>
+      <div class="camp" data-page-node-id="tfx3xJOYirT692NfvnhEXB"><div class="tt" data-page-node-id="ngGCR4D57g0HVIzzNwIIfC"><span class="dot" style="background:var(--gold)" data-page-node-id="qFa70WDlPZEz51MnscSE7k"></span>出海增长型</div><ul data-page-node-id="wsibwOm7j5FZoJJT5gQmtH"><li data-page-node-id="8f2hLCbEnCcMZXvrVS9Tzf"><b data-page-node-id="vh34fls0Mp1B1eCl1TEtH9">长安 33% / 广汽 30% / 小米 38% / 零跑 27%</b></li><li data-page-node-id="Z3jCI5dDGfRMVlFfmHsntY">海外快速增长但仍以国内为主</li></ul></div>
+      <div class="camp" data-page-node-id="dWtnKiSCHFSeFTQ7Tkiw0R"><div class="tt" data-page-node-id="2M7GSxclRmDWYiq7VgdkTo"><span class="dot" style="background:var(--red)" data-page-node-id="2TzUVLhI8DEsZ6hh8XzZjK"></span>出海缺失型</div><ul data-page-node-id="0iky8atRiC7pFO6URu5BE5"><li data-page-node-id="lrCM3M9z4b9OGJrCDWmXSZ"><b data-page-node-id="sDZbPk6JUcl71coaAtFdkM">小鹏 / 理想 / 岚图 / 北京汽车 1% / 北汽蓝谷 / 蔚来</b></li><li data-page-node-id="VyBjGGhjCh2SwV3LjUcMJr">海外几乎可忽略，直接面对国内内卷</li></ul></div>
+    </div>
+    <h3 data-page-node-id="1aa4QSR3tKk1PgKBa1XKvz">按研发投入效率</h3>
+    <div class="camps" data-page-node-id="1i1L7L1VKptMOCZgQMzqbV">
+      <div class="camp" data-page-node-id="lrCv612FUnZEs2hbTnNJ1k"><div class="tt" data-page-node-id="B8DIlVtwFHK9L3VCKqpavY"><span class="dot" style="background:var(--green)" data-page-node-id="y2TcVwV0jgWX66xbYkCJfr"></span>高投入高产出</div><ul data-page-node-id="MqhodEA9HSU7pKi1peODxF"><li data-page-node-id="iyb1BoYghQA9GEpTOaRNZd"><b data-page-node-id="sMHQRNOH09jPwzWWbVBi2v">比亚迪 8.4% / 特斯拉 8.5% / 小米 8.7%</b></li><li data-page-node-id="aKIiueaqNdLDv8YgAYVKBm">研发投入大且有规模效应支撑</li></ul></div>
+      <div class="camp" data-page-node-id="eUCmsSnM5UhvRsNscedIt4"><div class="tt" data-page-node-id="wTKmc2NERGcdzROM5g7WQE"><span class="dot" style="background:var(--red)" data-page-node-id="WIueVvBLmF4zhjkhNAGcFH"></span>高投入低产出</div><ul data-page-node-id="mF7IgptjGcE07TYwiw9ITJ"><li data-page-node-id="MQQxe2M9RfsKRoAm5qKa4M"><b data-page-node-id="DORFfqHEuTodH9VFq0zcNy">小鹏 17.8% / 理想 11.3% / 北汽蓝谷 9.5% / 蔚来 7.0%</b></li><li data-page-node-id="eKYiWQHXmkEM20sEGwrPAl">研发费用率高但亏损扩大，商业化转化不足</li></ul></div>
+      <div class="camp" data-page-node-id="SIJEHpwWf5itVmLVEjgYBm"><div class="tt" data-page-node-id="h2mOgBuvEopCxmlcZAWAjB"><span class="dot" style="background:var(--red)" data-page-node-id="E1tHRD4VrZy5fZhD8r6z4F"></span>低投入危险</div><ul data-page-node-id="38pPojgGkkKWEQXCbDPRjm"><li data-page-node-id="wmbKSYB1G9lGLW24bNgFCS"><b data-page-node-id="GkWEY6aZuyDYewzvfqmm3D">北京汽车 2.0% / 广汽 2.1% / 上汽 2.8% / 江铃 3.4%</b></li><li data-page-node-id="6aMcgEdZS0pXkJGig26Qqk">研发投入不足，长期竞争力堪忧</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 结论展望 ============ -->
+<section id="conclusion" class="closing" data-page-node-id="lgPLFRzPg6MRixWiNmRiE7">
+  <div class="container" data-page-node-id="4O6K9GAL0iSXmgetlakGmx">
+    <span class="pill" data-page-node-id="HSOrBz5JjmCMteCzhf56co">CONCLUSION & OUTLOOK</span>
+    <h2 class="serif" data-page-node-id="HJk0ZnOnrnCkF6jKfcfbS1">结论与下半年展望</h2>
+    <p class="lead" data-page-node-id="KhZUB0nwzCsro5BUFITef6">2026H1 是整车产业的"三重挤压"拐点——需求端、利润端、资金端同时施压。这不是周期性下行，而是电动化转型下半场 + 政策退坡 + 全球贸易摩擦叠加的结构性拐点。</p>
+
+    <h3 style="color:#fff;font-size:17px;margin:26px 0 12px;" data-page-node-id="evxNMBKRVGe5B8GjbQIzcJ">最危险的五个信号</h3>
+    <div class="signals" data-page-node-id="NKZLkOHO8xKACAp6hb9HwL">
+      <div class="sig" data-page-node-id="t4JJaQ2KrAunYbKzHIby0k"><div class="idx" data-page-node-id="4KK6Il6JkSEmOwPW1BgMne">SIGNAL 01</div><div class="txt" data-page-node-id="OqLQYp9xjHIiWzr77qAqcp">19 家中仅 3 家净利润正增长——全行业盈利能力系统性恶化</div></div>
+      <div class="sig" data-page-node-id="mCNmvy5dt1w9D8HD5zeyCm"><div class="idx" data-page-node-id="inhHE35aHgRWcUIXbZbDMQ">SIGNAL 02</div><div class="txt" data-page-node-id="MQ10BylA24xj3Tn8aZ8e9a">赛力斯 / 小鹏经营现金流从 +142 亿 / +76 亿骤变为 -124 亿 / -117 亿——"以账期换利润"模式开始反噬</div></div>
+      <div class="sig" data-page-node-id="BY4cDvRJ0h49OVSGKFXjuC"><div class="idx" data-page-node-id="ctu9w6fwAfH63yFxyMsC4s">SIGNAL 03</div><div class="txt" data-page-node-id="OQwG3aOSp6HxC7VlEFCLVF">理想车辆毛利率从 19.6% 暴跌至 7.8%——价格战已进入"无差别绞杀"阶段</div></div>
+      <div class="sig" data-page-node-id="XkelySrHJ7brMnxdgzezHa"><div class="idx" data-page-node-id="Ywc4zhCg3ldtELd81AzZUN">SIGNAL 04</div><div class="txt" data-page-node-id="sKKWKqiSDFO5lttdObD0Az">比亚迪国内收入 -30.7% 但存货 +37.3%——行业龙头的生产节奏也没跟上需求崩塌</div></div>
+      <div class="sig" data-page-node-id="p8mp9htiypq74rUN6mIHB4"><div class="idx" data-page-node-id="pHj4pDoIOEiZne75MDL7IJ">SIGNAL 05</div><div class="txt" data-page-node-id="CxaFcnyhC46lUS5GPcyaDc">广汽整车制造毛利率 -6.27%，子公司被申请破产清算——产能出清已经开始</div></div>
+    </div>
+
+    <h3 style="color:#fff;font-size:17px;margin:26px 0 12px;" data-page-node-id="IcMyTIhkZWUHpnNcLZXPZQ">下半年三大不确定性</h3>
+    <div class="signals" data-page-node-id="BHA2hJDPZTlBKKkeoqC80f">
+      <div class="sig" data-page-node-id="gsdFbo88F1Jx2C9wOV4OFs"><div class="idx" data-page-node-id="71kGo7twWf6OWgUhhZCO94">01 · 国内需求</div><div class="txt" data-page-node-id="GKtm0Q7WOQuqtfwo9CKzHe">以旧换新若加码或形成支撑；但购置税减半影响将在 Q3-Q4 显现。基准判断：全年销量同比 -15% 至 -20%，降幅收窄但难转正。</div></div>
+      <div class="sig" data-page-node-id="ySIxjooLP0PZmJo9PrMLke"><div class="idx" data-page-node-id="wa83Qe5W1eVG6Cr68QtKl5">02 · 海外贸易摩擦</div><div class="txt" data-page-node-id="9bv38LBKWUqHaomTBZo9hA">欧盟反补贴关税已落地，美国关税威胁持续。基准判断：出口增速从 50%+ 放缓至全年 30% 左右，海外毛利率继续承压。</div></div>
+      <div class="sig" data-page-node-id="7PQlCsBACUCnXj2RcWpOtf"><div class="idx" data-page-node-id="atJXscYAdCiGeIVa4aEkSi">03 · 价格战升级</div><div class="txt" data-page-node-id="EojUfoM5HAHrbIbiuy9Dzz">毛利率已接近盈亏平衡的公司没有进一步降价空间。基准判断：从"全面降价"转向"结构性降价"，全行业毛利率全年再降 1-2pct。</div></div>
+    </div>
+
+    <h3 style="color:#fff;font-size:17px;margin:26px 0 12px;" data-page-node-id="TXbtmi41i8Dw26Hgg4cdYb">投资启示（交易员 + 研究员双视角）</h3>
+    <div class="split" data-page-node-id="BHGvIA0W9mdo3lDYo7ol9Q">
+      <div class="bull" data-page-node-id="62hnEVkiZTbFXGGcXlmkjZ">
+        <div class="tt" data-page-node-id="fWivYMJqckF3pFzkwCEASD">看多逻辑</div>
+        <ul data-page-node-id="3vHoWgZcoJzc9eRFABIKl3">
+          <li data-page-node-id="hEtwBS6oPPktJLxj5BHvhc">出海主导型企业（奇瑞、长城、比亚迪）仍有海外增长对冲</li>
+          <li data-page-node-id="7CFYkn30XKZZm5IfFxAaXB">现金流强劲 + 研发高效的龙头（比亚迪、特斯拉）有望在行业出清后提升市占率</li>
+          <li data-page-node-id="Zh7KahPyxANsGEoJE7U6Am">零跑代表的"极致性价比 + 全球化"新模式可能跑通</li>
+        </ul>
+      </div>
+      <div class="bear" data-page-node-id="l3z37OPWtycrXqDZ0Cozxr">
+        <div class="tt" data-page-node-id="m14WS7i74VnyiFt5U2qoAJ">看空逻辑</div>
+        <ul data-page-node-id="qFMan4Gp5ub0KAKrTcwwVX">
+          <li data-page-node-id="Sp2FwFGNrDCGFo9QtURV9M">出海缺失型新势力（小鹏、理想）面临国内内卷 + 现金流消耗双重压力</li>
+          <li data-page-node-id="v9vV5DiXDa3ElUkP2sAHvf">传统国企（广汽、北京汽车、北汽蓝谷）合资利润崩塌 + 自主亏损短期难扭转</li>
+          <li data-page-node-id="G20JpodqbcNp4xWxtLusFU">存货高企的公司（比亚迪 1900 亿、零跑翻倍、广汽 +45%）下半年面临减值风险</li>
+          <li data-page-node-id="MkJrCU92zgEdz0pCoundBD">全行业 DPO 超 144 天意味着供应链关系极度紧张，任何连锁反应都可能引发系统性风险</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="quote" style="margin-top:24px;background:rgba(255,255,255,0.08);border-left-color:#FFD166;color:#dce7f4;" data-page-node-id="DY3OVBVtTbJ4uyREu5muwP">
+      关键跟踪指标：① 月度产销数据（尤其国内零售量）② 存货环比变化（Q3 是否去库存）③ 经营现金流季度变化 ④ 海外关税政策 ⑤ 供应商账期 / 票据贴现率变化
+      <span class="who" data-page-node-id="oGWpItcQQ5tv1IvRlgkYBA">以上分析与判断基于公开披露信息，不构成投资建议。</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 附录 ============ -->
+<section id="appendix" class="appendix" data-page-node-id="4KOAVQckBJNlpHNLIpw0i2">
+  <div class="container" data-page-node-id="yfimzHWv8KK2w4q1hs5Bnh">
+    <div class="head" data-page-node-id="6O64QwVy3DLvatsdV2DMTr">
+      <span class="tag" data-page-node-id="tTWJpTMbGXkHjsLSlt8ouE">APPENDIX</span>
+      <h2 data-page-node-id="Ry9WNbrF6WnzUFeKDtrBdr">数据底稿与口径说明</h2>
+    </div>
+    <div class="grid" data-page-node-id="FaqpJrxOkbaTvFgzc5y96o">
+      <div class="card" data-page-node-id="JhoFlYi151cu5AW2ut2Oud">
+        <h3 data-page-node-id="awdSXfkpNa62Pr43N8xhIr">报告文件清单</h3>
+        <ul data-page-node-id="y3kWbSuX58QSEKmWyeE9Y2">
+          <li data-page-node-id="DnE0PEWhBJOX58lvV8ADhq"><span class="fn" data-page-node-id="SzGutzfmShIMCKH1TBWK3M">2026H1整车产业深度分析报告.md</span></li>
+          <li data-page-node-id="shThmkgnq7Gemn526XJCKr"><span class="fn" data-page-node-id="ZmHGQInARiKyQfTUv7DQYV">batch1_A股国企_精读结果.md</span><span class="fd" data-page-node-id="MLbCcAJ9KmZmcHSm2Zn63w">上汽 / 广汽 / 长安 / 北汽蓝谷</span></li>
+          <li data-page-node-id="ZvMQHFKNNc3S7yfF7fZi1f"><span class="fn" data-page-node-id="KVKQ6KKY58f8zsy15BUcFr">batch2_A股民营_精读结果.md</span><span class="fd" data-page-node-id="LfSVTS7RtDOpWwt1PNJzU7">比亚迪 / 赛力斯 / 长城 / 江淮 / 江铃</span></li>
+          <li data-page-node-id="tqvXZGj3iFYSf4Fzw7dcTx"><span class="fn" data-page-node-id="xzwvM94EvWLElTvAOLhhS2">batch3_港股_精读结果.md</span><span class="fd" data-page-node-id="LlZOuD0BFWDOrKmCcJsSI0">北京汽车 / 吉利 / 奇瑞 / 零跑 / 小鹏 / 理想</span></li>
+          <li data-page-node-id="PbCIW8FbwMknJLrwFzPzC9"><span class="fn" data-page-node-id="CkQsDumsQFDt3EEjmPEmdG">batch4_美股特殊_精读结果.md</span><span class="fd" data-page-node-id="ymfCfGVaWWC49BbzRXARrL">特斯拉 / 小米 / 岚图</span></li>
+          <li data-page-node-id="kWBTqoAjcK6leXHK6BjgPS"><span class="fn" data-page-node-id="M5wJBiWPCU7nqZjkrBUzk9">蔚来_数据核验记录.md</span><span class="fd" data-page-node-id="TzlvsOPielKwzjSigqTEVs">Q1 官方口径核验（含净利口径修正）；2026H1 已补入</span></li>
+          <li data-page-node-id="IXXyKaX8Vz7azlMCz346x5"><span class="fn" data-page-node-id="hOjgzlab22TSbJpWvADGtl">charts/</span><span class="fd" data-page-node-id="SebrczMSTRUFNEcM2on6Mh">7 张可视化图表 PNG</span></li>
+          <li data-page-node-id="86Pvxkh3JqHxBDgMb4Sfgr"><span class="fn" data-page-node-id="xHDJs48wlMGI6ZQzS7ZoaV">extracted_text/</span><span class="fd" data-page-node-id="w7RrIDIwdlBIn1y32tUTh5">各半年报全文提取文本（PyMuPDF）</span></li>
+        </ul>
+      </div>
+      <div class="card" data-page-node-id="SD26yW5ZdaxtD1cqF1yBem">
+        <h3 data-page-node-id="OrsDhybm2q2ZdSOYYEmDJD">口径与来源</h3>
+        <ul data-page-node-id="l44Fa1RnNAApER3UowNhS0">
+          <li data-page-node-id="3X6maIgAtzzWFYuHhUwXXw"><span class="fn" data-page-node-id="AXXmL632V6Ilo9rFsAAkA1">数据来源</span><span class="fd" data-page-node-id="WYeCKvialVXOlOaPKYOOtT">A股半年报（巨潮资讯）· 港股中期报告（港交所）· 美股 10-Q（SEC EDGAR）</span></li>
+          <li data-page-node-id="gNGlkHBgp4TEDR7bI0Ishu"><span class="fn" data-page-node-id="DXxjBT7wPvnX27IVKCbcTx">口径差异</span><span class="fd" data-page-node-id="MXDHA7eRBewVxXRQO6fXmp">A股 CAS vs 港股 IFRS vs 美股 US GAAP，研发资本化 / 费用分类 / 分部格式略有差异</span></li>
+          <li data-page-node-id="A2qn19UGyuFEzJSqimAlME"><span class="fn" data-page-node-id="9ObfNHiA8aFgdFOJUgbXYR">特斯拉</span><span class="fd" data-page-node-id="CndinrLyMTbu4AX9KOhzCP">人民币按 1 USD = 7.2 CNY 折算，仅供横向对比参考</span></li>
+          <li data-page-node-id="UdoscTjSHIpM7tGiOGLBEy"><span class="fn" data-page-node-id="e2DMTQDEk424MsMVlLMIjF">小米</span><span class="fd" data-page-node-id="lOv6E4ODBr3kIuAvfhVQaD">消费电子 + 汽车双主业，汽车分部数据单独列示</span></li>
+          <li data-page-node-id="flEDVSEQGPgESWvqkuwSCN"><span class="fn" data-page-node-id="WKUwnRwTaDKu0XKDfJY5OP">DPO</span><span class="fd" data-page-node-id="BmazywOfALgBtjU1fP5nMF">应付合计（应付账款 + 应付票据）× 365 ÷ 营业成本 × 2，已独立核验</span></li>
+          <li data-page-node-id="NsHRzQoJ0MxhBqpq4akScL"><span class="fn" data-page-node-id="v35dCy4SECJFMJQEIVt1p4">蔚来</span><span class="fd" data-page-node-id="fpt3Fyt8PAuSiVUcT5xiMx">2026 半年报 9/1 披露，已补入核心数据总表；业绩公告（按上市规则 13.48(1) 作中期报告）未含现金流量表，经营现金流未单列</span></li>
+        </ul>
+      </div>
+    </div>
+    <details data-page-node-id="Fs1RqQGZdhEmu4HXPWou9U">
+      <summary data-page-node-id="FQE4yHD6ek3fn79USvR2ve">关于"全量阅读"方法与数据核验</summary>
+      <div class="body" data-page-node-id="nCMgBCWalhMzHCydNby4rN">
+        19 份半年报使用 Python + PyMuPDF 逐页全文提取（合计超 200 万字符），由 4 个并行子任务分别精读管理层讨论与分析、财务报表附注、风险因素，并按统一模板输出结构化数据。所有关键数据均标注公司 + 半年报章节/页码 + 【已核验 / 推断】状态。DPO 数据此前已通过逐份核对应付账款 / 应付票据 / 营业成本原始科目完成独立验证。本报告基于公开披露信息，分析与判断不构成投资建议。
+      </div>
+    </details>
+  </div>
+</section>
+
+<div class="footer" data-page-node-id="xRCLPHJOw5A6yPAZCMcMxV">
+  2026 上半年整车产业深度分析 · 全量精读 19 家半年报 · 数据截至 2026-09-01
+</div>
+
+</body>
+</html>
