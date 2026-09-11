@@ -262,6 +262,13 @@ img { max-width: 100%; }
 .entry .body p { margin-bottom: 16px; }
 .entry .body p:last-child { margin-bottom: 0; }
 
+/* 不装框的条目（如一句私语「想你了」）：保留日期栏，去掉白卡，字轻轻呼出 */
+.entry--bare::after { display: none !important; }
+.entry--bare { margin-top: 10px; }
+.entry--bare .date { padding-top: 9px; }
+.entry--bare .body { font-size: 21px; line-height: 1.85; color: var(--ink); }
+.entry--bare .body p { margin-bottom: 0; }
+
 .entry .sign {
   margin-top: 20px;
   font-size: 14px;

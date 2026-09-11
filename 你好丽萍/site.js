@@ -218,6 +218,7 @@ function photoNode(src, alt) {
 function entryNode(it, feed) {
   var w = el('article', 'entry');
   if (idOf(it) === '2026-08-22-小区别墅门前的小碎花') w.classList.add('entry-villa-tree');
+  if (it.bare) w.classList.add('entry--bare');
   var href = linkOf(it, feed);
 
   var date = el('a', 'date');
@@ -448,6 +449,7 @@ function renderEntry() {
       box.appendChild(el('p', null, '它可能已经被改掉了。'));
     } else {
       var it = list[i];
+      if (it.bare) box.classList.add('entry--bare');
       var d = pd(it.date);
       setShare(it, d);
       var dateEl = el('div', 'date');
