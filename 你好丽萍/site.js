@@ -105,7 +105,7 @@ function daySealNode() {
   return w;
 }
 
-/* ---- 区隔语：固定顺序；同一次连续阅读中不重复，也不会随刷新随机跳换 ---- */
+/* ---- 区隔语池 ---- */
 var EPIGRAPHS = [
   '有些日子不是过去，是慢慢沉到心里。',
   '写下来的，不一定要有人看见。',
@@ -132,11 +132,16 @@ var EPIGRAPHS = [
   '不必急着放下，先把今天过完。',
   '这一页翻过去，心里那一页还在。'
 ];
-var quoteIndex = 0;
-function nextQuote() {
-  var quote = EPIGRAPHS[quoteIndex];
-  quoteIndex += 1;
-  return quote || '';
+
+/* 区隔语稳定绑定到它下面那篇内容。
+   新增文章只会产生一个新边界，不会把旧句子整体往下推；
+   取模使句子池可循环使用，内容再多也不会渲染空白分隔线。 */
+function quoteFor(it) {
+  if (!EPIGRAPHS.length) return '';
+  var key = String(idOf(it) || it.date || it.body || '');
+  var hash = 0;
+  for (var i = 0; i < key.length; i++) hash = ((hash * 31) + key.charCodeAt(i)) >>> 0;
+  return EPIGRAPHS[hash % EPIGRAPHS.length];
 }
 
 /* 指定日期交界的区隔语：来自「你好想法」的现有想法，只作用于对应的前后两天。 */
@@ -157,13 +162,15 @@ var DATE_BOUNDARY_KINDS = {
 /* ---- 分隔符：多种形式轮换，不再有「独立体系」的特殊大块 ----
    kind:
      'seal' 萍图 + 波浪线（图形式）
-     'quote' 金句（文字呼吸点，绝不重复）
+     'quote' 金句（稳定绑定到下一篇内容）
      'zhi'  只在明确挑选的日期交界使用主题句 */
-function dividerNode(kind, newerDate, olderDate) {
+function dividerNode(kind, newerDate, olderDate, olderItem) {
   if (kind === 'quote') {
+    var quote = quoteFor(olderItem || { date: olderDate });
+    if (!quote) return daySealNode();
     var q = el('div', 'divider divider-quote');
     q.appendChild(el('span', 'd-line'));
-    q.appendChild(el('p', 'quote', nextQuote()));
+    q.appendChild(el('p', 'quote', quote));
     q.appendChild(el('span', 'd-line'));
     return q;
   }
@@ -287,8 +294,6 @@ function renderFeed(opt) {
     var LIMIT = (typeof opt.limit === 'number' && opt.limit > 0) ? opt.limit : list.length;
     var frag = document.createDocumentFragment();
     var shown = 0, i = 0, lastDate = null, previousWasInterlude = false;
-    /* 每次重新渲染都从第一条唯一短句开始，避免软导航后顺序漂移。 */
-    quoteIndex = 0;
 
     for (; i < list.length && shown < LIMIT; i++) {
       var it = list[i];
@@ -301,10 +306,10 @@ function renderFeed(opt) {
       if (lastDate !== null && !previousWasInterlude) {
         var key = String(lastDate) + '|' + String(it.date);
         var boundaryKind = it.date !== lastDate ? DATE_BOUNDARY_KINDS[key] : null;
-        /* 已有主题区隔继续使用；没有特别区隔的相邻内容，使用下一条不重复短句。 */
+        /* 已有主题区隔继续使用；其余短句稳定绑定到下面这篇内容。 */
         frag.appendChild(boundaryKind
-          ? dividerNode(boundaryKind, lastDate, it.date)
-          : dividerNode('quote', lastDate, it.date));
+          ? dividerNode(boundaryKind, lastDate, it.date, it)
+          : dividerNode('quote', lastDate, it.date, it));
       }
       frag.appendChild(entryNode(it, opt.feed));
       lastDate = it.date;
