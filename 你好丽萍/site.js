@@ -133,15 +133,47 @@ var EPIGRAPHS = [
   '这一页翻过去，心里那一页还在。'
 ];
 
-/* 区隔语稳定绑定到它下面那篇内容。
-   新增文章只会产生一个新边界，不会把旧句子整体往下推；
-   取模使句子池可循环使用，内容再多也不会渲染空白分隔线。 */
-function quoteFor(it) {
-  if (!EPIGRAPHS.length) return '';
+/* 区隔语怎么挑：随机起手、全局不重复、永不空白。
+   ------------------------------------------------------------
+   · 起手点由"它下面那篇"的 id 哈希算出，是固定的 →
+     同一处交界每次刷新、每台机器看到的都是同一句，不跳。
+   · 起手点撞车了，就顺着池子往下挪，取第一个还没被用过的 →
+     一页之内绝不会出现两句一样的（池子装得下的前提下）。
+   · 分配从最底下那处交界往上做：新文章只在顶部多出一处，
+     下面旧句原位不动，不会整条链往下挤。
+   · 交界数万一超过池子，就开新一轮，并刻意避开上一句 →
+     连续重复不会出现，更不会渲染出空白分隔线。 */
+function quoteStart(it) {
   var key = String(idOf(it) || it.date || it.body || '');
   var hash = 0;
   for (var i = 0; i < key.length; i++) hash = ((hash * 31) + key.charCodeAt(i)) >>> 0;
-  return EPIGRAPHS[hash % EPIGRAPHS.length];
+  return hash % EPIGRAPHS.length;
+}
+/* 单条取用（不查重）：给拿不到分配表的调用方兜底 */
+function quoteFor(it) {
+  if (!EPIGRAPHS.length) return '';
+  return EPIGRAPHS[quoteStart(it)];
+}
+/* 分配器：一次渲染建一个，用完即弃 */
+function makeQuotePicker() {
+  var n = EPIGRAPHS.length;
+  var used = {}, taken = 0, lastIdx = -1;
+  return function (it) {
+    if (!n) return '';
+    if (taken >= n) { used = {}; taken = 0; }   /* 池子不够用 → 开新一轮 */
+    var start = quoteStart(it), pick = -1;
+    for (var s = 0; s < n; s++) {
+      var idx = (start + s) % n;
+      if (!used[idx] && idx !== lastIdx) { pick = idx; break; }
+    }
+    if (pick < 0) for (var t = 0; t < n; t++) {
+      var j = (start + t) % n;
+      if (!used[j]) { pick = j; break; }
+    }
+    if (pick < 0) return '';
+    used[pick] = 1; taken++; lastIdx = pick;
+    return EPIGRAPHS[pick];
+  };
 }
 
 /* 指定日期交界的区隔语：来自「你好想法」的现有想法，只作用于对应的前后两天。 */
@@ -164,9 +196,9 @@ var DATE_BOUNDARY_KINDS = {
      'seal' 萍图 + 波浪线（图形式）
      'quote' 金句（稳定绑定到下一篇内容）
      'zhi'  只在明确挑选的日期交界使用主题句 */
-function dividerNode(kind, newerDate, olderDate, olderItem) {
+function dividerNode(kind, newerDate, olderDate, olderItem, quote) {
   if (kind === 'quote') {
-    var quote = quoteFor(olderItem || { date: olderDate });
+    if (!quote) quote = quoteFor(olderItem || { date: olderDate });
     if (!quote) return daySealNode();
     var q = el('div', 'divider divider-quote');
     q.appendChild(el('span', 'd-line'));
@@ -295,6 +327,25 @@ function renderFeed(opt) {
     var frag = document.createDocumentFragment();
     var shown = 0, i = 0, lastDate = null, previousWasInterlude = false;
 
+    /* 先把区隔语分配完，再画 —— 分配必须从下往上，
+       这样新加的文章只在顶部拿一句新的，下面的旧句一句都不动。
+       规则和下面的 for 循环保持一致：紧跟在穿插语后面的那条不插分隔。 */
+    var pickQuote = makeQuotePicker();
+    var quoteOf = {}, pickable = [], seenItem = null, seenDate = null;
+    for (var b = 0; b < list.length; b++) {
+      var bit = list[b];
+      if (bit.interlude) { seenItem = bit; continue; }
+      if (seenItem && !seenItem.interlude) {
+        var bkey = String(seenDate) + '|' + String(bit.date);
+        var bkind = bit.date !== seenDate ? DATE_BOUNDARY_KINDS[bkey] : null;
+        if (!bkind) pickable.push(b);            /* seal/zhi 不吃句子池 */
+      }
+      seenItem = bit;
+      seenDate = bit.date;
+    }
+    /* 记在"位置"上，不记在 id 上 —— 两条内容万一重名也不会拿到同一句 */
+    for (var p = pickable.length - 1; p >= 0; p--) quoteOf[pickable[p]] = pickQuote(list[pickable[p]]);
+
     for (; i < list.length && shown < LIMIT; i++) {
       var it = list[i];
       /* 穿插语不计数 —— 它本身就是这一处的呼吸点，后面不再叠加一条。 */
@@ -309,7 +360,7 @@ function renderFeed(opt) {
         /* 已有主题区隔继续使用；其余短句稳定绑定到下面这篇内容。 */
         frag.appendChild(boundaryKind
           ? dividerNode(boundaryKind, lastDate, it.date, it)
-          : dividerNode('quote', lastDate, it.date, it));
+          : dividerNode('quote', lastDate, it.date, it, quoteOf[i]));
       }
       frag.appendChild(entryNode(it, opt.feed));
       lastDate = it.date;
