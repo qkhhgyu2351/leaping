@@ -237,7 +237,8 @@ img { max-width: 100%; }
 .entry .body,
 .entry .sign,
 .entry .photo,
-.entry .photo-caption {
+.entry .photo-caption,
+.entry .photo-gallery {
   grid-column: 2;
   position: relative;
   z-index: 2;
@@ -295,6 +296,37 @@ img { max-width: 100%; }
   font-size: 13px;
   color: var(--ink-soft);
   letter-spacing: .04em;
+}
+
+/* 多图记录：主图交代原帖，后续截图组成回应。点图可看原尺寸。 */
+.photo-gallery {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 26px;
+}
+.photo-gallery__item { min-width: 0; }
+.photo-gallery__item.is-lead { grid-column: 1 / -1; }
+.photo-gallery__link {
+  display: block;
+  border-radius: 7px;
+  overflow: hidden;
+  background: var(--bg-soft);
+}
+.photo-gallery .photo {
+  display: block;
+  width: 100%;
+  max-width: none;
+  height: auto;
+  margin: 0;
+  border-radius: 7px;
+  box-shadow: 0 5px 18px rgba(22,24,26,.06);
+  transition: opacity .25s ease;
+}
+.photo-gallery__link:hover .photo { opacity: .92; }
+.photo-gallery .photo-caption {
+  margin: 9px 0 0;
+  text-align: center;
 }
 
 /* 卡片最后一个内容元素底部留空，避免文字贴底 */
@@ -564,6 +596,7 @@ body.pg-archive .page-head::before {
 .article > .sign,
 .article > .photo,
 .article > .photo-caption,
+.article > .photo-gallery,
 .article > .around {
   display: block;
   max-width: 720px;
@@ -603,6 +636,12 @@ body.pg-archive .page-head::before {
   opacity: 1;
   filter: none;
   box-shadow: 0 6px 24px rgba(22,24,26,.07);
+}
+.article .photo-gallery .photo {
+  max-width: none;
+  margin: 0;
+  border-radius: 7px;
+  box-shadow: 0 5px 18px rgba(22,24,26,.06);
 }
 .article.has-bg .photo {
   max-width: 420px;
@@ -914,7 +953,8 @@ body.pg-archive .page-head::before {
   .entry .body,
   .entry .sign,
   .entry .photo,
-  .entry .photo-caption {
+  .entry .photo-caption,
+  .entry .photo-gallery {
     display: block;
     margin-left: 20px;
     margin-right: 20px;
@@ -925,6 +965,8 @@ body.pg-archive .page-head::before {
   /* 卡片最后一个内容元素底部留空 */
   .entry > *:last-child { margin-bottom: 36px; }
   .entry .photo { max-width: 82%; margin-left: auto; margin-right: auto; }
+  .photo-gallery { grid-template-columns: 1fr; gap: 20px; }
+  .photo-gallery__item.is-lead { grid-column: auto; }
   .entry.has-bg::before {
     top: 34px; bottom: 0;
     left: 0; right: 0;

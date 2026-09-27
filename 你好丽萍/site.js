@@ -241,7 +241,13 @@ var PHOTO_SIZE = {
   'assets/img/20260819-carina-chat.png':   [1260, 3388],
   'assets/img/同一件事做十年就变得有意义了.jpg': [1260, 3021],
   'assets/img/weixin-20260806.jpg':        [1200, 2556],
-  'assets/img/weixin-20260805.jpg':        [1260, 4110]
+  'assets/img/weixin-20260805.jpg':        [1260, 4110],
+  'assets/img/20260916-good-relationship.jpg': [1260, 5357],
+  'assets/img/20260915-moments-post.jpg':     [1260, 1983],
+  'assets/img/20260915-moments-comments.jpg': [1260, 1461],
+  'assets/img/20260915-friend-radiance.jpg':  [1260, 1521],
+  'assets/img/20260915-friend-yang.jpg':      [1260, 2280],
+  'assets/img/20260915-friend-zhong.jpg':     [1260, 1640]
 };
 function photoNode(src, alt) {
   var img = el('img', 'photo');
@@ -251,6 +257,24 @@ function photoNode(src, alt) {
   if (s) { img.width = s[0]; img.height = s[1]; }
   img.loading = 'lazy'; img.decoding = 'async';
   return img;
+}
+
+/* 多图记录：第一张交代事情，后面的截图作为回应依次展开。 */
+function galleryNode(items) {
+  var gallery = el('div', 'photo-gallery');
+  (items || []).forEach(function (raw, index) {
+    var item = typeof raw === 'string' ? { src: raw } : (raw || {});
+    if (!item.src) return;
+    var figure = el('figure', 'photo-gallery__item' + (index === 0 ? ' is-lead' : ''));
+    var link = el('a', 'photo-gallery__link');
+    link.href = item.src; link.target = '_blank'; link.rel = 'noopener';
+    link.setAttribute('aria-label', (item.alt || item.caption || '查看图片') + '（打开原图）');
+    link.appendChild(photoNode(item.src, item.alt || item.caption || ''));
+    figure.appendChild(link);
+    if (item.caption) figure.appendChild(el('figcaption', 'photo-caption', item.caption));
+    gallery.appendChild(figure);
+  });
+  return gallery;
 }
 
 /* ---- 首页/回忆页里的一条 ---- */
@@ -290,6 +314,7 @@ function entryNode(it, feed) {
     var ic = it.imageCaption || (it.caption ? it.caption : '');
     if (ic) w.appendChild(el('div', 'photo-caption', ic));
   }
+  if (it.images && it.images.length) w.appendChild(galleryNode(it.images));
 
   /* 首页/详情页都平铺全文，不设限高、不给「阅读全文」——
      单流就该一口气读完；落款随全文一起出现。 */
@@ -476,7 +501,7 @@ function setShare(it, d) {
   setMeta('og:title', title);
   setMeta('og:description', desc);
   setMeta('og:url', location.href);
-  var img = it.image || it.bg;
+  var img = it.image || (it.images && it.images[0] && (it.images[0].src || it.images[0])) || it.bg;
   if (img) setMeta('og:image', new URL(img, location.href).href);
   var dm = document.querySelector('meta[name="description"]');
   if (dm) dm.setAttribute('content', desc);
@@ -527,6 +552,7 @@ function renderEntry() {
         var ic = it.imageCaption || '';
         if (ic) box.appendChild(el('div', 'photo-caption', ic));
       }
+      if (it.images && it.images.length) box.appendChild(galleryNode(it.images));
       if (it.sign) box.appendChild(el('div', 'sign', it.sign));
 
       /* 上一条 / 下一条：常来的人会顺着往下读 */
