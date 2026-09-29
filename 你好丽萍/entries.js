@@ -15,6 +15,7 @@
      image     图片当照片放在正文下
      images    多张照片，按顺序组成图组；可写 src / alt / caption
      caption   底图/照片的图注     imageCaption 照片独立图注
+     dim       本条照片整体压暗到约40%（截图类照片太抢眼时用）
      sign      落款，可不写
    穿插的话（不带日期、不可点、不触发分隔符）：
      { date: 用来决定插在哪两条之间, interlude: true, quote: "…", source: "…" }
@@ -78,6 +79,7 @@ window.ENTRIES = [
       "丽萍，也希望有一天，当你偶尔想起我时，会记得我们之间那一段短暂的相处。\n" +
       "\n" +
       "还有一些，确实发生过的美好。",
+    dim: true,
     image: "assets/img/20260916-good-relationship.jpg",
     imageCaption: "有些认真对待过的人和事，原来真的会留下痕迹。"
   },
@@ -110,6 +112,7 @@ window.ENTRIES = [
       "至少说明，我没有把自己的情绪随意丢给身边的人，也没有让别人成为我坏心情的承受者。\n" +
       "\n" +
       "但我怎么可能没有脾气。只是可能假装得好，或是假装得毫不在意。",
+    dim: true,
     images: [
       {
         src: "assets/img/20260915-moments-post.jpg",
@@ -119,10 +122,6 @@ window.ENTRIES = [
       {
         src: "assets/img/20260915-moments-comments.jpg",
         alt: "朋友们在朋友圈下面的回应"
-      },
-      {
-        src: "assets/img/20260915-friend-radiance.jpg",
-        alt: "一位很久没联系的朋友因为朋友圈重新联系"
       },
       {
         src: "assets/img/20260915-friend-yang.jpg",
