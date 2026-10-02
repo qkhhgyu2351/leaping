@@ -320,6 +320,15 @@ function galleryNode(items) {
     figs.push(figure);
   });
   if (!figs.length) return gallery;
+  if (items.length === 2 && figs.length === 2 &&
+      figs[0].querySelector('img').getAttribute('src').indexOf('20261003-dream-') !== -1) {
+    gallery.classList.add('photo-gallery--dream');
+    figs.forEach(function (fig) {
+      fig.classList.remove('is-lead');
+      gallery.appendChild(fig);
+    });
+    return gallery;
+  }
   if (figs[0].classList.contains('is-lead')) gallery.appendChild(figs.shift());
   /* 剩下按估计高度从高到低排，再贪心放进较矮的一列：
      长图自然独占一列，两张短图凑到另一列，两列基本等高、半栏不留空。 */
@@ -378,7 +387,10 @@ function entryNode(it, feed) {
     var ic = it.imageCaption || (it.caption ? it.caption : '');
     if (ic) w.appendChild(el('div', 'photo-caption', ic));
   }
-  if (it.images && it.images.length) w.appendChild(galleryNode(it.images));
+  if (it.images && it.images.length) {
+        w.appendChild(galleryNode(it.images));
+        if (it.galleryCaption) w.appendChild(el('div', 'photo-caption', it.galleryCaption));
+      }
 
   /* 首页/详情页都平铺全文，不设限高、不给「阅读全文」——
      单流就该一口气读完；落款随全文一起出现。 */
@@ -616,7 +628,10 @@ function renderEntry() {
         var ic = it.imageCaption || '';
         if (ic) box.appendChild(el('div', 'photo-caption', ic));
       }
-      if (it.images && it.images.length) box.appendChild(galleryNode(it.images));
+      if (it.images && it.images.length) {
+        box.appendChild(galleryNode(it.images));
+        if (it.galleryCaption) box.appendChild(el('div', 'photo-caption', it.galleryCaption));
+      }
       if (it.sign) box.appendChild(el('div', 'sign', it.sign));
 
       /* 上一条 / 下一条：常来的人会顺着往下读 */

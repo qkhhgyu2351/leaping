@@ -1079,3 +1079,26 @@ body.pg-archive .page-head::before {
     transition: none;
   }
 }
+
+/* 凌晨五点半：两张小照片同尺寸并排，柔和显示。 */
+.entry .photo-gallery--dream,
+.article .photo-gallery--dream {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  width: 100%;
+  max-width: 360px;
+  gap: 12px;
+  margin: 26px auto 0;
+}
+.entry .photo-gallery--dream .photo,
+.article .photo-gallery--dream .photo {
+  width: 100%;
+  max-width: none;
+  height: auto;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  object-position: center;
+  margin: 0;
+  opacity: .55;
+}
+.photo-gallery--dream .photo-gallery__link:hover .photo { opacity: .7; }
