@@ -238,6 +238,7 @@ function bodyInto(box, text) {
    新增配图时在这里补一条即可；忘了补也不会再点不准，goBottom 有兜底。
    ============================================================ */
 var PHOTO_SIZE = {
+  'assets/img/20261003-autumn-flowers.jpg': [1280, 1890],
   'assets/img/20260819-carina-chat.png':   [1260, 3388],
   'assets/img/同一件事做十年就变得有意义了.jpg': [1260, 3021],
   'assets/img/weixin-20260806.jpg':        [1200, 2556],
