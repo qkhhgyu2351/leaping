@@ -255,9 +255,9 @@ img { max-width: 100%; }
   line-height: 1.52;
   letter-spacing: 0;
 }
-.entry .t a { color: var(--ink); transition: color .3s; }
+.entry .t a { color: var(--accent); transition: color .3s; }
 .entry .t a:hover,
-.entry .t a:focus-visible { color: var(--accent); }
+.entry .t a:focus-visible { color: #8F5360; }
 
 .entry .body { line-height: 1.95; }
 .entry .body p { margin-bottom: 16px; }
@@ -369,8 +369,9 @@ img { max-width: 100%; }
 .entry.has-bg .photo-caption {
   color: var(--text-on-bg, #34322E);
 }
-.entry.has-bg .t a { color: var(--text-on-bg, #34322E); }
-.entry.has-bg .t a:hover { color: var(--accent); }
+.entry.has-bg .t a { color: var(--accent); }
+.entry.has-bg .t a:hover,
+.entry.has-bg .t a:focus-visible { color: #8F5360; }
 
 /* 压图文字的可读性不靠 text-shadow（那是上一代的做法）。
    底图 opacity 已压到 .12~.15，且带 mask 渐变，直接靠字色对比就够了。 */
@@ -585,9 +586,10 @@ body.pg-archive .page-head::before {
   font-family: var(--serif);
   font-size: 18px;
   line-height: 1.45;
-  color: var(--ink);
+  color: var(--accent);
 }
-.ar-list a:hover .ar-title { color: var(--accent); }
+.ar-list a:hover .ar-title,
+.ar-list a:focus-visible .ar-title { color: #8F5360; }
 .ar-excerpt {
   margin-top: 7px;
   font-size: 13px;
@@ -630,7 +632,7 @@ body.pg-archive .page-head::before {
   font-weight: 400;
   line-height: 1.42;
   letter-spacing: 0;
-  color: var(--ink);
+  color: var(--accent);
 }
 .article .body {
   font-family: var(--serif);
@@ -688,7 +690,8 @@ body.pg-archive .page-head::before {
   -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 24%, #000 76%, transparent 100%);
           mask-image: linear-gradient(180deg, transparent 0%, #000 24%, #000 76%, transparent 100%);
 }
-.article.has-bg h1,
+.article.has-bg h1 { color: var(--accent); }
+
 .article.has-bg .body,
 .article.has-bg .sign {
   color: var(--text-on-bg, #34322E);
