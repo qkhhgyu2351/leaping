@@ -1102,3 +1102,9 @@ body.pg-archive .page-head::before {
   opacity: .55;
 }
 .photo-gallery--dream .photo-gallery__link:hover .photo { opacity: .7; }
+
+/* 秋日花束：和餐厅照片一样柔和地融入页面。 */
+.entry .photo[src*="20261003-autumn-flowers"],
+.article .photo[src*="20261003-autumn-flowers"] {
+  opacity: .55;
+}
