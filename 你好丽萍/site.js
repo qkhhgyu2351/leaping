@@ -107,7 +107,7 @@ function daySealNode() {
 
 /* ---- 区隔语池 ---- */
 var EPIGRAPHS = [
-  '有些日子不是过去，是慢慢沉到心里。',
+  '有些瞬间，过了很久，想起时仍像昨天。',
   '写下来的，不一定要有人看见。',
   '风吹过的时候，旧事也会轻轻动一下。',
   '人总是要独自走过一些路，才能和自己和解。',
@@ -238,6 +238,7 @@ function bodyInto(box, text) {
    新增配图时在这里补一条即可；忘了补也不会再点不准，goBottom 有兜底。
    ============================================================ */
 var PHOTO_SIZE = {
+  'assets/img/20261003-autumn-flowers.jpg': [1280, 1890],
   'assets/img/20260819-carina-chat.png':   [1260, 3388],
   'assets/img/同一件事做十年就变得有意义了.jpg': [1260, 3021],
   'assets/img/weixin-20260806.jpg':        [1200, 2556],
@@ -260,8 +261,53 @@ function photoNode(src, alt) {
 }
 
 /* 多图记录：第一张交代事情，后面的截图作为回应依次展开。 */
+/* 图片真实尺寸：[宽, 高]，供图组按高配列使用；缺项时 estOf 回落到 1.3，不会报错。 */
+var IMG_DIMS = {
+  "assets/img/20260819-carina-chat.png": [1260, 3388],
+  "assets/img/20260915-friend-radiance.jpg": [1260, 1521],
+  "assets/img/20260915-friend-yang.jpg": [1260, 2280],
+  "assets/img/20260915-friend-zhong.jpg": [1260, 1640],
+  "assets/img/20260915-moments-comments.jpg": [1260, 1461],
+  "assets/img/20260915-moments-post.jpg": [1260, 1983],
+  "assets/img/20260916-good-relationship.jpg": [1260, 5357],
+  "assets/img/SCR-20260803-taoe.jpg": [952, 918],
+  "assets/img/SCR-20260803-tapy.jpg": [982, 750],
+  "assets/img/SCR-20260803-tcfk.jpg": [890, 840],
+  "assets/img/SCR-20260808-gyhs.jpg": [940, 460],
+  "assets/img/SCR-20260808-gyku.jpg": [926, 438],
+  "assets/img/SCR-20260808-gyoh.jpg": [948, 632],
+  "assets/img/SCR-20260808-gyse.jpg": [932, 780],
+  "assets/img/SCR-20260808-gyvn.jpg": [934, 400],
+  "assets/img/SCR-20260808-gzbv.jpg": [1206, 586],
+  "assets/img/SCR-20260808-gzhe.jpg": [894, 512],
+  "assets/img/SCR-20260808-gzmf.jpg": [1040, 1098],
+  "assets/img/SCR-20260808-gzpv.jpg": [1094, 484],
+  "assets/img/SCR-20260808-gzui.jpg": [1238, 604],
+  "assets/img/SCR-20260808-gzxc.jpg": [924, 686],
+  "assets/img/SCR-20260808-gzzy.jpg": [924, 702],
+  "assets/img/SCR-20260808-hadl.jpg": [936, 756],
+  "assets/img/SCR-20260808-haib.jpg": [936, 824],
+  "assets/img/apple-touch-icon.png": [180, 180],
+  "assets/img/dusk.jpg": [1010, 515],
+  "assets/img/favicon-32.png": [32, 32],
+  "assets/img/image_284975575191295.png": [960, 1280],
+  "assets/img/image_645754419980719.png": [960, 1280],
+  "assets/img/image_647200864615759.png": [960, 1280],
+  "assets/img/image_791809779373771.png": [960, 1280],
+  "assets/img/lake-dusk.jpg": [890, 840],
+  "assets/img/logo-ping-watercolor.png": [960, 1280],
+  "assets/img/maple.jpg": [930, 954],
+  "assets/img/share-card.jpg": [1200, 630],
+  "assets/img/weixin-20260805.jpg": [1260, 4110],
+  "assets/img/weixin-20260806.jpg": [1200, 2556],
+  "assets/img/同一件事做十年就变得有意义了.jpg": [1260, 3021],
+  "assets/img/莱芜区红石公园里的月波湖.jpg": [944, 452],
+  "assets/img/莱芜雪野湖清晨雾气中的湖心树木群.jpg": [882, 648],
+};
+
 function galleryNode(items) {
   var gallery = el('div', 'photo-gallery');
+  var figs = [];
   (items || []).forEach(function (raw, index) {
     var item = typeof raw === 'string' ? { src: raw } : (raw || {});
     if (!item.src) return;
@@ -272,8 +318,35 @@ function galleryNode(items) {
     link.appendChild(photoNode(item.src, item.alt || item.caption || ''));
     figure.appendChild(link);
     if (item.caption) figure.appendChild(el('figcaption', 'photo-caption', item.caption));
-    gallery.appendChild(figure);
+    figs.push(figure);
   });
+  if (!figs.length) return gallery;
+  if (items.length === 2 && figs.length === 2 &&
+      figs[0].querySelector('img').getAttribute('src').indexOf('20261003-dream-') !== -1) {
+    gallery.classList.add('photo-gallery--dream');
+    figs.forEach(function (fig) {
+      fig.classList.remove('is-lead');
+      gallery.appendChild(fig);
+    });
+    return gallery;
+  }
+  if (figs[0].classList.contains('is-lead')) gallery.appendChild(figs.shift());
+  /* 剩下按估计高度从高到低排，再贪心放进较矮的一列：
+     长图自然独占一列，两张短图凑到另一列，两列基本等高、半栏不留空。 */
+  var estOf = function (fig) {
+    var src = fig.querySelector('img').getAttribute('src');
+    var d = (typeof IMG_DIMS !== 'undefined' && IMG_DIMS) ? IMG_DIMS[src] : null;
+    return d ? d[1] / d[0] : 1.3;
+  };
+  var ordered = figs.slice().sort(function (a, b) { return estOf(b) - estOf(a); });
+  var cols = [el('div', 'photo-col'), el('div', 'photo-col')];
+  var h = [0, 0];
+  ordered.forEach(function (fig) {
+    var ci = h[0] <= h[1] ? 0 : 1;
+    cols[ci].appendChild(fig);
+    h[ci] += estOf(fig);
+  });
+  cols.forEach(function (c) { gallery.appendChild(c); });
   return gallery;
 }
 
@@ -282,6 +355,7 @@ function entryNode(it, feed) {
   var w = el('article', 'entry');
   if (idOf(it) === '2026-08-22-小区别墅门前的小碎花') w.classList.add('entry-villa-tree');
   if (it.bare) w.classList.add('entry--bare');
+  if (it.dim) w.classList.add('entry--dim');
   var href = linkOf(it, feed);
 
   var date = el('a', 'date');
@@ -314,7 +388,10 @@ function entryNode(it, feed) {
     var ic = it.imageCaption || (it.caption ? it.caption : '');
     if (ic) w.appendChild(el('div', 'photo-caption', ic));
   }
-  if (it.images && it.images.length) w.appendChild(galleryNode(it.images));
+  if (it.images && it.images.length) {
+        w.appendChild(galleryNode(it.images));
+        if (it.galleryCaption) w.appendChild(el('div', 'photo-caption', it.galleryCaption));
+      }
 
   /* 首页/详情页都平铺全文，不设限高、不给「阅读全文」——
      单流就该一口气读完；落款随全文一起出现。 */
@@ -552,7 +629,10 @@ function renderEntry() {
         var ic = it.imageCaption || '';
         if (ic) box.appendChild(el('div', 'photo-caption', ic));
       }
-      if (it.images && it.images.length) box.appendChild(galleryNode(it.images));
+      if (it.images && it.images.length) {
+        box.appendChild(galleryNode(it.images));
+        if (it.galleryCaption) box.appendChild(el('div', 'photo-caption', it.galleryCaption));
+      }
       if (it.sign) box.appendChild(el('div', 'sign', it.sign));
 
       /* 上一条 / 下一条：常来的人会顺着往下读 */
