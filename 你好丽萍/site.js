@@ -1104,4 +1104,3 @@ try { initPage(); } catch (err) {}
 global.SITE = { renderFeed: renderFeed, renderEntry: renderEntry,
                 renderArchive: renderArchive, initReveal: initReveal, initPage: initPage };
 })(window);
-
