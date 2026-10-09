@@ -239,6 +239,8 @@ function bodyInto(box, text) {
    ============================================================ */
 var PHOTO_SIZE = {
   'assets/img/20261003-autumn-flowers.jpg': [1280, 1890],
+  'assets/img/20261003-dream-1.jpg': [709, 1242],
+  'assets/img/20261003-dream-2.jpg': [982, 1189],
   'assets/img/20260819-carina-chat.png':   [1260, 3388],
   'assets/img/同一件事做十年就变得有意义了.jpg': [1260, 3021],
   'assets/img/weixin-20260806.jpg':        [1200, 2556],
@@ -302,6 +304,8 @@ var IMG_DIMS = {
   "assets/img/weixin-20260806.jpg": [1200, 2556],
   "assets/img/同一件事做十年就变得有意义了.jpg": [1260, 3021],
   "assets/img/莱芜区红石公园里的月波湖.jpg": [944, 452],
+  "assets/img/20261003-dream-1.jpg": [709, 1242],
+  "assets/img/20261003-dream-2.jpg": [982, 1189],
   "assets/img/莱芜雪野湖清晨雾气中的湖心树木群.jpg": [882, 648],
 };
 
@@ -356,6 +360,7 @@ function entryNode(it, feed) {
   if (idOf(it) === '2026-08-22-小区别墅门前的小碎花') w.classList.add('entry-villa-tree');
   if (it.bare) w.classList.add('entry--bare');
   if (it.dim) w.classList.add('entry--dim');
+  if (it.wide) w.classList.add('entry--wide');
   var href = linkOf(it, feed);
 
   var date = el('a', 'date');
@@ -1097,3 +1102,4 @@ try { initPage(); } catch (err) {}
 global.SITE = { renderFeed: renderFeed, renderEntry: renderEntry,
                 renderArchive: renderArchive, initReveal: initReveal, initPage: initPage };
 })(window);
+
