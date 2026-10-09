@@ -238,7 +238,7 @@ function bodyInto(box, text) {
    新增配图时在这里补一条即可；忘了补也不会再点不准，goBottom 有兜底。
    ============================================================ */
 var PHOTO_SIZE = {
-  'assets/img/20261009-济南记忆-聊天截图.png': [1950, 1442],
+  'assets/img/20261009-济南记忆-聊天截图.jpg': [1950, 1442],
   'assets/img/20261003-autumn-flowers.jpg': [1280, 1890],
   'assets/img/20261003-dream-1.jpg': [709, 1242],
   'assets/img/20261003-dream-2.jpg': [982, 1189],
@@ -266,7 +266,7 @@ function photoNode(src, alt) {
 /* 多图记录：第一张交代事情，后面的截图作为回应依次展开。 */
 /* 图片真实尺寸：[宽, 高]，供图组按高配列使用；缺项时 estOf 回落到 1.3，不会报错。 */
 var IMG_DIMS = {
-  "assets/img/20261009-济南记忆-聊天截图.png": [1950, 1442],
+  "assets/img/20261009-济南记忆-聊天截图.jpg": [1950, 1442],
   "assets/img/20260819-carina-chat.png": [1260, 3388],
   "assets/img/20260915-friend-radiance.jpg": [1260, 1521],
   "assets/img/20260915-friend-yang.jpg": [1260, 2280],
