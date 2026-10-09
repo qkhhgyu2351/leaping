@@ -294,6 +294,7 @@ img { max-width: 100%; }
 /* 压暗条目（entries.js 里 dim:true）：截图类照片退到约40%，不抢正文；
    图组里的图悬停时仍会回亮（沿用上方 hover 规则），想看清时能看。 */
 .entry--dim .photo { opacity: .4; }
+.entry--wide .photo { max-width: 100%; }
 .entry .photo-caption {
   text-align: center;
   font-size: 13px;
@@ -1111,3 +1112,4 @@ body.pg-archive .page-head::before {
 .article .photo[src*="20261003-autumn-flowers"] {
   opacity: .55;
 }
+
