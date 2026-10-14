@@ -1664,7 +1664,7 @@ body.pg-archive .page-head::before {
   .topbar .menu-group { gap: 4px; padding: 3px 5px; }
   .topbar .menu { font-size: 11.5px; padding: 5px 10px; gap: 4px; }
 
-  .hero { min-height: 540px; padding: 112px 22px 64px; }
+  .hero { min-height: 400px; padding: 92px 22px 44px; }
   .hero .title { width: 86vw; }
   .hero .sub { font-size: 16.5px; line-height: 2.15; }
   .hero .updated { font-size: 11px; padding: 5px 14px; }
