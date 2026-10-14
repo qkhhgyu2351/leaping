@@ -703,6 +703,12 @@ function initReveal() {
     });
   }, { threshold: 0.05, rootMargin: '0px 0px -24px 0px' });
   Array.prototype.forEach.call(els, function (e) { io.observe(e); });
+  /* 首屏兜底：第一条（最新）内容打开即见，不等滚动 */
+  var firstEntry = document.querySelector('#stream .entry');
+  if (firstEntry && firstEntry.getBoundingClientRect().top < (global.innerHeight || 800)) {
+    firstEntry.classList.add('visible');
+    io.unobserve(firstEntry);
+  }
 
   /* 移动端/触屏视口中心自动聚焦：滑到屏幕中段的卡片自动显影提亮 */
   if (!focusIO) {
@@ -1239,7 +1245,7 @@ function initAmbientMotes() {
     [122, 148, 138]  /* 湖雾青灰 */
   ];
   var isMobile = W < 600;
-  var total = isMobile ? 28 : 48;
+  var total = isMobile ? 20 : 48;
   var motes = [];
 
   for (var i = 0; i < total; i++) {
