@@ -220,7 +220,7 @@ img { max-width: 100%; }
   width: 100vw;
   height: 100vh;
   pointer-events: none;
-  z-index: 30;
+  z-index: 45; /* 高于顶栏(40)：粒子飘过导航栏，顶部浑然一体；仍低于回顶(60)/灯箱(120) */
   opacity: 1;
   transition: opacity 0.8s ease;
 }
