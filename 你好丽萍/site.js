@@ -253,18 +253,35 @@ var PHOTO_SIZE = {
   'assets/img/20260915-friend-yang.jpg':      [1260, 2280],
   'assets/img/20260915-friend-zhong.jpg':     [1260, 1640]
 };
-function photoNode(src, alt) {
+function photoNode(src, alt, onDimReady) {
   var img = el('img', 'photo');
   img.src = src;
   img.alt = alt || '';
-  var s = PHOTO_SIZE[src];
-  if (s) { img.width = s[0]; img.height = s[1]; }
+  var s = PHOTO_SIZE[src] || ((typeof IMG_DIMS !== 'undefined' && IMG_DIMS) ? IMG_DIMS[src] : null);
+  if (s) {
+    img.width = s[0];
+    img.height = s[1];
+  } else {
+    /* 动态新增图片自适应：无需手工维护尺寸表，加载后自动记录真实宽高比并同步布局 */
+    img.addEventListener('load', function () {
+      if (img.naturalWidth && img.naturalHeight) {
+        var dims = [img.naturalWidth, img.naturalHeight];
+        PHOTO_SIZE[src] = dims;
+        if (typeof IMG_DIMS !== 'undefined' && IMG_DIMS) IMG_DIMS[src] = dims;
+        if (!img.getAttribute('width')) {
+          img.width = dims[0];
+          img.height = dims[1];
+        }
+        if (typeof onDimReady === 'function') onDimReady(dims);
+      }
+    }, { once: true });
+  }
   img.loading = 'lazy'; img.decoding = 'async';
   return img;
 }
 
 /* 多图记录：第一张交代事情，后面的截图作为回应依次展开。 */
-/* 图片真实尺寸：[宽, 高]，供图组按高配列使用；缺项时 estOf 回落到 1.3，不会报错。 */
+/* 图片真实尺寸：[宽, 高]，供图组按高配列使用；缺项时 estOf 回落到 1.3，并在加载后动态重排。 */
 var IMG_DIMS = {
   "assets/img/20261009-济南记忆-聊天截图.jpg": [1950, 1442],
   "assets/img/20260819-carina-chat.png": [1260, 3388],
@@ -314,14 +331,18 @@ var IMG_DIMS = {
 function galleryNode(items) {
   var gallery = el('div', 'photo-gallery');
   var figs = [];
+  var needsDynamicBalance = false;
   (items || []).forEach(function (raw, index) {
     var item = typeof raw === 'string' ? { src: raw } : (raw || {});
     if (!item.src) return;
+    if (!IMG_DIMS[item.src]) needsDynamicBalance = true;
     var figure = el('figure', 'photo-gallery__item' + (index === 0 ? ' is-lead' : ''));
     var link = el('a', 'photo-gallery__link');
     link.href = item.src; link.target = '_blank'; link.rel = 'noopener';
     link.setAttribute('aria-label', (item.alt || item.caption || '查看图片') + '（打开原图）');
-    link.appendChild(photoNode(item.src, item.alt || item.caption || ''));
+    link.appendChild(photoNode(item.src, item.alt || item.caption || '', function () {
+      if (needsDynamicBalance && subFigs.length > 1) balanceCols();
+    }));
     figure.appendChild(link);
     if (item.caption) figure.appendChild(el('figcaption', 'photo-caption', item.caption));
     figs.push(figure);
@@ -337,21 +358,25 @@ function galleryNode(items) {
     return gallery;
   }
   if (figs[0].classList.contains('is-lead')) gallery.appendChild(figs.shift());
-  /* 剩下按估计高度从高到低排，再贪心放进较矮的一列：
-     长图自然独占一列，两张短图凑到另一列，两列基本等高、半栏不留空。 */
+  var subFigs = figs.slice();
+  var cols = [el('div', 'photo-col'), el('div', 'photo-col')];
   var estOf = function (fig) {
     var src = fig.querySelector('img').getAttribute('src');
     var d = (typeof IMG_DIMS !== 'undefined' && IMG_DIMS) ? IMG_DIMS[src] : null;
     return d ? d[1] / d[0] : 1.3;
   };
-  var ordered = figs.slice().sort(function (a, b) { return estOf(b) - estOf(a); });
-  var cols = [el('div', 'photo-col'), el('div', 'photo-col')];
-  var h = [0, 0];
-  ordered.forEach(function (fig) {
-    var ci = h[0] <= h[1] ? 0 : 1;
-    cols[ci].appendChild(fig);
-    h[ci] += estOf(fig);
-  });
+  function balanceCols() {
+    cols[0].textContent = '';
+    cols[1].textContent = '';
+    var ordered = subFigs.slice().sort(function (a, b) { return estOf(b) - estOf(a); });
+    var h = [0, 0];
+    ordered.forEach(function (fig) {
+      var ci = h[0] <= h[1] ? 0 : 1;
+      cols[ci].appendChild(fig);
+      h[ci] += estOf(fig);
+    });
+  }
+  balanceCols();
   cols.forEach(function (c) { gallery.appendChild(c); });
   return gallery;
 }
@@ -664,11 +689,11 @@ function renderEntry() {
   }
 }
 
-/* ---- 滚动淡入 ---- */
+/* ---- 滚动淡入与移动端视口中心聚焦 ---- */
+var focusIO = null;
 function initReveal() {
   var els = document.querySelectorAll('.entry:not(.visible), .interlude:not(.visible)');
-  var reduce = global.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (!('IntersectionObserver' in global) || reduce) {
+  if (!('IntersectionObserver' in global)) {
     Array.prototype.forEach.call(els, function (e) { e.classList.add('visible'); });
     return;
   }
@@ -676,8 +701,19 @@ function initReveal() {
     list.forEach(function (e) {
       if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
     });
-  }, { threshold: .06, rootMargin: '0px 0px -40px 0px' });
+  }, { threshold: 0.05, rootMargin: '0px 0px -24px 0px' });
   Array.prototype.forEach.call(els, function (e) { io.observe(e); });
+
+  /* 移动端/触屏视口中心自动聚焦：滑到屏幕中段的卡片自动显影提亮 */
+  if (!focusIO) {
+    focusIO = new IntersectionObserver(function (list) {
+      list.forEach(function (e) {
+        e.target.classList.toggle('in-focus', e.isIntersecting);
+      });
+    }, { rootMargin: '-22% 0px -22% 0px', threshold: 0.05 });
+  }
+  var allEntries = document.querySelectorAll('.entry');
+  Array.prototype.forEach.call(allEntries, function (en) { focusIO.observe(en); });
 }
 
 
@@ -975,6 +1011,21 @@ function initLongPageNav() {
    所以渲染要看 DOM 上的标记，而不是写在页面里的 inline script
    —— inline script 在软导航时是不会被重新执行的。
    ============================================================ */
+function enhanceClosingSeal() {
+  var seal = document.querySelector('.closing .closing-seal');
+  if (!seal || seal.parentNode.classList.contains('closing-seal-wrap')) return;
+  var wrap = el('div', 'closing-seal-wrap');
+  wrap.setAttribute('role', 'button');
+  wrap.setAttribute('tabindex', '0');
+  wrap.setAttribute('title', '轻触回到最初');
+  wrap.setAttribute('aria-label', '轻触萍字印章，回到顶部');
+  seal.parentNode.insertBefore(wrap, seal);
+  wrap.appendChild(seal);
+  var hint = el('span', 'closing-seal-hint', '轻触印章 · 回到最初');
+  if (wrap.nextSibling) wrap.parentNode.insertBefore(hint, wrap.nextSibling);
+  else wrap.parentNode.appendChild(hint);
+}
+
 function initPage() {
   var stream = document.getElementById('stream');
   if (stream) {
@@ -995,6 +1046,7 @@ function initPage() {
   if (cl) adaptTextColor(cl, 'assets/img/dusk.jpg');
   var hero = document.querySelector('.hero');
   if (hero) adaptTextColor(hero, 'assets/img/莱芜雪野湖清晨雾气中的湖心树木群.jpg');
+  enhanceClosingSeal();
   initLongPageNav();
   initReveal();
 }
@@ -1092,14 +1144,271 @@ function viewHTML(view) {
 })();
 
 
+/* ============================================================
+   动态氛围与交互增强（阅读进度游丝、微光浮尘、声波条、相册灯箱）
+   ============================================================ */
+function enhanceBGMButton() {
+  var btn = document.getElementById('bgmToggle');
+  if (!btn || btn.querySelector('.bgm-bars')) return;
+  var bars = el('span', 'bgm-bars');
+  bars.setAttribute('aria-hidden', 'true');
+  for (var k = 0; k < 4; k++) bars.appendChild(el('i'));
+  btn.insertBefore(bars, btn.firstChild);
+}
+
+function initScrollEffects() {
+  if (global.__scrollFxReady) return;
+  global.__scrollFxReady = true;
+
+  var bar = document.getElementById('scrollProgress');
+  if (!bar) {
+    bar = el('div', 'scroll-progress');
+    bar.id = 'scrollProgress';
+    bar.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(bar);
+  }
+  var topbar = document.querySelector('.topbar');
+
+  function onScroll() {
+    var y = global.scrollY || global.pageYOffset || 0;
+    var doc = document.documentElement;
+    var body = document.body;
+    var max = Math.max(doc ? doc.scrollHeight : 0, body ? body.scrollHeight : 0) - global.innerHeight;
+    var pct = max > 0 ? Math.min(100, Math.max(0, (y / max) * 100)) : 0;
+    bar.style.width = pct.toFixed(2) + '%';
+    if (topbar) topbar.classList.toggle('is-scrolled', y > 24);
+    var motesCvs = document.querySelector('.ambient-canvas');
+    if (motesCvs) motesCvs.classList.toggle('is-reading', y > 320);
+  }
+  global.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  /* 点击「↓ 往下慢慢读」平滑滚到第一篇正文，点击左上角 Logo 回首页，点击底部「萍」印章回到顶部 */
+  document.addEventListener('click', function (e) {
+    var hint = e.target.closest && e.target.closest('.scroll-hint');
+    if (hint) {
+      var st = document.getElementById('stream');
+      if (st) {
+        var top = st.getBoundingClientRect().top + (global.scrollY || 0) - 64;
+        try { global.scrollTo({ top: top, behavior: 'smooth' }); }
+        catch (err) { global.scrollTo(0, top); }
+      }
+    }
+    var siteBrand = e.target.closest && e.target.closest('.topbar .site');
+    if (siteBrand) {
+      var homeLink = document.querySelector('.topbar .m-now');
+      if (homeLink) homeLink.click();
+    }
+    var closingSeal = e.target.closest && e.target.closest('.closing-seal-wrap, .closing-seal, .closing-seal-hint');
+    if (closingSeal) {
+      try { global.scrollTo({ top: 0, behavior: 'smooth' }); }
+      catch (err) { global.scrollTo(0, 0); }
+    }
+  });
+}
+
+function initAmbientMotes() {
+  if (global.__motesReady) return;
+  global.__motesReady = true;
+
+  var cvs = el('canvas', 'ambient-canvas');
+  cvs.setAttribute('aria-hidden', 'true');
+  document.body.appendChild(cvs);
+  var ctx = cvs.getContext && cvs.getContext('2d');
+  if (!ctx) return;
+
+  var W = 0, H = 0, dpr = Math.min(global.devicePixelRatio || 1, 2);
+  function resize() {
+    W = global.innerWidth || 1024;
+    H = global.innerHeight || 768;
+    cvs.width = W * dpr;
+    cvs.height = H * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  resize();
+  global.addEventListener('resize', resize, { passive: true });
+
+  /* 三层粒子（温润克制，位于信笺卡片下层 z-index:1，绝不遮挡正文文字）：
+     1. firefly: 暖金/朱砂微光浮尘（柔和微亮）
+     2. bokeh:   柔焦晨雾大光斑（营造湖畔空气景深感）
+     3. petal:   随风轻旋的碎花瓣微粒（呼应文中的碎花树与秋日花束） */
+  var palette = [
+    [184, 74, 57],   /* 朱砂红 */
+    [168, 102, 68],  /* 玫瑰棕 */
+    [206, 138, 78],  /* 暖琥珀金 */
+    [122, 148, 138]  /* 湖雾青灰 */
+  ];
+  var isMobile = W < 600;
+  var total = isMobile ? 28 : 48;
+  var motes = [];
+
+  for (var i = 0; i < total; i++) {
+    var kind = i < (isMobile ? 4 : 7) ? 'bokeh' : (i < (isMobile ? 8 : 14) ? 'petal' : 'firefly');
+    var col = palette[i % palette.length];
+    motes.push({
+      kind: kind,
+      col: col,
+      x: Math.random() * W,
+      y: Math.random() * H,
+      r: kind === 'bokeh' ? (10 + Math.random() * 14) : (kind === 'petal' ? (2.8 + Math.random() * 2.4) : (1.8 + Math.random() * 2.2)),
+      vx: (Math.random() - 0.42) * (kind === 'petal' ? 0.34 : 0.20),
+      vy: kind === 'petal' ? (0.15 + Math.random() * 0.24) : (-0.12 - Math.random() * 0.22),
+      phase: Math.random() * Math.PI * 2,
+      speed: 0.012 + Math.random() * 0.018,
+      rot: Math.random() * Math.PI * 2,
+      vrot: (Math.random() - 0.5) * 0.02
+    });
+  }
+
+  function step() {
+    ctx.clearRect(0, 0, W, H);
+    for (var i = 0; i < motes.length; i++) {
+      var m = motes[i];
+      m.x += m.vx + Math.sin(m.phase) * (m.kind === 'petal' ? 0.28 : 0.15);
+      m.y += m.vy;
+      m.phase += m.speed;
+      m.rot += m.vrot;
+
+      if (m.vy < 0 && m.y < -30) { m.y = H + 25; m.x = Math.random() * W; }
+      if (m.vy > 0 && m.y > H + 30) { m.y = -25; m.x = Math.random() * W; }
+      if (m.x < -30) m.x = W + 25;
+      if (m.x > W + 30) m.x = -25;
+
+      var pulse = Math.sin(m.phase) * 0.5 + 0.5;
+      var c = m.col;
+
+      if (m.kind === 'bokeh') {
+        var bAlpha = 0.07 + pulse * 0.11;
+        var bGrad = ctx.createRadialGradient(m.x, m.y, 0, m.x, m.y, m.r);
+        bGrad.addColorStop(0, 'rgba(' + c[0] + ',' + c[1] + ',' + c[2] + ',' + bAlpha.toFixed(3) + ')');
+        bGrad.addColorStop(0.65, 'rgba(' + c[0] + ',' + c[1] + ',' + c[2] + ',' + (bAlpha * 0.45).toFixed(3) + ')');
+        bGrad.addColorStop(1, 'rgba(' + c[0] + ',' + c[1] + ',' + c[2] + ',0)');
+        ctx.fillStyle = bGrad;
+        ctx.beginPath();
+        ctx.arc(m.x, m.y, m.r, 0, Math.PI * 2);
+        ctx.fill();
+      } else if (m.kind === 'petal') {
+        var pAlpha = 0.26 + pulse * 0.34;
+        ctx.save();
+        ctx.translate(m.x, m.y);
+        ctx.rotate(m.rot);
+        ctx.scale(1, 0.58 + 0.3 * Math.sin(m.phase));
+        ctx.fillStyle = 'rgba(' + c[0] + ',' + c[1] + ',' + c[2] + ',' + pAlpha.toFixed(3) + ')';
+        ctx.beginPath();
+        ctx.ellipse(0, 0, m.r * 1.4, m.r * 0.75, 0, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      } else {
+        /* 暖光微尘：降低峰值不透明度，温润不刺眼 */
+        var fAlpha = 0.28 + pulse * 0.46;
+        var fGrad = ctx.createRadialGradient(m.x, m.y, 0, m.x, m.y, m.r * 3.8);
+        fGrad.addColorStop(0, 'rgba(' + c[0] + ',' + c[1] + ',' + c[2] + ',' + fAlpha.toFixed(3) + ')');
+        fGrad.addColorStop(0.35, 'rgba(' + c[0] + ',' + c[1] + ',' + c[2] + ',' + (fAlpha * 0.42).toFixed(3) + ')');
+        fGrad.addColorStop(1, 'rgba(' + c[0] + ',' + c[1] + ',' + c[2] + ',0)');
+        ctx.fillStyle = fGrad;
+        ctx.beginPath();
+        ctx.arc(m.x, m.y, m.r * 3.8, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillStyle = 'rgba(' + c[0] + ',' + c[1] + ',' + c[2] + ',' + Math.min(0.88, fAlpha * 1.25).toFixed(3) + ')';
+        ctx.beginPath();
+        ctx.arc(m.x, m.y, m.r * 0.6, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+    global.requestAnimationFrame(step);
+  }
+  global.requestAnimationFrame(step);
+}
+
+function initLightbox() {
+  if (global.__lightboxReady) return;
+  global.__lightboxReady = true;
+
+  var overlay = el('div', 'lightbox-overlay');
+  overlay.setAttribute('role', 'dialog');
+  overlay.setAttribute('aria-label', '图片预览');
+  var fullImg = el('img');
+  var capEl = el('div', 'lightbox-caption');
+  overlay.appendChild(fullImg);
+  overlay.appendChild(capEl);
+  document.body.appendChild(overlay);
+
+  var zoomed = false;
+  function closeBox() {
+    zoomed = false;
+    fullImg.style.transform = '';
+    overlay.classList.remove('is-open');
+  }
+  overlay.addEventListener('click', function (e) {
+    if (e.target === fullImg && !zoomed) {
+      zoomed = true;
+      fullImg.style.transform = 'scale(1.65)';
+      fullImg.style.cursor = 'zoom-out';
+      return;
+    }
+    closeBox();
+  });
+  global.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && overlay.classList.contains('is-open')) closeBox();
+  });
+
+  document.addEventListener('click', function (e) {
+    var img = e.target.closest && e.target.closest('.entry .photo, .article .photo');
+    if (!img) return;
+    var link = img.closest && img.closest('a.photo-gallery__link');
+    if (link) e.preventDefault();
+    var src = img.getAttribute('src');
+    if (!src) return;
+
+    /* 微信内置浏览器：优先调用微信原生全屏看图器（支持双指无极缩放、左右滑动看同篇多图、长按保存） */
+    if (global.WeixinJSBridge && typeof global.WeixinJSBridge.invoke === 'function') {
+      try {
+        var absCurrent = new URL(src, location.href).href;
+        var scope = (img.closest && img.closest('.entry, .article')) || document;
+        var allImgs = scope.querySelectorAll('.photo');
+        var urls = [];
+        Array.prototype.forEach.call(allImgs, function (node) {
+          var s = node.getAttribute('src');
+          if (s) urls.push(new URL(s, location.href).href);
+        });
+        if (!urls.length) urls.push(absCurrent);
+        global.WeixinJSBridge.invoke('imagePreview', {
+          current: absCurrent,
+          urls: urls
+        });
+        return;
+      } catch (err) {}
+    }
+
+    zoomed = false;
+    fullImg.style.transform = '';
+    fullImg.style.cursor = 'zoom-in';
+    fullImg.src = src;
+    fullImg.alt = img.getAttribute('alt') || '';
+    var nextCap = '';
+    var fig = img.closest && img.closest('figure');
+    if (fig) {
+      var fc = fig.querySelector('.photo-caption');
+      if (fc) nextCap = fc.textContent;
+    } else if (img.nextElementSibling && img.nextElementSibling.classList.contains('photo-caption')) {
+      nextCap = img.nextElementSibling.textContent;
+    }
+    capEl.textContent = nextCap || img.getAttribute('alt') || '';
+    capEl.style.display = capEl.textContent ? 'block' : 'none';
+    overlay.classList.add('is-open');
+  });
+}
+
 /* 音乐只初始化一次。软导航不重载页面，重复初始化会挂上第二套监听。
    音乐初始化万一抛错也不能挡住正文渲染 —— 各自 try/catch 兜底。 */
 if (!global.__bgmReady) {
   global.__bgmReady = true;
-  try { initBGM(); } catch (err) {}
+  try { enhanceBGMButton(); initBGM(); } catch (err) {}
 }
 
 try { initPage(); } catch (err) {}
+try { initScrollEffects(); initAmbientMotes(); initLightbox(); } catch (err) {}
 
 global.SITE = { renderFeed: renderFeed, renderEntry: renderEntry,
                 renderArchive: renderArchive, initReveal: initReveal, initPage: initPage };
