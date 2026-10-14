@@ -441,13 +441,30 @@ img { max-width: 100%; }
   overflow: visible;
   filter: drop-shadow(0 8px 24px rgba(28, 26, 23, 0.08));
 }
-/* 「你好，」温润缓现后安静伫立，把呼吸的焦点留给名字 */
+/* 「你好，」交替呼吸：与「丽萍」同周期、错开半拍，一呼一吸 */
+@keyframes hiBreath {
+  0%, 100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: drop-shadow(0 2px 10px rgba(34, 33, 30, 0.06));
+    fill: var(--accent);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(18px) scale(1.042);
+    filter: drop-shadow(0 8px 22px rgba(184, 74, 57, 0.28));
+    fill: #8A5A44;
+  }
+}
+/* 「你好，」温润缓现后，与「丽萍」交替呼吸 */
 .hero .title .t-hi {
   fill: var(--accent);
   opacity: 0;
   transform-box: fill-box;
   transform-origin: center;
-  animation: inkReveal 1.9s var(--ease-mist) 0.05s both;
+  animation:
+    inkReveal 1.9s var(--ease-mist) 0.05s both,
+    hiBreath 4.2s ease-in-out 4.38s infinite;
 }
 /* 「丽萍」二字：温润缓现后，无缝衔柔和的心跳呼吸与暖意微光 */
 .hero .title .t-name {
