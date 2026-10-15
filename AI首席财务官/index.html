@@ -110,6 +110,7 @@
     html { scroll-behavior: smooth; }
     section[id] { scroll-margin-top: 90px; }
     body {
+      padding-top: 74px; /* fixed 顶栏垫高，防内容被盖住 */
       background: var(--bg-page);
       color: var(--ink-body);
       font-family: var(--sans);
@@ -123,8 +124,11 @@
 
     /* === 1. 顶部白透固定导航条 === */
     .cfo-top {
-      position: sticky;
+      position: fixed;
       top: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
       z-index: 100;
       display: flex;
       align-items: center;
@@ -132,9 +136,8 @@
       gap: 20px;
       padding: 0 clamp(20px, 4vw, 48px);
       height: 74px;
-      background: rgba(255, 255, 255, 0.94);
+      background: rgba(255, 255, 255, 0.98);
       border-bottom: 1px solid var(--border);
-      backdrop-filter: blur(16px);
       box-shadow: 0 1px 4px rgba(0, 0, 0, 0.02);
       transition: background 0.3s ease;
     }
@@ -1092,6 +1095,7 @@
       .post { grid-template-columns: 1fr; gap: 6px; }
     }
     @media (max-width: 560px) {
+      body { padding-top: 68px; }
       .cfo-top { height: 68px; padding: 0 16px; }
       .brand-symbol { width: 36px; height: 36px; }
       .brand-text strong { font-size: 16px; }
