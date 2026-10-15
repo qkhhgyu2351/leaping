@@ -709,6 +709,11 @@ img { max-width: 100%; }
   background-size: 100% 1px;
 }
 
+/* 正文里【文字】标记的蒂芙尼蓝 */
+.tiffany {
+  color: var(--tiffany);
+}
+
 .entry .body {
   line-height: 2.02;
   color: var(--ink-body);
