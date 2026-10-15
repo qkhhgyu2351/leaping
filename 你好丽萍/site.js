@@ -221,7 +221,20 @@ function dividerNode(kind, newerDate, olderDate, olderItem, quote) {
 
 function bodyInto(box, text) {
   String(text || '').split('\n').forEach(function (line) {
-    if (line.trim()) box.appendChild(el('p', null, line.trim()));
+    if (!line.trim()) return;
+    var p = document.createElement('p');
+    // 【文字】 标记为蒂芙尼蓝
+    line.trim().split(/(【[^】]+】)/g).forEach(function (part) {
+      if (part.charAt(0) === '【' && part.slice(-1) === '】') {
+        var s = document.createElement('span');
+        s.className = 'tiffany';
+        s.textContent = part.slice(1, -1);
+        p.appendChild(s);
+      } else if (part) {
+        p.appendChild(document.createTextNode(part));
+      }
+    });
+    box.appendChild(p);
   });
 }
 
