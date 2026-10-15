@@ -159,6 +159,7 @@
     }
     .brand-text strong {
       display: block;
+      white-space: nowrap;
       font-family: var(--serif);
       font-size: 17.5px;
       font-weight: 700;
@@ -192,6 +193,7 @@
     }
     .btn-top-cta {
       display: inline-flex;
+      white-space: nowrap;
       align-items: center;
       gap: 6px;
       padding: 9px 18px;
@@ -1075,7 +1077,9 @@
         gap: 8px;
         white-space: nowrap;
         padding-bottom: 4px;
+        padding-right: 20px;
       }
+      .dir-link.is-active::after { display: none; } /* 手机横排导航，绿点会压字，藏掉 */
       .directory-foot { display: none; }
       .brand-promise { display: none; }
       .s-drawer { grid-template-columns: 1fr; text-align: left; }
@@ -1089,6 +1093,8 @@
     }
     @media (max-width: 560px) {
       .cfo-top { height: 68px; padding: 0 16px; }
+      .brand-symbol { width: 36px; height: 36px; }
+      .brand-text strong { font-size: 16px; }
       .brand-text span { display: none; } /* 手机顶栏只留品牌名，副标题藏掉防挤爆 */
       .principal-link { display: none; } /* 手机顶栏只留预约按钮，主理人链接藏掉 */
       .principle-grid { grid-template-columns: 1fr; }
