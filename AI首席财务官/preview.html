@@ -1,0 +1,1576 @@
+<!doctype html>
+<!--
+  AI 首席财务官 · 极简高管商业骨架版 (Preview)
+  融合 LeftClick (极简固定货架) + Dan Cumberland (痛点发问 + 失血计算器 + 三大拿走物 + 直球FAQ) + 超哥商学院 (引客漏斗)
+  单栏沉浸叙事流 · 站在看网站的企业主角度重构
+-->
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="当增长不再掩盖所有问题，帮企业看清问题、算清账，助力成长型企业做好经营决策与资本行动。">
+  <title>AI 首席财务官｜帮企业看清问题、算清账 (Preview 极简骨架版)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&family=Noto+Serif+SC:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="assets/brand/favicon.png">
+  <style>
+    :root {
+      --bg-page:        #F8FAFC;
+      --bg-surface:     #FFFFFF;
+      --ink:            #0B1728;   /* 普鲁士深黑蓝 */
+      --ink-body:       #334155;   /* 正文墨色 */
+      --ink-muted:      #64748B;   /* 辅助说明灰 */
+      --teal:           #00876C;   /* 核心钛青绿 */
+      --teal-light:     #E6F5F2;
+      --teal-glow:      rgba(0, 135, 108, 0.22);
+      --border:         #E2E8F0;
+      --border-hover:   #CBD5E1;
+      --shadow-sm:      0 2px 6px rgba(11, 23, 40, 0.04);
+      --shadow-md:      0 8px 24px -4px rgba(11, 23, 40, 0.07);
+      --shadow-lg:      0 16px 40px -8px rgba(0, 135, 108, 0.16);
+
+      --mono:  "IBM Plex Mono", "SF Mono", monospace;
+      --sans:  "Noto Sans SC", -apple-system, BlinkMacSystemFont, "PingFang SC", sans-serif;
+      --serif: "Noto Serif SC", "Songti SC", Georgia, serif;
+      --ease:  cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg-page);
+      color: var(--ink-body);
+      font-family: var(--sans);
+      font-size: 15px;
+      line-height: 1.8;
+      -webkit-font-smoothing: antialiased;
+      padding-top: 74px;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; cursor: pointer; border: 0; background: none; }
+
+    /* 顶部阅读进度条 */
+    .scroll-progress {
+      position: fixed;
+      top: 0; left: 0;
+      height: 2.5px;
+      width: 0%;
+      z-index: 120;
+      background: linear-gradient(90deg, var(--teal) 0%, #1E40AF 100%);
+      transition: width 0.1s linear;
+      pointer-events: none;
+    }
+
+    /* === 1. 顶部白透固定导航条 === */
+    .cfo-top {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 74px;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 clamp(20px, 4vw, 48px);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.02);
+    }
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+    .brand-symbol {
+      width: 44px;
+      height: 44px;
+      object-fit: contain;
+      transform: scale(1.12);
+      filter: drop-shadow(0 2px 6px rgba(0, 135, 108, 0.2));
+    }
+    .brand-text {
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .brand-text strong {
+      display: block;
+      font-family: var(--serif);
+      font-size: 17.5px;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.2;
+    }
+    .brand-text > span {
+      display: block;
+      white-space: nowrap !important;
+      font-size: 12px;
+      font-weight: 500;
+      color: #475569;
+      letter-spacing: 0.02em;
+      margin-top: 2px;
+    }
+    .brand-text > span .sub-teal {
+      color: var(--teal) !important;
+      font-weight: 600 !important;
+      display: inline !important;
+    }
+    .brand-promise {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      white-space: nowrap;
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--serif);
+      font-size: 15px;
+      color: var(--ink);
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+    .brand-promise .bp-accent {
+      color: var(--teal);
+    }
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .principal-link {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--ink-muted);
+      padding: 6px 10px;
+      border-radius: 6px;
+      transition: all 0.2s ease;
+    }
+    .principal-link:hover {
+      color: var(--teal);
+      background: rgba(0, 135, 108, 0.08);
+    }
+
+    /* === 单栏居中流核心容器 === */
+    .container {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 0 clamp(20px, 4vw, 40px);
+    }
+
+    /* === 屏 1：首屏承诺 + 零防备微承诺 + 三大拿走物 === */
+    .hero-wrap {
+      padding: clamp(52px, 6.5vw, 82px) 0 52px;
+      border-bottom: 1px solid var(--border);
+      text-align: center;
+    }
+    .hero-title {
+      font-family: var(--serif);
+      font-size: clamp(34px, 4.4vw, 54px);
+      line-height: 1.32;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+      max-width: 880px;
+      margin: 0 auto 20px;
+    }
+    .hero-title em {
+      font-style: normal;
+      color: var(--teal);
+    }
+    .hero-hook {
+      font-family: var(--serif);
+      font-size: clamp(19px, 2.2vw, 24px);
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 16px;
+      letter-spacing: 0.02em;
+    }
+    .hero-hook span {
+      color: var(--teal);
+      border-bottom: 2px solid rgba(0, 135, 108, 0.35);
+      padding-bottom: 2px;
+    }
+    .hero-desc {
+      font-size: 16px;
+      color: var(--ink-body);
+      max-width: 760px;
+      margin: 0 auto 32px;
+      line-height: 1.85;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 14px;
+    }
+
+    /* 主按钮高级呼吸辉光 + 流星划过动效 */
+    @keyframes ctaGlow {
+      0%, 100% { box-shadow: 0 4px 16px var(--teal-glow); }
+      50%      { box-shadow: 0 4px 22px rgba(0, 135, 108, 0.45), 0 0 0 1px rgba(0, 135, 108, 0.25); }
+    }
+    @keyframes ctaMeteor {
+      0%, 40%   { left: -30%; top: 72%; opacity: 0; }
+      45%       { opacity: 1; }
+      85%       { left: 108%; top: 18%; opacity: 1; }
+      100%      { left: 108%; top: 18%; opacity: 0; }
+    }
+    .btn-main {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      border-radius: 8px;
+      background: var(--teal);
+      color: #FFF;
+      font-size: 15px;
+      font-weight: 600;
+      box-shadow: 0 4px 16px var(--teal-glow);
+      transition: all 0.25s var(--ease);
+      position: relative;
+      overflow: hidden;
+      animation: ctaGlow 2.5s ease-in-out infinite;
+    }
+    .btn-main::before {
+      content: '';
+      position: absolute;
+      left: -30%;
+      top: 72%;
+      width: 80px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.7), #fff);
+      box-shadow: 0 0 6px 1px rgba(255, 255, 255, 0.8);
+      border-radius: 2px;
+      transform: rotate(-20deg);
+      animation: ctaMeteor 2.5s ease-in-out infinite;
+      pointer-events: none;
+    }
+    .btn-main:hover {
+      background: #00705A;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 26px rgba(0, 135, 108, 0.42);
+    }
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 13px 26px;
+      border-radius: 8px;
+      background: #FFFFFF;
+      border: 1px solid var(--border-hover);
+      color: var(--ink);
+      font-size: 14.5px;
+      font-weight: 600;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.25s var(--ease);
+    }
+    .btn-secondary:hover {
+      border-color: var(--ink);
+      transform: translateY(-1px);
+    }
+
+    /* Dan Cumberland 式零防备微承诺 */
+    .hero-micro-promise {
+      font-size: 12.5px;
+      color: var(--ink-muted);
+      margin-bottom: 42px;
+      letter-spacing: 0.02em;
+    }
+
+    /* Dan Cumberland 式三大拿走物 (Three Pillars) */
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      text-align: left;
+      padding-top: 32px;
+      border-top: 1px dashed var(--border);
+    }
+    .pillar-item {
+      background: #FFFFFF;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px 20px;
+      box-shadow: var(--shadow-sm);
+    }
+    .pillar-en {
+      font-family: var(--mono);
+      font-size: 10.5px;
+      font-weight: 600;
+      color: var(--teal);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 4px;
+    }
+    .pillar-item h3 {
+      font-family: var(--serif);
+      font-size: 16.5px;
+      color: var(--ink);
+      margin-bottom: 6px;
+    }
+    .pillar-item p {
+      font-size: 12.5px;
+      color: var(--ink-muted);
+      line-height: 1.6;
+    }
+
+    /* === 屏 2：企业 4 大急性病分诊台 === */
+    .section-pad {
+      padding: clamp(56px, 7vw, 84px) 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .sec-head {
+      margin-bottom: 36px;
+      text-align: center;
+    }
+    .sec-badge {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      color: var(--teal);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      display: inline-block;
+    }
+    .sec-title {
+      font-family: var(--serif);
+      font-size: clamp(26px, 3.2vw, 36px);
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.35;
+      margin-bottom: 12px;
+    }
+    .sec-desc {
+      font-size: 15px;
+      color: var(--ink-muted);
+      max-width: 660px;
+      margin: 0 auto;
+    }
+    .diag-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .diag-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px 26px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      transition: all 0.28s var(--ease);
+    }
+    .diag-card:hover {
+      border-color: var(--teal);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+    .diag-tag-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    .diag-num {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--teal);
+      letter-spacing: 0.08em;
+    }
+    .diag-flag {
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 4px;
+      background: #FEF2F2;
+      color: #991B1B;
+      font-weight: 600;
+    }
+    .diag-card h3 {
+      font-family: var(--serif);
+      font-size: 19px;
+      color: var(--ink);
+      margin-bottom: 10px;
+      line-height: 1.4;
+    }
+    .diag-card p {
+      font-size: 13.5px;
+      color: var(--ink-body);
+      line-height: 1.75;
+      margin-bottom: 18px;
+      flex: 1;
+    }
+    .diag-benchmark {
+      font-size: 12px;
+      color: var(--ink-muted);
+      padding: 8px 12px;
+      border-radius: 6px;
+      background: #F8FAFC;
+      border: 1px solid var(--border);
+      margin-bottom: 14px;
+    }
+    .diag-action-link {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--teal);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .constraint-note {
+      margin-top: 28px;
+      padding: 18px 24px;
+      border-radius: 10px;
+      background: var(--teal-light);
+      border-left: 4px solid var(--teal);
+      font-size: 14px;
+      color: var(--ink);
+      text-align: center;
+    }
+    .constraint-note strong {
+      color: var(--teal);
+    }
+
+    /* === 新增模块：Dan Cumberland 式互动「账期与资金锁死计算器」 === */
+    .calc-card {
+      background: #FFFFFF;
+      border: 2px solid var(--border);
+      border-top: 5px solid var(--ink);
+      border-radius: 16px;
+      padding: clamp(28px, 4vw, 44px);
+      box-shadow: var(--shadow-md);
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 40px;
+      align-items: center;
+    }
+    .calc-left h3 {
+      font-family: var(--serif);
+      font-size: 22px;
+      color: var(--ink);
+      margin-bottom: 8px;
+    }
+    .calc-left > p {
+      font-size: 13.5px;
+      color: var(--ink-muted);
+      margin-bottom: 24px;
+    }
+    .slider-group {
+      margin-bottom: 20px;
+    }
+    .slider-label-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 8px;
+    }
+    .slider-label-row label {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--ink);
+    }
+    .slider-val {
+      font-family: var(--mono);
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--teal);
+    }
+    .calc-slider {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 6px;
+      border-radius: 4px;
+      background: #E2E8F0;
+      outline: none;
+    }
+    .calc-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--teal);
+      cursor: pointer;
+      border: 3px solid #FFF;
+      box-shadow: 0 2px 6px rgba(0, 135, 108, 0.4);
+      transition: transform 0.15s ease;
+    }
+    .calc-slider::-webkit-slider-thumb:hover {
+      transform: scale(1.15);
+    }
+    .slider-hint {
+      font-size: 11.5px;
+      color: var(--ink-muted);
+      margin-top: 4px;
+      display: block;
+    }
+
+    .calc-right {
+      background: #F8FAFC;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px 26px;
+    }
+    .calc-res-badge {
+      font-family: var(--mono);
+      font-size: 10.5px;
+      font-weight: 700;
+      color: #991B1B;
+      background: #FEF2F2;
+      padding: 3px 8px;
+      border-radius: 4px;
+      display: inline-block;
+      margin-bottom: 12px;
+    }
+    .calc-res-title {
+      font-size: 13px;
+      color: var(--ink-body);
+      margin-bottom: 4px;
+    }
+    .calc-big-num {
+      font-family: var(--mono);
+      font-size: clamp(32px, 3.8vw, 44px);
+      font-weight: 700;
+      color: #DC2626;
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+    .calc-sub-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      padding: 14px 0;
+      border-top: 1px dashed var(--border);
+      border-bottom: 1px dashed var(--border);
+      margin-bottom: 16px;
+    }
+    .calc-sub-item span {
+      display: block;
+      font-size: 11.5px;
+      color: var(--ink-muted);
+    }
+    .calc-sub-item strong {
+      font-family: var(--mono);
+      font-size: 17px;
+      color: var(--ink);
+    }
+    .calc-sub-item strong.teal {
+      color: var(--teal);
+    }
+    .calc-gain-note {
+      font-size: 12.5px;
+      color: var(--ink-body);
+      line-height: 1.65;
+      margin-bottom: 18px;
+    }
+    .calc-gain-note b {
+      color: var(--teal);
+    }
+    .calc-cta {
+      display: block;
+      width: 100%;
+      text-align: center;
+      padding: 12px;
+      border-radius: 6px;
+      background: var(--ink);
+      color: #FFF;
+      font-size: 13.5px;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+    .calc-cta:hover {
+      background: var(--teal);
+    }
+
+    /* === 屏 3：3 个穿透案例底稿 === */
+    .case-stack {
+      display: grid;
+      gap: 24px;
+      margin-bottom: 32px;
+    }
+    .case-row {
+      background: #FFFFFF;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 32px;
+      display: grid;
+      grid-template-columns: 1fr 220px;
+      gap: 28px;
+      align-items: center;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.28s var(--ease);
+    }
+    .case-row:hover {
+      border-color: var(--teal);
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-2px);
+    }
+    .case-meta {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--teal);
+      margin-bottom: 8px;
+      display: block;
+    }
+    .case-row h3 {
+      font-family: var(--serif);
+      font-size: 20px;
+      color: var(--ink);
+      line-height: 1.4;
+      margin-bottom: 10px;
+    }
+    .case-row p {
+      font-size: 14px;
+      color: var(--ink-body);
+      line-height: 1.8;
+      margin-bottom: 14px;
+    }
+    .case-action {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--teal);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .case-stat-box {
+      text-align: center;
+      padding: 20px 16px;
+      border-radius: 8px;
+      background: #F8FAFC;
+      border: 1px solid var(--border);
+    }
+    .stat-number {
+      font-family: var(--mono);
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--teal);
+      display: block;
+      line-height: 1.1;
+      margin-bottom: 4px;
+    }
+    .stat-caption {
+      font-size: 11.5px;
+      color: var(--ink-muted);
+      line-height: 1.45;
+    }
+    /* === 独立展厅入口：有二财经 · 整车与 AI 科技穿透底稿库 === */
+    .showroom-portal {
+      position: relative;
+      margin-top: 36px;
+      border-radius: 16px;
+      background: radial-gradient(circle at 92% 16%, rgba(0, 135, 108, 0.35) 0%, transparent 46%),
+                  radial-gradient(circle at 12% 84%, rgba(30, 64, 175, 0.25) 0%, transparent 40%),
+                  linear-gradient(135deg, #0B1728 0%, #0F233A 62%, #082E2B 100%);
+      border: 1px solid rgba(0, 135, 108, 0.45);
+      box-shadow: 0 20px 48px -10px rgba(11, 23, 40, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.06);
+      padding: clamp(32px, 4.5vw, 44px) clamp(28px, 4vw, 40px);
+      color: #FFFFFF;
+      overflow: hidden;
+      transition: all 0.3s var(--ease);
+    }
+    .showroom-portal:hover {
+      border-color: rgba(94, 234, 212, 0.6);
+      box-shadow: 0 24px 56px -8px rgba(0, 135, 108, 0.32), 0 0 0 1px rgba(94, 234, 212, 0.2);
+      transform: translateY(-2px);
+    }
+    .showroom-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .showroom-badge {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: #5EEAD4;
+      background: rgba(94, 234, 212, 0.12);
+      border: 1px solid rgba(94, 234, 212, 0.28);
+      padding: 4px 12px;
+      border-radius: 20px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .showroom-badge .badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #5EEAD4;
+      box-shadow: 0 0 8px #5EEAD4;
+    }
+    .showroom-update-tag {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: #94A3B8;
+    }
+    .showroom-title {
+      font-family: var(--serif);
+      font-size: clamp(23px, 2.7vw, 30px);
+      font-weight: 700;
+      color: #FFFFFF;
+      letter-spacing: 0.01em;
+      line-height: 1.35;
+      margin-bottom: 14px;
+    }
+    .showroom-quote {
+      font-size: 15px;
+      color: #E2E8F0;
+      line-height: 1.85;
+      padding: 14px 20px;
+      background: rgba(255, 255, 255, 0.05);
+      border-left: 3.5px solid #00876C;
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 24px;
+      letter-spacing: 0.01em;
+    }
+    .showroom-series-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .series-card {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      padding: 14px 14px 12px;
+      transition: all 0.2s ease;
+    }
+    .series-card:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(94, 234, 212, 0.35);
+    }
+    .series-tag {
+      font-family: var(--serif);
+      font-size: 14px;
+      font-weight: 700;
+      color: #5EEAD4;
+      display: block;
+      margin-bottom: 4px;
+    }
+    .series-desc {
+      font-size: 11.5px;
+      color: #94A3B8;
+      line-height: 1.5;
+    }
+    .showroom-stats-row {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+      padding-top: 18px;
+      border-top: 1px dashed rgba(255, 255, 255, 0.12);
+      margin-bottom: 24px;
+    }
+    .stat-pill {
+      font-size: 12.5px;
+      color: #CBD5E1;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .stat-pill strong {
+      font-family: var(--mono);
+      font-size: 15px;
+      color: #5EEAD4;
+    }
+    .showroom-actions {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .btn-showroom-main {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border-radius: 8px;
+      background: #00876C;
+      color: #FFFFFF;
+      font-size: 14.5px;
+      font-weight: 600;
+      box-shadow: 0 4px 16px rgba(0, 135, 108, 0.4);
+      transition: all 0.25s var(--ease);
+    }
+    .btn-showroom-main:hover {
+      background: #00A685;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 22px rgba(0, 135, 108, 0.55);
+      color: #FFFFFF;
+    }
+    .btn-showroom-sub {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: #94A3B8;
+      padding: 8px 12px;
+      border-radius: 6px;
+      transition: all 0.2s ease;
+    }
+    .btn-showroom-sub:hover {
+      color: #5EEAD4;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    /* === 屏 4：产品化交付货架 === */
+    .tier-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .tier-box {
+      background: #FFFFFF;
+      border: 2px solid var(--border);
+      border-top: 5px solid var(--teal);
+      border-radius: 12px;
+      padding: 32px 24px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      transition: all 0.28s var(--ease);
+      position: relative;
+    }
+    .tier-box:hover {
+      border-color: var(--teal);
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-3px);
+    }
+    .tier-box.is-popular {
+      border-color: var(--teal);
+      box-shadow: 0 8px 28px -4px rgba(0, 135, 108, 0.2);
+    }
+    .tier-popular-tag {
+      position: absolute;
+      top: -13px; right: 20px;
+      background: var(--teal);
+      color: #FFF;
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 12px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .tier-step {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--teal);
+      letter-spacing: 0.08em;
+      margin-bottom: 8px;
+    }
+    .tier-box h4 {
+      font-family: var(--serif);
+      font-size: 20px;
+      color: var(--ink);
+      margin-bottom: 12px;
+      line-height: 1.35;
+    }
+    .tier-box p {
+      font-size: 13.5px;
+      color: var(--ink-body);
+      line-height: 1.75;
+      margin-bottom: 20px;
+      flex: 1;
+    }
+    .tier-deliverable {
+      padding: 12px;
+      border-radius: 6px;
+      background: #F8FAFC;
+      border: 1px solid var(--border);
+      margin-bottom: 20px;
+      font-size: 12.5px;
+      color: var(--ink-body);
+      line-height: 1.6;
+    }
+    .tier-deliverable strong {
+      color: var(--ink);
+      display: block;
+      margin-bottom: 4px;
+    }
+    .tier-btn {
+      display: block;
+      width: 100%;
+      text-align: center;
+      padding: 12px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+    .btn-tier-dark {
+      background: var(--ink);
+      color: #FFF;
+    }
+    .btn-tier-dark:hover {
+      background: var(--teal);
+    }
+    .btn-tier-teal {
+      background: var(--teal);
+      color: #FFF;
+      box-shadow: 0 4px 12px var(--teal-glow);
+    }
+    .btn-tier-teal:hover {
+      background: #00705A;
+    }
+
+    /* === 新增模块：Dan Cumberland 式直球 FAQ (打消买家最后顾虑) === */
+    .faq-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .faq-item {
+      background: #FFFFFF;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px 26px;
+      box-shadow: var(--shadow-sm);
+    }
+    .faq-item h4 {
+      font-family: var(--serif);
+      font-size: 17px;
+      color: var(--ink);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      line-height: 1.4;
+    }
+    .faq-q {
+      font-family: var(--mono);
+      color: var(--teal);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .faq-item p {
+      font-size: 13.5px;
+      color: var(--ink-body);
+      line-height: 1.75;
+    }
+
+    /* === 屏 5：你的外部大脑、边界与直接微信闭环 === */
+    .closing-wrap {
+      padding: clamp(56px, 7vw, 84px) 0 60px;
+    }
+    .closing-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: clamp(32px, 5vw, 56px);
+      box-shadow: var(--shadow-md);
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 48px;
+      align-items: center;
+    }
+    .advisor-left h3 {
+      font-family: var(--serif);
+      font-size: clamp(22px, 2.5vw, 28px);
+      color: var(--ink);
+      margin-bottom: 14px;
+      line-height: 1.35;
+    }
+    .advisor-left p {
+      font-size: 14.5px;
+      color: var(--ink-body);
+      line-height: 1.85;
+      margin-bottom: 24px;
+    }
+    .advisor-boundaries {
+      display: grid;
+      gap: 8px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+      font-size: 13px;
+      color: var(--teal);
+      font-weight: 500;
+    }
+    .contact-box {
+      background: #F8FAFC;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 32px 28px;
+      text-align: center;
+    }
+    .contact-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--teal);
+      font-weight: 600;
+      margin-bottom: 12px;
+      background: var(--teal-light);
+      padding: 3px 10px;
+      border-radius: 12px;
+    }
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--teal);
+    }
+    .contact-box h4 {
+      font-family: var(--serif);
+      font-size: 18px;
+      color: var(--ink);
+      margin-bottom: 8px;
+    }
+    .contact-box p {
+      font-size: 13px;
+      color: var(--ink-muted);
+      line-height: 1.65;
+      margin-bottom: 22px;
+    }
+    .btn-contact-main {
+      display: block;
+      width: 100%;
+      padding: 13px;
+      border-radius: 6px;
+      background: var(--teal);
+      color: #FFF;
+      font-size: 14.5px;
+      font-weight: 600;
+      box-shadow: 0 4px 14px var(--teal-glow);
+      transition: all 0.25s var(--ease);
+      margin-bottom: 12px;
+    }
+    .btn-contact-main:hover {
+      background: #00705A;
+      transform: translateY(-1px);
+    }
+    .contact-note {
+      font-size: 11.5px;
+      color: var(--ink-muted);
+    }
+
+    /* 底部页脚 */
+    .cfo-footer {
+      padding: 36px 0;
+      text-align: center;
+      border-top: 1px solid var(--border);
+      font-size: 12px;
+      color: var(--ink-muted);
+    }
+
+    /* 响应式调整 */
+    @media (max-width: 1080px) {
+      .brand-promise { display: none; }
+    }
+    @media (max-width: 900px) {
+      .pillars-grid { grid-template-columns: 1fr; }
+      .diag-grid { grid-template-columns: 1fr; }
+      .calc-card { grid-template-columns: 1fr; gap: 28px; }
+      .case-row { grid-template-columns: 1fr; }
+      .showroom-series-grid { grid-template-columns: 1fr 1fr; }
+      .tier-grid { grid-template-columns: 1fr; }
+      .faq-grid { grid-template-columns: 1fr; }
+      .closing-card { grid-template-columns: 1fr; gap: 32px; }
+    }
+    @media (max-width: 560px) {
+      body { padding-top: 68px; }
+      .cfo-top { height: 68px; padding: 0 16px; }
+      .brand-symbol { width: 36px; height: 36px; }
+      .brand-text strong { font-size: 16px; }
+      .brand-text > span { display: none; }
+      .hero-title { font-size: 28px; }
+      .btn-main, .btn-secondary { width: 100%; justify-content: center; }
+      .showroom-series-grid { grid-template-columns: 1fr; }
+      .btn-showroom-main, .btn-showroom-sub { width: 100%; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 顶部阅读进度条 -->
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <!-- 1. 顶部白透固定导航条 -->
+  <header class="cfo-top">
+    <div class="brand-group">
+      <img class="brand-symbol" src="assets/brand/aicfo-symbol.png" alt="AI 首席财务官标志">
+      <div class="brand-text">
+        <strong>AI 首席财务官</strong>
+        <span style="display:block;white-space:nowrap!important;color:var(--teal);font-size:14px;">帮企业看清问题、算清账</span>
+      </div>
+    </div>
+    <div class="brand-promise">
+      <span aria-hidden="true">—</span><span>助力成长型企业做好</span><span class="bp-accent">经营决策与资本行动</span><span aria-hidden="true">—</span>
+    </div>
+    <div class="top-actions">
+      <a href="#tiers" class="principal-link">服务体系</a>
+      <a href="#principal" class="principal-link">你的外部大脑：何斌 ↗</a>
+    </div>
+  </header>
+
+  <main>
+    <!-- === 屏 1：首屏承诺 + 零防备微承诺 + 三大拿走物 === -->
+    <section class="hero-wrap">
+      <div class="container">
+        <h1 class="hero-title">
+          当增长不再掩盖所有问题。
+        </h1>
+        <p class="hero-hook">
+          <span>先看清你的公司现在卡在哪，第一步先做什么。</span>
+        </p>
+        <p class="hero-desc">
+          面向年营收 3000 万至 5 亿的成长型企业决策人。在接大单、股权融资、税务合规和现金吃紧的关键时刻，给你一张说得清、算得明、能落地的专家底稿。
+        </p>
+        <div class="hero-actions">
+          <a href="tools/企业财务AI体检（定版）.html" class="btn-main">
+            <span>开始 3 分钟企业卡点快速自测</span>
+            <span style="font-family:var(--mono);">→</span>
+          </a>
+          <a href="#consult" class="btn-secondary">
+            <span>预约 30 分钟闭门初诊</span>
+          </a>
+        </div>
+        <p class="hero-micro-promise">
+          免费在线自测 · 约 3 分钟 · 诊断结果直接显示在屏幕上 · 不强制留电话推销
+        </p>
+
+        <!-- Dan Cumberland 式三大拿走物 (Three Pillars) -->
+        <div class="pillars-grid">
+          <div class="pillar-item">
+            <span class="pillar-en">01 / A MAP OF WHERE YOU STAND</span>
+            <h3>一张看清现状的底牌图</h3>
+            <p>穿透表面营业额，精准定位限制企业现金流与安全的“第一块短板”。</p>
+          </div>
+          <div class="pillar-item">
+            <span class="pillar-en">02 / A PLAN YOU CAN DEFEND</span>
+            <h3>一份能上董事会的方案</h3>
+            <p>不给空泛建议，只给能向合伙人、股东和银行算清代价与回报的行动底稿。</p>
+          </div>
+          <div class="pillar-item">
+            <span class="pillar-en">03 / SYSTEMS YOUR TEAM KEEPS</span>
+            <h3>一套团队能跑下去的机制</h3>
+            <p>把财务口径、审批红线与 AI 流程固化下来，交还给你的团队长期复用。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- === 屏 2：企业 4 大急性病分诊台 === -->
+    <section class="section-pad">
+      <div class="container">
+        <div class="sec-head">
+          <span class="sec-badge">DIAGNOSTIC MAP · 分诊对号入座</span>
+          <h2 class="sec-title">企业现在卡在哪？对号入座 4 类急性病</h2>
+          <p class="sec-desc">增长有了，为什么现金和利润没有同步变好？不是知识栏目，而是企业最容易爆雷的 4 个实战死穴。</p>
+        </div>
+        <div class="diag-grid">
+          <article class="diag-card">
+            <div class="diag-tag-row">
+              <span class="diag-num">01 / CASH & SUPPLY</span>
+              <span class="diag-flag">失血死穴</span>
+            </div>
+            <h3>营运资本失血：销量涨了，现金断了</h3>
+            <p>价格和渠道换来表面繁荣，增长没流向净利润，而是被存货、应收和大客户垫资活活卡死。账面看着在赚钱，现金流却先停跳了。</p>
+            <div class="diag-benchmark">一手对标：14 家车企 DPO 账期实测（最长 337 天）</div>
+            <a href="tools/企业财务AI体检（定版）.html" class="diag-action-link">进入 13 周现金流承压自测 →</a>
+          </article>
+
+          <article class="diag-card">
+            <div class="diag-tag-row">
+              <span class="diag-num">02 / TAX & GOVERNANCE</span>
+              <span class="diag-flag">涉税红线</span>
+            </div>
+            <h3>以数治税穿透：金税四期，哪些旧账是雷？</h3>
+            <p>公私不分、灵活用工虚开、离岸空壳被否决。税务稽查无期限追缴，历史存量隐患面临突发补缴与信用降级危险。</p>
+            <div class="diag-benchmark">一手对标：挚文集团（陌陌）香港壳被否补税 5.479 亿案</div>
+            <a href="posts/20260725挚文集团(陌陌)补税5.479亿案详解.html" class="diag-action-link">查看跨境涉税防范自查表 →</a>
+          </article>
+
+          <article class="diag-card">
+            <div class="diag-tag-row">
+              <span class="diag-num">03 / CAPITAL & EQUITY</span>
+              <span class="diag-flag">失控隐患</span>
+            </div>
+            <h3>股权与资本杠杆：融资对赌，实控权怎么不丢？</h3>
+            <p>小 GP 管大 LP 杠杆过载，反稀释条款埋雷。融到了钱，却把未来控制权拱手送人，稍有不慎触发回购死局。</p>
+            <div class="diag-benchmark">一手对标：追觅 241 万母公司撬动 252 亿基金（499 倍杠杆）</div>
+            <a href="tools/上市自测问卷_交互版.html" class="diag-action-link">自测股权代持与穿透盲区 →</a>
+          </article>
+
+          <article class="diag-card">
+            <div class="diag-tag-row">
+              <span class="diag-num">04 / AI WORKFLOW</span>
+              <span class="diag-flag">摆设陷阱</span>
+            </div>
+            <h3>财务 AI 工作流：怎样避免买成摆设？</h3>
+            <p>买了大模型却没人会用。底层数据太脏、业务流程割裂、没有专家复核机制，AI 既不敢签字更不敢替你拍板。</p>
+            <div class="diag-benchmark">一手对标：某制造企业把后台从 18 人压到 5 人的真实实验</div>
+            <a href="#consult" class="diag-action-link">预约财务 AI 落地轻诊断 →</a>
+          </article>
+        </div>
+
+        <!-- Dan Cumberland 木桶短板定律总结 -->
+        <div class="constraint-note">
+          <strong>木桶短板法则：</strong>一家企业的安全与增长速度，取决于它最卡的那块短板。我们从不同时塞给你 6 项泛泛的改革，只帮你找出<strong>眼下最要命的那 1 件事</strong>，先把它打通。
+        </div>
+      </div>
+    </section>
+
+    <!-- === 新增模块：Dan Cumberland 式互动「账期与资金锁死计算器」 === -->
+    <section class="section-pad" id="calculator">
+      <div class="container">
+        <div class="sec-head">
+          <span class="sec-badge">COST OF INACTION · 隐形失血测算</span>
+          <h2 class="sec-title">如果不解决，账期错配每年正抽走你多少现金？</h2>
+          <p class="sec-desc">很多成长型企业不是死于亏损，而是死于“赚了利润、没了现金”。拉动下方滑块，算算你的真实资金沉淀。</p>
+        </div>
+
+        <div class="calc-card">
+          <div class="calc-left">
+            <h3>输入你公司的大致体征</h3>
+            <p>无需精确到分，用管理层直觉估算即可看清量级：</p>
+
+            <div class="slider-group">
+              <div class="slider-label-row">
+                <label for="revSlider">企业年营收规模</label>
+                <span class="slider-val" id="revVal">8,000 万</span>
+              </div>
+              <input type="range" id="revSlider" class="calc-slider" min="1000" max="50000" step="500" value="8000">
+              <span class="slider-hint">范围：1,000 万 — 5 亿元</span>
+            </div>
+
+            <div class="slider-group">
+              <div class="slider-label-row">
+                <label for="dsoSlider">客户实际平均回款账期 (含票据到期)</label>
+                <span class="slider-val" id="dsoVal">135 天</span>
+              </div>
+              <input type="range" id="dsoSlider" class="calc-slider" min="30" max="240" step="5" value="135">
+              <span class="slider-hint">含交货验收拖延 + 银承/商承贴现周期</span>
+            </div>
+
+            <div class="slider-group">
+              <div class="slider-label-row">
+                <label for="costSlider">综合资金成本 / 经营机会成本</label>
+                <span class="slider-val" id="costVal">8.0%</span>
+              </div>
+              <input type="range" id="costSlider" class="calc-slider" min="4" max="15" step="0.5" value="8">
+              <span class="slider-hint">综合信贷利息、供应链贴息与丧失的现金采购折扣</span>
+            </div>
+          </div>
+
+          <div class="calc-right">
+            <span class="calc-res-badge">CFO 实时测算底稿</span>
+            <p class="calc-res-title">被客户常年白白锁死在外的流动资金：</p>
+            <div class="calc-big-num" id="lockedCash">¥ 2,959 万</div>
+
+            <div class="calc-sub-grid">
+              <div class="calc-sub-item">
+                <span>每年隐形吞噬净利润</span>
+                <strong id="annualLoss">¥ 236.7 万/年</strong>
+              </div>
+              <div class="calc-sub-item">
+                <span>若账期缩短 30 天可释放现金</span>
+                <strong class="teal" id="freedCash">+ ¥ 658 万</strong>
+              </div>
+            </div>
+
+            <p class="calc-gain-note" id="equivNote">
+              按 8% 净利率折算，把账期缩短 30 天释放出的 <b>658 万自由现金</b>，相当于业务团队在外拼命多跑了 <b>8,219 万</b> 的有效营业额。
+            </p>
+            <a href="tools/企业财务AI体检（定版）.html" class="calc-cta">用 3 分钟体检，找出你现金流锁死的根源 →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- === 屏 3：3 个杀手级案例底稿 === -->
+    <section class="section-pad">
+      <div class="container">
+        <div class="sec-head">
+          <span class="sec-badge">CASE EVIDENCE · 实战底稿证据</span>
+          <h2 class="sec-title">公司是案例，问题与判断才是产品</h2>
+          <p class="sec-desc">精选 3 个穿透底稿，每一个都包含事实、风险、卡点与可迁移核对项。其余数十篇研报独立归档。</p>
+        </div>
+        <div class="case-stack">
+          <article class="case-row">
+            <div>
+              <span class="case-meta">01 · 资本与股权穿透</span>
+              <h3>追觅系股权架构：241 万母公司如何撬动 252 亿基金矩阵</h3>
+              <p>五层股权穿透全景 + GP/LP 杠杆结构。拆解「实业+资本」双轮模式下，小 GP 管大 LP 的 499 倍杠杆模式，以及给成长型企业带来的三大隐形失控信号。</p>
+              <a href="tools/上市自测问卷_交互版.html" class="case-action">▶ 对应行动：自测你公司的股权是否存在代持与穿透盲区 →</a>
+            </div>
+            <div class="case-stat-box">
+              <span class="stat-number">499 倍</span>
+              <span class="stat-caption">母公司出资与基金总规模杠杆率</span>
+            </div>
+          </article>
+
+          <article class="case-row">
+            <div>
+              <span class="case-meta">02 · 财税合规与穿透红线</span>
+              <h3>挚文集团（陌陌）补税 5.479 亿案深度拆解</h3>
+              <p>红筹架构「空壳红利」终结的信号弹：香港壳公司被税务局否认「受益所有人」地位，预提所得税从 5% 追溯调整至 10%。全面厘清离岸信托与合规穿透边界。</p>
+              <a href="posts/20260725挚文集团(陌陌)补税5.479亿案详解.html" class="case-action">▶ 对应行动：查看企业跨境与离岸涉税防范自查表 →</a>
+            </div>
+            <div class="case-stat-box">
+              <span class="stat-number">5.48 亿</span>
+              <span class="stat-caption">香港壳被否「受益所有人」补缴税款</span>
+            </div>
+          </article>
+
+          <article class="case-row">
+            <div>
+              <span class="case-meta">03 · 现金流与产业链账期</span>
+              <h3>14 家车企 DPO 账期实测：应收应付错配的隐形失血</h3>
+              <p>工信部要求 60 天内付款，实测 14 家全未达标，最长达 337 天。剖析为什么很多企业「账面看着在赚钱，现金流却被大客户与供应链活活拖死」。</p>
+              <a href="tools/企业财务AI体检（定版）.html" class="case-action">▶ 对应行动：核对你公司的 13 周滚动现金流抗压阈值 →</a>
+            </div>
+            <div class="case-stat-box">
+              <span class="stat-number">337 天</span>
+              <span class="stat-caption">供应链最长全口径付款周转天数</span>
+            </div>
+          </article>
+        </div>
+        <!-- === 极具吸引力的独立展厅入口：有二财经 · 整车与 AI 科技穿透底稿库 === -->
+        <div class="showroom-portal" id="showroom">
+          <div class="showroom-top">
+            <div class="showroom-badge">
+              <span class="badge-dot"></span>
+              <span>YUER FINANCE · RESEARCH LAB</span>
+            </div>
+            <div class="showroom-update-tag">已归档 60+ 份深度研报 · 持续更新</div>
+          </div>
+
+          <h3 class="showroom-title">【有二财经 · 整车与 AI 科技穿透底稿库（60+ 份）】</h3>
+
+          <blockquote class="showroom-quote">
+            “在『有二财经』，我们持续穿透整车与 AI 科技巨头的商业底牌；在这里，我们用同一套前线 CFO 的算账逻辑，帮你看清自己公司的现金流、涉税红线与股权底牌。”
+          </blockquote>
+
+          <div class="showroom-series-grid">
+            <div class="series-card">
+              <span class="series-tag">《钱去哪儿了》</span>
+              <span class="series-desc">拆透 19 家整车主机厂全口径 DPO 账期、单车毛利与现金失血</span>
+            </div>
+            <div class="series-card">
+              <span class="series-tag">《烧钱的公司怎么活》</span>
+              <span class="series-desc">拆透 26+ 家 AI 独角兽商业化、算力折旧、现金跑道与估值模型</span>
+            </div>
+            <div class="series-card">
+              <span class="series-tag">《盈利范式对决》</span>
+              <span class="series-desc">硬科技与制造巨头商业模式对决：从单车亏 13 万到全链突围</span>
+            </div>
+            <div class="series-card">
+              <span class="series-tag">《谁在产业链上赚钱》</span>
+              <span class="series-desc">供应链多层利益分配穿透：为什么总装亏损、核心零部件却闷声发财</span>
+            </div>
+          </div>
+
+          <div class="showroom-stats-row">
+            <div class="stat-pill">覆盖 <strong>19 家</strong> 整车主机厂全口径实测</div>
+            <div class="stat-pill">追踪 <strong>26+ 家</strong> AI 与硬科技独角兽</div>
+            <div class="stat-pill">沉淀 <strong>60+ 篇</strong> 前线 CFO 深度算账底稿</div>
+            <div class="stat-pill"><strong>100%</strong> 专家穿透与买方防坑视角</div>
+          </div>
+
+          <div class="showroom-actions">
+            <a href="index.html#insights" class="btn-showroom-main">
+              <span>进入穿透底稿库独立展厅 (60+ 篇长文研报)</span>
+              <span style="font-family:var(--mono);">➔</span>
+            </a>
+            <a href="tools/企业财务AI体检（定版）.html" class="btn-showroom-sub">
+              <span>把你的公司放进同一套模型自测 →</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- === 屏 4：产品化交付货架 === -->
+    <section class="section-pad" id="tiers">
+      <div class="container">
+        <div class="sec-head">
+          <span class="sec-badge">PRODUCTIZED TIERS · 产品化服务阶梯</span>
+          <h2 class="sec-title">怎么跟我合作？三级产品化交付货架</h2>
+          <p class="sec-desc">不搞云山雾罩的口头建议，每一步都有明确的交付物、周期与责任边界。</p>
+        </div>
+        <div class="tier-grid">
+          <div class="tier-box">
+            <span class="tier-step">STEP ONE · 免费初诊</span>
+            <h4>3 分钟自测 / 30 分钟初诊</h4>
+            <p>适合初次接触的企业决策人。先快速识别企业卡在增长失血、涉税盲区还是资本硬伤。</p>
+            <div class="tier-deliverable">
+              <strong>交付物与周期：</strong>
+              包含 3 个当务之急动作的自测底稿 ＋ 何斌 30 分钟闭门电话对齐（无需任何费用，不推销）。
+            </div>
+            <a href="tools/企业财务AI体检（定版）.html" class="tier-btn btn-tier-dark">开始 3 分钟在线体检 →</a>
+          </div>
+
+          <div class="tier-box is-popular">
+            <span class="tier-popular-tag">高管首选</span>
+            <span class="tier-step">STEP TWO · 专家底稿</span>
+            <h4>企业急性病 · 专项诊断备忘录</h4>
+            <p>针对接大单、税务自查、股权对赌或 AI 试点等正在卡住的一件事，由人做穿透判断，出具专家底稿。</p>
+            <div class="tier-deliverable">
+              <strong>交付物与周期：</strong>
+              《专项穿透诊断备忘录》（含测算模型与行动清单）· 3~5 个工作日交付，直接带去开董事会。
+            </div>
+            <a href="#consult" class="tier-btn btn-tier-teal">预约专项诊断备忘录 →</a>
+          </div>
+
+          <div class="tier-box">
+            <span class="tier-step">STEP THREE · 深度落地</span>
+            <h4>闭门工作坊 / 外部 CFO 陪跑</h4>
+            <p>备忘录筛选出真正有深度转型需求的企业，现场把复杂问题拆透，陪着团队把止血和改革动作落下去。</p>
+            <div class="tier-deliverable">
+              <strong>交付物与周期：</strong>
+              半天高管闭门工作坊，或季度外部 CFO 经营与资本陪跑 · 双方评估匹配后准入。
+            </div>
+            <a href="#consult" class="tier-btn btn-tier-dark">预约闭门合作洽谈 →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- === 新增模块：Dan Cumberland 式直球 FAQ === -->
+    <section class="section-pad" id="faq">
+      <div class="container">
+        <div class="sec-head">
+          <span class="sec-badge">STRAIGHT ANSWERS · 常见顾虑直答</span>
+          <h2 class="sec-title">决定沟通前，你可能关心的 4 个问题</h2>
+          <p class="sec-desc">把敏感问题摆在台面上说清楚，不浪费任何一位企业决策人的时间。</p>
+        </div>
+
+        <div class="faq-grid">
+          <div class="faq-item">
+            <h4><span class="faq-q">Q1.</span>你们主要服务多大体量的企业？</h4>
+            <p>核心聚焦年营收 <strong>3,000 万至 5 亿</strong> 的成长型企业（制造业、供应链、跨境与科技服务）。刚起步的小微企业尚不需要复杂的财务与资本穿透；而体量在这个区间的企业，往往业务跑得极快，但账期、涉税和股权底牌隐患最重，最需要前线 CFO 外脑定盘。</p>
+          </div>
+
+          <div class="faq-item">
+            <h4><span class="faq-q">Q2.</span>我们的核心财务数据和内账怎么保密？</h4>
+            <p>数据安全是底线。沟通第一天即可签署具备法律效力的《双向保密协议（NDA）》。在初诊与专项备忘录阶段，完全支持使用<strong>脱敏科目汇总表与经营台账</strong>进行穿透测算，无需导出任何敏感客户名单，核心数据 100% 留在你自己的企业内部。</p>
+          </div>
+
+          <div class="faq-item">
+            <h4><span class="faq-q">Q3.</span>如果我司内部老财务团队配合度不高、甚至抵触怎么办？</h4>
+            <p>这非常普遍。内部财务往往怕“被挑刺”或“被替代”。我们的定位是<strong>给老板做决策外脑、给财务团队配武器</strong>——帮他们把繁琐的数据核对和测算模型搭好，由我们承担专业判断责任。当财务团队发现这不是来抓替罪羊、而是帮他们减负避险时，阻力自然化解。</p>
+          </div>
+
+          <div class="faq-item">
+            <h4><span class="faq-q">Q4.</span>为什么不直接签常年顾问，而是先做一份「专项备忘录」？</h4>
+            <p>传统咨询最让人反感的就是上来收几十万顾问费，最后给一堆不痛不痒的 PPT。我们主张<strong>“一患一策、先见真章”</strong>：先用 3~5 天把你眼下最卡的一件事（接大单测算、涉税自查或股权安排）算透，交出一份能上董事会拍板的硬底稿。觉得真正值回票价，再谈长期陪跑。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- === 屏 5：你的外部大脑、边界与直接微信闭环 === -->
+    <section class="closing-wrap" id="principal">
+      <div class="container">
+        <div class="closing-card" id="consult">
+          <div class="advisor-left">
+            <span class="sec-badge">EXTERNAL BRAIN / 你的外部大脑</span>
+            <h3>你的决策外脑与陪伴人 · 何斌</h3>
+            <p>不是居高临下的评头论足，而是坐在你同一张桌旁、替你死守底牌的经营外脑与决策陪伴人。长期专注上市公司穿透研究、企业涉税合规、产业链账期重构与股权架构设计。我们不做泛泛的数字化口号，只用事实底稿、责任边界与可验证的下一步，帮企业决策人把账算透、把路走稳。</p>
+            <div class="advisor-boundaries">
+              <span>● 执业边界：不作二级市场荐股</span>
+              <span>● 不替代注册会计师法定审计意见</span>
+              <span>● 专注企业经营决策与资本行动</span>
+            </div>
+          </div>
+
+          <div class="contact-box">
+            <div class="contact-status">
+              <span class="status-dot"></span>
+              <span>本周仅开放 2 席深度连线</span>
+            </div>
+            <h4>预约 30 分钟闭门初诊</h4>
+            <p>由何斌亲自电话连线：听清企业现状，识别首要卡点，当场给出一个今天就能去查的动作建议。</p>
+            <a href="tools/企业财务AI体检（定版）.html" class="btn-contact-main">先做体检并预约初诊 →</a>
+            <span class="contact-note">企业微信 / 预约电话仅用于业务对齐，严格保密</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="cfo-footer">
+    <div class="container">
+      <p>AI 首席财务官 · 帮企业看清问题、算清账</p>
+      <p style="margin-top: 6px; color:#94A3B8;">© 2026 有二财经 / AI 首席财务官 · All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // 1. 顶部阅读进度条
+    const progressBar = document.getElementById('scrollProgress');
+    function updateProgress() {
+      const doc = document.documentElement;
+      const body = document.body;
+      const total = Math.max(doc ? doc.scrollHeight : 0, body ? body.scrollHeight : 0) - window.innerHeight;
+      const pct = total > 0 ? Math.min(100, Math.max(0, (window.scrollY / total) * 100)) : 0;
+      if (progressBar) progressBar.style.width = pct.toFixed(1) + '%';
+    }
+    window.addEventListener('scroll', updateProgress, { passive: true });
+
+    // 2. 账期与资金锁死实时计算器
+    const revSlider = document.getElementById('revSlider');
+    const dsoSlider = document.getElementById('dsoSlider');
+    const costSlider = document.getElementById('costSlider');
+
+    const revVal = document.getElementById('revVal');
+    const dsoVal = document.getElementById('dsoVal');
+    const costVal = document.getElementById('costVal');
+
+    const lockedCash = document.getElementById('lockedCash');
+    const annualLoss = document.getElementById('annualLoss');
+    const freedCash = document.getElementById('freedCash');
+    const equivNote = document.getElementById('equivNote');
+
+    function fmtNum(n) {
+      return n.toLocaleString('zh-CN', { maximumFractionDigits: 0 });
+    }
+
+    function updateCalc() {
+      const rev = parseFloat(revSlider.value); // 万
+      const dso = parseFloat(dsoSlider.value); // 天
+      const cost = parseFloat(costSlider.value); // %
+
+      revVal.textContent = fmtNum(rev) + ' 万';
+      dsoVal.textContent = dso + ' 天';
+      costVal.textContent = cost.toFixed(1) + '%';
+
+      const locked = Math.round(rev * (dso / 365));
+      const loss = (locked * (cost / 100)).toFixed(1);
+      const freed = Math.round(rev * (30 / 365));
+      const equivRev = Math.round(freed / 0.08); // 按8%净利率折算
+
+      lockedCash.textContent = '¥ ' + fmtNum(locked) + ' 万';
+      annualLoss.textContent = '¥ ' + loss + ' 万/年';
+      freedCash.textContent = '+ ¥ ' + fmtNum(freed) + ' 万';
+      equivNote.innerHTML = `按 8% 净利率折算，把账期缩短 30 天释放出的 <b>${fmtNum(freed)} 万自由现金</b>，相当于业务团队在外拼命多跑了 <b>${fmtNum(equivRev)} 万</b> 的有效营业额。`;
+    }
+
+    [revSlider, dsoSlider, costSlider].forEach(el => {
+      if (el) el.addEventListener('input', updateCalc);
+    });
+  </script>
+</body>
+</html>
