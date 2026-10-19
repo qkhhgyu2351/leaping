@@ -254,7 +254,7 @@
     }
     .nh { white-space: nowrap; }
     .br-m { display: none; }
-    @media (max-width: 560px) { .br-m { display: inline; } }
+    @media (max-width: 560px) { .br-m { display: block; } }
     .hero-hook .hl {
       color: var(--teal);
       white-space: nowrap;
@@ -1189,27 +1189,54 @@
       .cfo-top { height: 68px; padding: 0 16px; }
       .brand-symbol { width: 36px; height: 36px; }
       .brand-text strong { font-size: 16px; }
+      .brand-text .brand-ai { font-size: 16px; }
+      .brand-text .brand-name { font-size: 15.5px; }
       .brand-text > span { display: none !important; }
       .top-actions { gap: 0; flex-shrink: 0; }
-      .principal-link { font-size: 13px; padding: 6px 5px; white-space: nowrap; }
-      .hero-title { font-size: 28px; }
-      .btn-main, .btn-secondary { width: 100%; justify-content: center; }
+      .principal-link { font-size: 12.5px; padding: 5px 10px; white-space: nowrap; }
+      .hero-wrap { padding: 30px 0 32px; }
+      .hero-title { font-size: 26px; line-height: 1.32; margin-bottom: 14px; }
+      .hero-hook { font-size: 14px; line-height: 1.65; margin-bottom: 18px; }
+      .hero-desc { font-size: 13.5px; line-height: 1.68; margin-bottom: 22px; max-width: 100%; }
+      .hero-actions { gap: 10px; margin-bottom: 12px; }
+      .btn-main, .btn-secondary { width: 100%; justify-content: center; padding: 12px 16px; font-size: 14px; }
+      .hero-micro-promise { font-size: 11.5px; line-height: 1.6; }
+      .section-pad { padding: 36px 0; }
+      .sec-title { font-size: 22px; line-height: 1.35; margin-bottom: 10px; }
+      .sec-desc { font-size: 13px; line-height: 1.65; }
       .showroom-series-grid { grid-template-columns: 1fr; }
       .btn-showroom-main, .btn-showroom-sub { width: 100%; justify-content: center; }
+      /* === 手机适配加固 2026-10-19 === */
+      .research-strip { flex-direction: column !important; }
+      .research-strip > a { min-width: 0 !important; width: 100% !important; }
+      .showroom-banner { flex-direction: column !important; align-items: flex-start !important; }
+      .brand-text .brand-ai { font-size: 14px; }
+      .brand-text .brand-name { font-size: 14px; }
+      .container { padding-left: 16px; padding-right: 16px; }
+      .calc-inputs label { font-size: 13px; }
+      .pain-card h3 { font-size: 16px; }
+      .tier-card { padding: 20px 16px; }
+      /* 主理人/案例区图片自适应 */
+      img { max-width: 100%; height: auto; }
+    }
+    @media (max-width: 380px) {
+      .hero-title { font-size: 23px; }
+      .sec-title { font-size: 20px; }
+      .principal-link .arrow { display: none; }
     }
   </style>
-<style id="__dm_no_drag_style__">* { -webkit-user-drag: none !important; }</style><style id="__dm_bindable_badge_style__">[data-sp-bindable="database"]{outline:1px dashed #0088ff;outline-offset:2px;border-radius:4px;}[data-sp-bindable="database"] *{pointer-events:none !important;transition:none !important;animation:none !important;}[data-sp-bindable="database"]{transition:none !important;animation:none !important;}</style></head>
+<style id="__dm_no_drag_style__" data-page-node-id="xfPDqKd93kBBLXmAJz04cD">* { -webkit-user-drag: none !important; }</style><style id="__dm_bindable_badge_style__" data-page-node-id="qr9HYtFO5X15T2s1hKRuBG">[data-sp-bindable="database"]{outline:1px dashed #0088ff;outline-offset:2px;border-radius:4px;}[data-sp-bindable="database"] *{pointer-events:none !important;transition:none !important;animation:none !important;}[data-sp-bindable="database"]{transition:none !important;animation:none !important;}</style></head>
 <body data-page-node-id="5HOb9NMhKbtBK2hWPyON1p" style="">
 
   <!-- 顶部阅读进度条 -->
-  <div class="scroll-progress" id="scrollProgress" data-page-node-id="rbqnVzzPHYdURjQfEAwzIH"></div>
+  <div class="scroll-progress" id="scrollProgress" data-page-node-id="rbqnVzzPHYdURjQfEAwzIH" style="width: 67.8%;"></div>
 
   <!-- 1. 顶部白透固定导航条 -->
   <header class="cfo-top" data-page-node-id="xUUsNSl1r8YBcO6cqAJ5nt">
     <div class="brand-group" data-page-node-id="pLboPqPOTUBW7ZryHMuYtA">
       <img class="brand-symbol" src="assets/brand/aicfo-symbol.png" alt="AI 首席财务官标志" data-page-node-id="xP1twHfEq1kVyOi3UZwvDt">
       <div class="brand-text" data-page-node-id="5qqqshq0Uf0O4xsW64tceX">
-        <strong data-page-node-id="zEuAZDt6GxQ6BrCr7U3T0c"><span class="brand-ai">AI</span><span class="brand-name">首席财务官</span></strong>
+        <strong data-page-node-id="zEuAZDt6GxQ6BrCr7U3T0c"><span class="brand-ai" data-page-node-id="0lb1RXUyaU3wOZKsCf8Bfz">AI</span><span class="brand-name" data-page-node-id="v1nvCUaVgwNNOZhx2vZImY">首席财务官</span></strong>
         <span class="brand-sub" data-page-node-id="OKIUiTXnkePoKsai1pSqd0">帮企业看清问题、找准经营卡点</span>
       </div>
     </div>
@@ -1218,9 +1245,9 @@
     </div>
     <div class="top-actions" data-page-node-id="G3ooM2OgAkZPOj8JqwlLyB">
       <a href="#principal" class="principal-link" data-page-node-id="Usb3YnSb5Q0hBZhRshIYPS">
-        <span class="pulse-dot"></span>
-        <span>独立 CFO · 何斌</span>
-        <span class="arrow">↗</span>
+        <span class="pulse-dot" data-page-node-id="JJofnY803p75UFO5H9TchH"></span>
+        <span data-page-node-id="UsN5ghLHPbtFJcQr9LQWMK">独立 CFO · 何斌</span>
+        <span class="arrow" data-page-node-id="qHeMAus1Av0qRksnTsNWjm">↗</span>
       </a>
     </div>
   </header>
@@ -1229,11 +1256,11 @@
     <!-- === 屏 1：首屏承诺 + 零防备微承诺 === -->
     <section class="hero-wrap" data-page-node-id="lDZtDtxB4XE69i4X4JW0CV">
       <div class="container" data-page-node-id="255erb0Tr9Aq0XPx3ICxnU">
-        <h1 class="hero-title" data-page-node-id="PFt5oZBSGObtB4y9c3Ro85">别让增长，掩盖了所有问题。</h1>
+        <h1 class="hero-title" data-page-node-id="PFt5oZBSGObtB4y9c3Ro85"><span data-page-node-id="RMoRBP2ElGVvJa0BbqyeYH">别让增长，</span><br class="br-m" data-page-node-id="1GqI6rrhuB5L9OEnh4Bu2s"><span data-page-node-id="AEtAWAo8dMnssAj927esbj">掩盖了所有问题。</span></h1>
         <p class="hero-hook" data-page-node-id="d2cB0B3trGm5JFFjPYA0fj">
-          <span class="nh" data-page-node-id="OAEOuCBqJklmucK0GmpW1p">以前跑得快，很多糊涂账不耽误赚钱；</span><br class="br-m" data-page-node-id="zRMx61U1gDqPWQLNZI1MyZ"><span class="hl" data-page-node-id="nbfhOqOx5OTzH7yOmJlBPB">现在慢下来，才发现账面看着盈利、能动的现金却见底了。</span>
+          <span class="nh" data-page-node-id="OAEOuCBqJklmucK0GmpW1p">以前跑得快，很多糊涂账不耽误赚钱；</span><br class="br-m" data-page-node-id="VmLXDfSHsoUV4vcBJHBgPw"><span class="hl" data-page-node-id="nbfhOqOx5OTzH7yOmJlBPB">现在慢下来，才发现账面看着盈利、能动的现金却见底了。</span>
         </p>
-        <p class="hero-desc" data-page-node-id="v4FFcYR1VHziZlN9rVtgIl">面向年营收 3,000 万至 5 亿成长型企业决策人。帮你穿透真实家底，找出最大卡点，给你一份算得清、能上董事会的实战底稿。</p>
+        <p class="hero-desc" data-page-node-id="v4FFcYR1VHziZlN9rVtgIl"><span data-page-node-id="hcd9FX1bMwcTX0IExORlQr">面向年营收 3,000 万至 5 亿成长型企业决策人。</span><br class="br-m" data-page-node-id="MlqWZVJXw6XpSyapJQDZRW"><span data-page-node-id="hhkG77glQZYRbHa6Jl52kT">帮你穿透真实家底，找出最大卡点，</span><br class="br-m" data-page-node-id="nbqLUBSyFkm3u4N70AlXTY"><span data-page-node-id="1qMomvTOzTaL1XW4FpiMNf">给你一份算得清、能上董事会的实战底稿。</span></p>
         <div class="hero-actions" data-page-node-id="KAAgG13ZUhdHbS7qu1rcoC">
           <a href="#diagnosis" class="btn-main" data-page-node-id="SQsJt96VCFaF5x6lwWvHbG">
             <span data-page-node-id="Hn19PtLE6k813qUBBrlsqZ">对号入座：看你公司卡在哪一关</span>
@@ -1244,7 +1271,7 @@
           </a>
         </div>
         <p class="hero-micro-promise" data-page-node-id="ERtfO52iA8AjzxLdHkIQ4N">
-          免费在线诊断 · 约 3 分钟 · 结果直接显示在屏幕上 · 不强制留电话推销
+          <span data-page-node-id="w3W13uDcEh92cnPM9m6ovD">免费在线诊断 · 约 3 分钟</span><span class="br-m" data-page-node-id="8JKSFGThRxyXHajR9ZIPrh"></span><span data-page-node-id="asaobT1RAw1PE86fDTpddH">结果直接显示在屏幕上 · 不强制留电话</span>
         </p>
       </div>
     </section>
@@ -1252,14 +1279,14 @@
     <section class="section-pad" id="diagnosis" data-page-node-id="86cmY3KMhd79LomSJKRgJw">
       <div class="container" data-page-node-id="MMmCz9Fjv7r2gpWNHsPYT9">
         <div class="sec-head" data-page-node-id="w671j7pnCHO9wU0Gg8I8fX">
-          <span class="sec-badge" data-page-node-id="8rf5y6AGBOuSEHsrMiMkip">DIAGNOSTIC MAP · 分诊对号入座</span>
-          <h2 class="sec-title" data-page-node-id="eCLGH8WZe4q2cTnPO8gNfR">企业现在卡在哪？对号入座 <span style="white-space:nowrap;" data-page-node-id="0xsaebx0uAPqGO4MEdBk0k">4 类</span>典型卡点</h2>
-          <p class="sec-desc" data-page-node-id="TP48LCWUTwnBWCm2AovihB">大多数公司的账是为税务局做的（合规账），不是为老板做的（决策账）。不是财务不努力，是账的结构从一开始就不支持你做决定。</p>
+          
+          <h2 class="sec-title" data-page-node-id="eCLGH8WZe4q2cTnPO8gNfR"><span data-page-node-id="ncIsIRwrtDwMogkDBKxK3M">企业现在卡在哪？</span><br class="br-m" data-page-node-id="I5KP6RMFUkmoj7r2E6wNLy"><span data-page-node-id="HZSJOGEFcm3lrlOefE0GRi">对号入座 4 类典型卡点</span></h2>
+          <p class="sec-desc" data-page-node-id="TP48LCWUTwnBWCm2AovihB"><span data-page-node-id="P6dQ3CKzdi7sKPZ5pETOEX">大多数公司的账是为税务局做的（合规账），不是为老板做的（决策账）。</span><br class="br-m" data-page-node-id="0XWhZSL0XOE1ZK37shAS3x"><span data-page-node-id="Z4Ewf1WbkXBxhSRRkTV0tD">不是财务不努力，是账的结构从一开始就不支持你做决定。</span></p>
         </div>
         <div class="diag-grid" data-page-node-id="E1lBgk6NU4gJUlQbeSYgYl">
           <article class="diag-card" data-page-node-id="SOnJCskxfFT6PRq2mz9L83">
             <div class="diag-tag-row" data-page-node-id="5ExDse957ya777luFkRnxp">
-              <span class="diag-num" data-page-node-id="RByVW0mYCkQFFVUvUA43Ha">01 / CASH &amp; WORKING CAPITAL</span>
+              
               <span class="diag-flag" data-page-node-id="E3tGaAkcdsIBdmq2pcaaam">资金卡点</span>
             </div>
             <h3 data-page-node-id="Mluji4ywvLUs7SQSr52zrz">有订单、有收入，每个月账上却总是没钱</h3>
@@ -1270,7 +1297,7 @@
 
           <article class="diag-card" data-page-node-id="9QNFcXoH8aquyPpqcVGMHa">
             <div class="diag-tag-row" data-page-node-id="WXo8tHQ3gPG9hDhYJMM7gc">
-              <span class="diag-num" data-page-node-id="a6CslzVFlGKKwjEMM439aH">02 / MANAGEMENT ACCOUNTING</span>
+              
               <span class="diag-flag" data-page-node-id="XqLE3wNXPLvZ0vw3LdqW9A">口径卡点</span>
             </div>
             <h3 data-page-node-id="oEeD8cspnadk5BYRKGI1LZ">销售、生产、财务各说各话，三本账对不上</h3>
@@ -1281,7 +1308,7 @@
 
           <article class="diag-card" data-page-node-id="eDyZM9rbuV9wytGqt5gj7C">
             <div class="diag-tag-row" data-page-node-id="zQezwa73zdZh1mOsDtbMmY">
-              <span class="diag-num" data-page-node-id="ndKN8Lf7lTJy40QZwgT6Ic">03 / TAX &amp; GOVERNANCE</span>
+              
               <span class="diag-flag" data-page-node-id="xwcX396SOO05vAuVMrrXWj">涉税红线</span>
             </div>
             <h3 data-page-node-id="h9S1H2ztuZ6mBMNzDouQYl">业务跑快了，多壳公司、公私混同与旧账怕踩雷</h3>
@@ -1292,7 +1319,7 @@
 
           <article class="diag-card" data-page-node-id="u6Bd28zL5OnGUMgs1CG6oz">
             <div class="diag-tag-row" data-page-node-id="zC8FQjBBLhLskSaiVca8JX">
-              <span class="diag-num" data-page-node-id="Fvm0S7atTh6OW2H8dbdZVq">04 / CAPITAL &amp; EQUITY</span>
+              
               <span class="diag-flag" data-page-node-id="Dw3LmwGNavTeo7lFLBSCzM">资本隐患</span>
             </div>
             <h3 data-page-node-id="uSPq8OJ4vEdcobR3uwfvam">想接大单扩产或签融资对赌，算不清底线怕失控</h3>
@@ -1312,7 +1339,7 @@
     <section class="section-pad" id="calculator" data-page-node-id="naHFBb5VUPTyN8OZswSfv4">
       <div class="container" data-page-node-id="MG0h6z9BBB9hAkM87P2wku">
         <div class="sec-head" data-page-node-id="WOEAgW2S2gcyLWCUMu0NHr">
-          <span class="sec-badge" data-page-node-id="vJeOIhpV7NP4YjBrEMgDkF">COST OF INACTION · 隐形失血测算</span>
+          
           <h2 class="sec-title" data-page-node-id="1LXyLmKiNbMEaHp7Anqyyi">如果不解决，账期错配每年正抽走你多少现金？</h2>
           <p class="sec-desc" data-page-node-id="7zTM1xjIQpy9MEEvQM8wOG">很多成长型企业不是死于亏损，而是死于“赚了利润、没了现金”。拉动下方滑块，算算你的真实资金沉淀。</p>
         </div>
@@ -1381,7 +1408,7 @@
     <section class="section-pad" id="tiers" data-page-node-id="CvLT2aMhDPREhiOaQfx5El">
       <div class="container" data-page-node-id="Z2Af5GvnblGMEaweE7Ac3w">
         <div class="sec-head" data-page-node-id="YYJ9c4pVAToehpGheCr1SK">
-          <span class="sec-badge" data-page-node-id="xiBlgAQnXeWYKGHZDpExo8">PRODUCTIZED TIERS · 产品化服务阶梯</span>
+          
           <h2 class="sec-title" data-page-node-id="sRtATwpurxkiSqpnw1FYgb">怎么跟我合作？三级产品化交付货架</h2>
           <p class="sec-desc" data-page-node-id="PjrSmBNdMMdE1wsELYRARJ">不卖“陪开会、做看板、写空泛报告”的传统顾问套路；每一档都把<strong data-page-node-id="wqqgFL9NNstyYRpsyE9T4V">给税务局看的合规账</strong>，翻译成<strong data-page-node-id="BCFpc9Ibd2wv9L1rIX3kab">老板拍板用的决策账</strong>，直接落到具体动作上。</p>
         </div>
@@ -1438,7 +1465,7 @@
     <section class="section-pad" data-page-node-id="UkeCqgPAPASHz7gldEg6H1">
       <div class="container" data-page-node-id="y6QzG6JfVIQIkPhmJkv46u">
         <div class="sec-head" data-page-node-id="TT9LSXTI927Ifdw5vyeK4d">
-          <span class="sec-badge" data-page-node-id="TEBUi20r4F4IrAVOTCiRtF">CASE EVIDENCE · 实战与穿透底稿</span>
+          
           <h2 class="sec-title" data-page-node-id="EZEjY8yn07GJZdBayBNRY0">既下过民企泥潭拆雷，也用同套标准穿透巨头</h2>
           <p class="sec-desc" data-page-node-id="Qa7N8Vw2pdvrr69WCKR5ph">前半部分为 2026 年深入实体企业的真实脱敏交付案例；后半部分为公开披露财报与工商底稿的深度拆解。</p>
         </div>
@@ -1480,7 +1507,7 @@
     <section class="section-pad" id="principal" data-page-node-id="ez0wVG9xWENPfoLm8uQRSV">
       <div class="container" data-page-node-id="U1Mw3Eh0x0XDOLLkk5RfVy">
         <div class="sec-head" data-page-node-id="atqkIXO1BfwD8BX0sk9nBw">
-          <span class="sec-badge" data-page-node-id="6EUQCBPTJYB1qbR3ZweFs5">AI CFO / AI型CFO</span>
+          <span class="sec-badge" data-page-node-id="6EUQCBPTJYB1qbR3ZweFs5" style="white-space: pre-wrap;">AICFO网站​</span>
           <h2 class="sec-title" data-page-node-id="IslI4BSoxgiitLH2z2wqKx">你的 AI型CFO 与陪伴人 · 何斌</h2>
         </div>
         <div style="max-width:800px;margin:0 auto;" data-page-node-id="t9yodKpM1c6tFeITFbjWRR">
@@ -1502,7 +1529,7 @@
           </div>
           <h3 style="font-family:var(--serif);font-size:20px;color:var(--ink);margin-bottom:8px;" data-page-node-id="6cORpoh3HdxMuY2lI64GYA">同一套穿透标准，也用在巨头身上</h3>
           <p style="font-size:14px;color:var(--ink-muted);margin-bottom:16px;" data-page-node-id="LGBgU1czFPx18BAq4AzQ9A">以下为基于公开财报与工商底稿的深度拆解（非服务案例），验证前线 CFO 的算账方法论。</p>
-          <div style="display:flex;gap:24px;flex-wrap:wrap;" data-page-node-id="Z8qLwogf6EhSYlhZO3fuc7">
+          <div class="research-strip" style="display:flex;gap:24px;flex-wrap:wrap;" data-page-node-id="Z8qLwogf6EhSYlhZO3fuc7">
             <a href="posts/20260515追觅系股权架构图.html" target="_blank" rel="noopener" style="flex:1;min-width:200px;text-decoration:none;display:block;" data-page-node-id="lGZufmqpnbfpUaJsLE2JXn">
               <div style="font-size:13px;color:var(--teal);font-weight:600;margin-bottom:4px;" data-page-node-id="WHF6DXoV8l9QVN3HUcXTlw">资本与股权穿透 ↗</div>
               <div style="font-size:14px;color:var(--ink);line-height:1.5;" data-page-node-id="byNZXHU0EIxMKuC76vCZpG">追觅系股权架构：241 万母公司如何撬动 252 亿基金矩阵</div>
@@ -1522,7 +1549,7 @@
     <!-- === 底稿库横幅（压缩版） === -->
     <section class="section-pad" style="padding-top:0;padding-bottom:20px;" data-page-node-id="YgjBmkdYi5MIUWEtcEr548">
       <div class="container" data-page-node-id="390FfgA8JR3v7pHlcCstoj">
-        <a href="index.html#insights" style="display:flex;align-items:center;justify-content:space-between;gap:16px;border:1px solid var(--border);border-radius:12px;padding:20px 28px;background:linear-gradient(135deg,#f8fafc 0%,#e6f5f2 100%);text-decoration:none;flex-wrap:wrap;" data-page-node-id="zkKo0v7479QFgINoHXgLbL">
+        <a href="index.html#insights" class="showroom-banner" style="display:flex;align-items:center;justify-content:space-between;gap:16px;border:1px solid var(--border);border-radius:12px;padding:20px 28px;background:linear-gradient(135deg,#f8fafc 0%,#e6f5f2 100%);text-decoration:none;flex-wrap:wrap;" data-page-node-id="zkKo0v7479QFgINoHXgLbL">
           <div data-page-node-id="nY9O2gxdwowGw8OTgc2bja">
             <div style="font-size:13px;color:var(--teal);font-weight:600;margin-bottom:4px;" data-page-node-id="9F4RZJ50u0aGO6QbZO7qh6">YUER FINANCE · RESEARCH LAB</div>
             <div style="font-family:var(--serif);font-size:18px;color:var(--ink);" data-page-node-id="ScK2omWuSCEp0EFW9El9n4">有二财经 · 整车与 AI 科技穿透底稿库（60+ 篇深度研报）</div>
@@ -1583,7 +1610,7 @@
       <div style="text-align:left;" data-page-node-id="lbesNmJ0NGbV6KBgQuf4M1">
         <div style="font-size:15px;font-weight:600;margin-bottom:8px;" data-page-node-id="hf8Yrkzerb9xqC9B1ydyoN">直接联系</div>
         <div style="font-size:14px;color:var(--ink-muted);margin-bottom:4px;" data-page-node-id="6pGHyCDAYbX6f9H8aucxD6">电话：<span style="color:var(--ink);" data-page-node-id="GQRZZwO7xbCaaGFjI4ze85">待填写</span></div>
-        <div style="font-size:14px;color:var(--ink-muted);margin-bottom:4px;" data-page-node-id="EQ4gepOGCwYiz5ZpK10wXa">微信：<span style="color:var(--ink);font-family:var(--mono);" data-page-node-id="yQbn7qe2pla0BEDLlIBqDt">593090320</span> <button onclick="navigator.clipboard.writeText('593090320').then(()=>{this.textContent='✅ 已复制';setTimeout(()=>this.textContent='一键复制',2000);});" style="font-size:12px;color:var(--teal);border:1px solid var(--teal);border-radius:12px;padding:2px 10px;margin-left:6px;cursor:pointer;background:#fff;" data-page-node-id="Ns823FxOC184nfTs5VWS7P">一键复制</button></div>
+        <div style="font-size:14px;color:var(--ink-muted);margin-bottom:4px;" data-page-node-id="EQ4gepOGCwYiz5ZpK10wXa">微信：<span style="color:var(--ink);font-family:var(--mono);" data-page-node-id="yQbn7qe2pla0BEDLlIBqDt">593090320</span> <button onclick="navigator.clipboard.writeText('593090320').then(()= data-page-node-id=" ns823fxoc184nfts5vws7p"="">{this.textContent='✅ 已复制';setTimeout(()=&gt;this.textContent='一键复制',2000);});" style="font-size:12px;color:var(--teal);border:1px solid var(--teal);border-radius:12px;padding:2px 10px;margin-left:6px;cursor:pointer;background:#fff;" data-page-node-id="Ns823FxOC184nfTs5VWS7P"&gt;一键复制</button></div>
         <div style="font-size:13px;color:var(--ink-muted);" data-page-node-id="duATENRa9gS73K0hNmBxqs">工作时间：周一至周五 9:00-18:00</div>
       </div>
     </div>
@@ -1662,6 +1689,7 @@
       if (el) el.addEventListener('input', updateCalc);
     });
   </script>
+
 
 
 </body></html>
