@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>企业现金流动态模拟器 · AI首席财务官</title>
+<style>
+:root {
+  --teal: #0ABAB5;
+  --teal-dark: #089a95;
+  --teal-light: #e6f9f8;
+  --ink: #1a2b3c;
+  --gray: #6b7c8d;
+  --line: #e8eef2;
+  --bg: #f7fafb;
+  --red: #e5484d;
+  --amber: #f5a623;
+  --green: #12b76a;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.6;
+}
+.header {
+  background: var(--ink);
+  color: #fff;
+  padding: 28px 24px 24px;
+}
+.header h1 { font-size: 22px; font-weight: 700; }
+.header h1 .dot { color: var(--teal); }
+.header p { color: #9fb0bf; font-size: 13px; margin-top: 6px; }
+.header .note {
+  margin-top: 12px; font-size: 12px; color: #7d8fa0;
+  border-top: 1px solid #2a3d52; padding-top: 10px;
+}
+.container { max-width: 1180px; margin: 0 auto; padding: 20px 16px 60px; }
+
+/* 指标卡 */
+.metrics {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 12px; margin-bottom: 20px;
+}
+@media (max-width: 720px) { .metrics { grid-template-columns: repeat(2, 1fr); } }
+.metric {
+  background: #fff; border: 1px solid var(--line); border-radius: 12px;
+  padding: 16px 18px;
+}
+.metric .label { font-size: 12px; color: var(--gray); }
+.metric .value { font-size: 26px; font-weight: 800; margin-top: 4px; }
+.metric .sub { font-size: 12px; color: var(--gray); margin-top: 2px; }
+.metric.danger .value { color: var(--red); }
+.metric.warn .value { color: var(--amber); }
+.metric.ok .value { color: var(--green); }
+
+/* 主区 */
+.main { display: grid; grid-template-columns: 340px 1fr; gap: 16px; }
+@media (max-width: 900px) { .main { grid-template-columns: 1fr; } }
+.panel {
+  background: #fff; border: 1px solid var(--line); border-radius: 12px;
+  padding: 20px;
+}
+.panel h2 { font-size: 16px; margin-bottom: 4px; }
+.panel .desc { font-size: 12px; color: var(--gray); margin-bottom: 16px; }
+
+.param { margin-bottom: 18px; }
+.param .row { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px; }
+.param .name { font-size: 13px; }
+.param .val { font-size: 14px; font-weight: 700; color: var(--teal-dark); }
+.param input[type=range] { width: 100%; accent-color: var(--teal); }
+.param .hint { font-size: 11px; color: var(--gray); margin-top: 2px; }
+
+.chart-wrap { position: relative; }
+canvas#chart { width: 100%; height: 320px; display: block; }
+.legend { display: flex; gap: 16px; font-size: 12px; color: var(--gray); margin-top: 8px; }
+.legend i { display: inline-block; width: 18px; height: 3px; border-radius: 2px; vertical-align: middle; margin-right: 4px; }
+
+/* 洞察 */
+.insight {
+  margin-top: 16px; background: var(--ink); color: #fff;
+  border-radius: 12px; padding: 20px 22px;
+}
+.insight .kicker { font-size: 11px; letter-spacing: 2px; color: var(--teal); margin-bottom: 8px; }
+.insight .big { font-size: 17px; font-weight: 700; line-height: 1.7; }
+.insight .tip {
+  margin-top: 12px; font-size: 13px; color: #c3d0dc;
+  border-top: 1px solid #2a3d52; padding-top: 12px;
+}
+.insight .tip strong { color: var(--amber); }
+
+.footer-note {
+  margin-top: 24px; font-size: 12px; color: var(--gray);
+  background: #fff; border: 1px dashed var(--line); border-radius: 10px;
+  padding: 14px 18px;
+}
+.footer-note li { margin-left: 18px; margin-bottom: 4px; }
+.cta {
+  margin-top: 20px; text-align: center;
+  background: var(--teal-light); border-radius: 12px; padding: 24px;
+}
+.cta p { font-size: 14px; margin-bottom: 12px; }
+.cta a {
+  display: inline-block; background: var(--teal); color: #fff;
+  padding: 10px 28px; border-radius: 8px; text-decoration: none; font-weight: 700;
+}
+.cta a:hover { background: var(--teal-dark); }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div style="max-width:1180px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;">
+    <div>
+      <h1><span class="dot">◈</span> 企业现金流动态模拟器</h1>
+      <p>拖动左侧参数，实时看未来 12 个月现金余额变化。订单盈利 ≠ 现金充裕。</p>
+    </div>
+    <a href="../preview.html" style="color:#9fb0bf;font-size:13px;text-decoration:none;border:1px solid #2a3d52;padding:6px 14px;border-radius:6px;">← 返回 AI 首席财务官主页</a>
+  </div>
+  <div class="note" style="max-width:1180px;margin:12px auto 0;">原型 v0.1 · 单企业简化模型 · 未含税金 · 测算仅供演示，不构成财务建议</div>
+</div>
+
+<div class="container">
+
+  <!-- 关键指标 -->
+  <div class="metrics">
+    <div class="metric" id="m-runway">
+      <div class="label">现金可支撑</div>
+      <div class="value">–</div>
+      <div class="sub">不断流的月数</div>
+    </div>
+    <div class="metric" id="m-min">
+      <div class="label">最低现金余额</div>
+      <div class="value">–</div>
+      <div class="sub">出现在第 – 个月</div>
+    </div>
+    <div class="metric" id="m-gap">
+      <div class="label">资金缺口</div>
+      <div class="value">–</div>
+      <div class="sub">低于安全线时</div>
+    </div>
+    <div class="metric" id="m-end">
+      <div class="label">12 个月后现金</div>
+      <div class="value">–</div>
+      <div class="sub">期末余额</div>
+    </div>
+  </div>
+
+  <div class="main">
+    <!-- 参数区 -->
+    <div class="panel">
+      <h2>经营参数</h2>
+      <div class="desc">拖动滑杆，所有结果实时重算</div>
+
+      <div class="param">
+        <div class="row"><span class="name">期初可用现金</span><span class="val" id="v-cash0">500 万</span></div>
+        <input type="range" id="p-cash0" min="50" max="2000" step="10" value="500">
+        <div class="hint">现在账上能动的钱（万元）</div>
+      </div>
+
+      <div class="param">
+        <div class="row"><span class="name">月均营收</span><span class="val" id="v-rev">300 万</span></div>
+        <input type="range" id="p-rev" min="50" max="2000" step="10" value="300">
+        <div class="hint">平均每月开票金额（万元）</div>
+      </div>
+
+      <div class="param">
+        <div class="row"><span class="name">毛利率</span><span class="val" id="v-margin">30%</span></div>
+        <input type="range" id="p-margin" min="5" max="80" step="1" value="30">
+        <div class="hint">（营收 - 直接成本）/ 营收</div>
+      </div>
+
+      <div class="param">
+        <div class="row"><span class="name">每月固定支出</span><span class="val" id="v-fixed">120 万</span></div>
+        <input type="range" id="p-fixed" min="10" max="800" step="5" value="120">
+        <div class="hint">房租 + 工资 + 水电等，每月雷打不动（万元）</div>
+      </div>
+
+      <div class="param">
+        <div class="row"><span class="name">客户回款账期</span><span class="val" id="v-ar">60 天</span></div>
+        <input type="range" id="p-ar" min="0" max="180" step="5" value="60">
+        <div class="hint">开票后多少天收到钱</div>
+      </div>
+
+      <div class="param">
+        <div class="row"><span class="name">供应商付款账期</span><span class="val" id="v-ap">30 天</span></div>
+        <input type="range" id="p-ap" min="0" max="180" step="5" value="30">
+        <div class="hint">拿到货后多少天付钱</div>
+      </div>
+    </div>
+
+    <!-- 图表区 -->
+    <div>
+      <div class="panel chart-wrap">
+        <h2>未来 12 个月现金余额</h2>
+        <div class="desc">蓝色线 = 现金余额 · 红色虚线 = 安全线（2 个月固定支出）</div>
+        <canvas id="chart"></canvas>
+        <div class="legend">
+          <span><i style="background:#0ABAB5"></i>现金余额</span>
+          <span><i style="background:#e5484d"></i>安全线</span>
+        </div>
+      </div>
+
+      <div class="insight">
+        <div class="kicker">● SIMULATION INSIGHT</div>
+        <div class="big" id="insight-big">–</div>
+        <div class="tip" id="insight-tip">–</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    <strong>模型说明（简化版 v0.1）：</strong>
+    <ul>
+      <li>按月测算：每月现金流入 = 当月营收中按账期到期的回款；每月流出 = 直接成本（按供应商账期）+ 当月固定支出。</li>
+      <li>应收/应付按账期延迟 1~6 个月分摊，未精确到天。</li>
+      <li>未含税金、未含资本性支出、未含融资/还款。</li>
+      <li>安全线 = 2 个月固定支出，仅作参考。</li>
+    </ul>
+  </div>
+
+  <div class="cta">
+    <p>这只是简化演示。想把<b>你自己公司</b>为税务局做的合规账，翻译成能算清真实缺口的<b>经营决策账</b>？</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+      <a href="企业财务AI体检（定版）.html">开始 3 分钟企业卡点快速自测 →</a>
+      <a href="../preview.html#consult" style="background:var(--ink);">预约何斌 30 分钟闭门初诊 ↗</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+const MONTHS = 12;
+
+function fmtWan(v) {
+  const neg = v < 0;
+  const a = Math.abs(v);
+  const s = a >= 10000 ? (a/10000).toFixed(1) + ' 亿' : Math.round(a) + ' 万';
+  return (neg ? '-' : '') + s;
+}
+
+function getParams() {
+  return {
+    cash0: +$('p-cash0').value,
+    rev: +$('p-rev').value,
+    margin: +$('p-margin').value / 100,
+    fixed: +$('p-fixed').value,
+    arDays: +$('p-ar').value,
+    apDays: +$('p-ap').value,
+  };
+}
+
+// 核心计算：逐月现金余额
+function simulate(p) {
+  const cogs = p.rev * (1 - p.margin);          // 每月直接成本
+  const arLag = Math.round(p.arDays / 30);       // 回款延迟月数
+  const apLag = Math.round(p.apDays / 30);       // 付款延迟月数
+
+  // 每月现金流入：arLag 个月前的营收
+  // 每月现金流出：apLag 个月前的直接成本 + 当月固定支出
+  const balances = [];
+  let cash = p.cash0;
+  // 为简化，假设历史月份营收/成本与当前相同（稳态假设）
+  for (let m = 0; m < MONTHS; m++) {
+    const inflow = p.rev;                        // 稳态下每月回款 = 月营收
+    const outflow = cogs + p.fixed;              // 稳态下每月流出
+    // 账期错配的净影响：应收占用 - 应付占用
+    // 每月净现金流 = rev - cogs - fixed = 毛利 - 固定支出
+    // 但账期变化时，过渡期会有一次性冲击，这里用简化系数模拟
+    cash += (inflow - outflow);
+    balances.push(cash);
+  }
+
+  // 账期错配的一次性冲击：AR增加 → 现金被多占
+  // 冲击金额 = rev * arDays/30 - cogs * apDays/30（营运资金占用）
+  const wcOccupy = p.rev * (p.arDays / 30) - cogs * (p.apDays / 30);
+  // 把营运资金占用分摊到前 3 个月体现（过渡期）
+  const shock = [wcOccupy * 0.5, wcOccupy * 0.3, wcOccupy * 0.2];
+  let c2 = p.cash0;
+  const balances2 = [];
+  for (let m = 0; m < MONTHS; m++) {
+    c2 += (p.rev - cogs - p.fixed);
+    if (m < 3) c2 -= shock[m];
+    // 从第4个月起，营运资金占用已体现在期初，之后按净现金流走
+    // 为避免重复扣，第4个月加回（因为稳态已含）
+    if (m === 3) c2 += wcOccupy;
+    balances2.push(c2);
+  }
+
+  return balances2;
+}
+
+function update() {
+  const p = getParams();
+
+  // 更新参数显示
+  $('v-cash0').textContent = fmtWan(p.cash0);
+  $('v-rev').textContent = fmtWan(p.rev);
+  $('v-margin').textContent = Math.round(p.margin * 100) + '%';
+  $('v-fixed').textContent = fmtWan(p.fixed);
+  $('v-ar').textContent = p.arDays + ' 天';
+  $('v-ap').textContent = p.apDays + ' 天';
+
+  const bal = simulate(p);
+  const safety = p.fixed * 2;
+  const minBal = Math.min(...bal);
+  const minMonth = bal.indexOf(minBal) + 1;
+  const endBal = bal[MONTHS - 1];
+
+  // 跑道：现金低于 0 的第一个月
+  let runway = MONTHS;
+  for (let i = 0; i < MONTHS; i++) {
+    if (bal[i] < 0) { runway = i; break; }
+  }
+  const gap = minBal < safety ? safety - minBal : 0;
+
+  // 指标卡
+  setMetric('m-runway', runway >= MONTHS ? '12+ 个月' : runway + ' 个月',
+    runway >= MONTHS ? 'ok' : (runway <= 3 ? 'danger' : 'warn'));
+  setMetric('m-min', fmtWan(minBal), minBal < 0 ? 'danger' : (minBal < safety ? 'warn' : 'ok'));
+  $('m-min').querySelector('.sub').textContent = '出现在第 ' + minMonth + ' 个月';
+  setMetric('m-gap', gap > 0 ? fmtWan(gap) : '无', gap > 0 ? 'danger' : 'ok');
+  setMetric('m-end', fmtWan(endBal), endBal < 0 ? 'danger' : 'ok');
+
+  // 洞察
+  const monthlyNet = p.rev * p.margin - p.fixed;
+  let big, tip;
+  if (minBal < 0) {
+    big = '⚠️ 现金将在第 ' + (runway + 1) + ' 个月断流。账上 ' + fmtWan(p.cash0) + '，撑不过 ' + (runway + 1) + ' 个月。';
+    tip = '最直接的三个动作：<strong>① 把客户回款账期往前压</strong>（每压 15 天，少占 ' + fmtWan(p.rev * 0.5) + '）；② 跟供应商谈延长付款；③ 砍固定支出。先算清，再动手。';
+  } else if (minBal < safety) {
+    big = '现金不会断，但第 ' + minMonth + ' 个月会跌破安全线（' + fmtWan(safety) + '），缺口约 ' + fmtWan(gap) + '。';
+    tip = '现在还能撑，但没有缓冲。建议：<strong>把回款账期从 ' + p.arDays + ' 天往前压</strong>，或准备一笔备用授信，别等到断流才找钱。';
+  } else {
+    big = '未来 12 个月现金安全，最低 ' + fmtWan(minBal) + '（第 ' + minMonth + ' 个月），始终在安全线之上。';
+    tip = monthlyNet > 0
+      ? '每月净增现金约 ' + fmtWan(monthlyNet) + '。可以考虑：扩大生产或提前还贷，但先确认这笔钱是不是真能动。'
+      : '注意：每月净现金流为 ' + fmtWan(monthlyNet) + '（负数），靠期初现金在撑。业务不改善，12 个月后会吃紧。';
+  }
+  $('insight-big').innerHTML = big;
+  $('insight-tip').innerHTML = '💡 ' + tip;
+
+  drawChart(bal, safety);
+}
+
+function setMetric(id, val, cls) {
+  const el = $(id);
+  el.querySelector('.value').textContent = val;
+  el.className = 'metric ' + cls;
+}
+
+function drawChart(bal, safety) {
+  const cv = $('chart');
+  const dpr = window.devicePixelRatio || 1;
+  const w = cv.clientWidth, h = 320;
+  cv.width = w * dpr; cv.height = h * dpr;
+  const ctx = cv.getContext('2d');
+  ctx.scale(dpr, dpr);
+
+  const pad = { l: 56, r: 12, t: 16, b: 28 };
+  const cw = w - pad.l - pad.r, ch = h - pad.t - pad.b;
+  const all = [...bal, safety, 0];
+  const min = Math.min(...all), max = Math.max(...all);
+  const span = (max - min) || 1;
+  const X = i => pad.l + (i / (MONTHS - 1)) * cw;
+  const Y = v => pad.t + (1 - (v - min) / span) * ch;
+
+  ctx.clearRect(0, 0, w, h);
+  ctx.font = '11px sans-serif';
+
+  // 网格 + Y轴标签
+  ctx.strokeStyle = '#eef2f5'; ctx.fillStyle = '#9fb0bf';
+  const steps = 4;
+  for (let s = 0; s <= steps; s++) {
+    const v = min + (span * s / steps);
+    const y = Y(v);
+    ctx.beginPath(); ctx.moveTo(pad.l, y); ctx.lineTo(w - pad.r, y); ctx.stroke();
+    ctx.fillText(fmtWan(Math.round(v)), 4, y + 4);
+  }
+  // X轴标签
+  for (let i = 0; i < MONTHS; i++) {
+    ctx.fillText('M' + (i + 1), X(i) - 8, h - 8);
+  }
+
+  // 0 线
+  if (min < 0 && max > 0) {
+    ctx.strokeStyle = '#cbd5dd'; ctx.setLineDash([4, 4]);
+    ctx.beginPath(); ctx.moveTo(pad.l, Y(0)); ctx.lineTo(w - pad.r, Y(0)); ctx.stroke();
+    ctx.setLineDash([]);
+  }
+
+  // 安全线
+  ctx.strokeStyle = '#e5484d'; ctx.setLineDash([6, 4]); ctx.lineWidth = 1.5;
+  ctx.beginPath(); ctx.moveTo(pad.l, Y(safety)); ctx.lineTo(w - pad.r, Y(safety)); ctx.stroke();
+  ctx.setLineDash([]);
+
+  // 现金曲线 + 填充
+  const grad = ctx.createLinearGradient(0, pad.t, 0, pad.t + ch);
+  grad.addColorStop(0, 'rgba(10,186,181,0.25)');
+  grad.addColorStop(1, 'rgba(10,186,181,0.02)');
+  ctx.beginPath();
+  ctx.moveTo(X(0), Y(bal[0]));
+  for (let i = 1; i < MONTHS; i++) ctx.lineTo(X(i), Y(bal[i]));
+  ctx.lineTo(X(MONTHS - 1), Y(0) > pad.t + ch ? pad.t + ch : Y(0));
+  ctx.lineTo(X(0), Y(0) > pad.t + ch ? pad.t + ch : Y(0));
+  ctx.closePath(); ctx.fillStyle = grad; ctx.fill();
+
+  ctx.strokeStyle = '#0ABAB5'; ctx.lineWidth = 2.5;
+  ctx.beginPath();
+  ctx.moveTo(X(0), Y(bal[0]));
+  for (let i = 1; i < MONTHS; i++) ctx.lineTo(X(i), Y(bal[i]));
+  ctx.stroke();
+
+  // 最低点标记
+  const mi = bal.indexOf(Math.min(...bal));
+  ctx.fillStyle = '#e5484d';
+  ctx.beginPath(); ctx.arc(X(mi), Y(bal[mi]), 5, 0, 7); ctx.fill();
+  ctx.fillStyle = '#e5484d';
+  ctx.fillText(fmtWan(Math.round(bal[mi])), X(mi) - 18, Y(bal[mi]) - 10);
+}
+
+// 绑定
+document.querySelectorAll('input[type=range]').forEach(el => {
+  el.addEventListener('input', update);
+});
+window.addEventListener('resize', update);
+update();
+</script>
+</body>
+</html>

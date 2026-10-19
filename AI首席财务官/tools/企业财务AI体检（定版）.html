@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>企业财务AI准备度体检</title>
+  <title>企业账目体质与AI型CFO诊断</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -351,13 +351,19 @@
 </head>
 <body>
 
+<div style="position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(10,15,30,0.92);backdrop-filter:blur(8px);border-bottom:1px solid rgba(74,158,255,0.15);padding:10px 20px;display:flex;justify-content:space-between;align-items:center;">
+  <a href="../preview.html" style="color:#4A9EFF;font-size:14px;text-decoration:none;">← 返回 AI 首席财务官主页</a>
+  <a href="../preview.html#tiers" style="color:rgba(255,255,255,0.6);font-size:13px;text-decoration:none;">查看专项诊断备忘录 →</a>
+</div>
+<div style="height:44px;"></div>
+
 <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
 
 <div class="container">
 
   <!-- ========== 封面页（流量页） ========== -->
   <div class="page active" id="page-cover">
-    <div class="cover-badge">✦ 企业财务AI准备度体检 ✦</div>
+    <div class="cover-badge">✦ 企业账目体质与AI型CFO诊断 ✦</div>
     <div class="cover-title">别急着买大模型！<br>企业引入财务AI前<br>先做一次<span>"防坑"体检</span></div>
     <div class="cover-subtitle">10道题 · 约3分钟 · 测出你的财务AI盲区</div>
 
@@ -426,9 +432,9 @@
     </div>
 
     <div class="cover-text" style="color:#4A9EFF;font-size:16px;">
-      <strong>测体质</strong> — 你的企业目前处于AI进化的哪个阶段（L1-L5）？到底配不配直接上AI？<br>
+      <strong>测体质</strong> — 你的账是为税务局做的（合规账），还是为老板拍板做的（决策账）？先看清数据底座。<br>
       <strong>看效率</strong> — 你每个月在哪个环节流失的隐形成本最多？AI在哪里提效最快？<br>
-      <strong>给锚点</strong> — 你的同行在这个阶段，真实的投入产出比是多少？该留多少预算？
+      <strong>找卡点</strong> — 现金流、账目口径、涉税红线、股权隐患，哪一块是眼下最要命的短板？
     </div>
 
     <div style="margin:36px 0 6px 0;"></div>
@@ -769,16 +775,23 @@ function reportOption(el) {
   console.log('用户选择:', el.textContent.trim());
 }
 
-// ========== 报告反馈提交 ==========
+// ========== 报告反馈提交（复制测评结果，直达微信） ==========
 function submitFeedback() {
   const text = document.getElementById('reportFeedback').value.trim();
   const selected = document.querySelector('.report-option.selected');
-  const choice = selected ? selected.textContent.trim() : '';
-  console.log('用户反馈:', { choice, text });
-  const btn = document.querySelector('.submit-btn');
-  btn.textContent = '✅ 已收到';
-  btn.disabled = true;
-  btn.style.background = 'rgba(74,158,255,0.3)';
+  const choice = selected ? selected.textContent.trim() : '未选择';
+  const scoreEl = document.getElementById('scoreDisplay');
+  const score = scoreEl ? scoreEl.textContent.trim() : '--';
+  const msg = '【企业账目体质诊断】我的得分：' + score + '分/100分\n我的选择：' + choice + (text ? '\n补充说明：' + text : '') + '\n——请加微信 593090320 把这段粘贴发给何斌';
+  navigator.clipboard.writeText(msg).then(() => {
+    const btn = document.querySelector('.submit-btn');
+    btn.textContent = '✅ 已复制，去微信粘贴给何斌（593090320）';
+    btn.disabled = true;
+    btn.style.background = 'rgba(74,158,255,0.3)';
+  }).catch(() => {
+    const btn = document.querySelector('.submit-btn');
+    btn.textContent = '复制失败，请手动复制上方结果';
+  });
 }
 
 // ========== 复制微信 ==========
