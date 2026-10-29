@@ -720,6 +720,11 @@ img { max-width: 100%; }
   font-weight: 700;
 }
 
+/* 正文段首空两格，靠缩进区分段落 */
+.body p {
+  text-indent: 2em;
+}
+
 .entry .body {
   line-height: 2.02;
   color: var(--ink-body);
