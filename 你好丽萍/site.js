@@ -228,7 +228,7 @@ function bodyInto(box, text) {
   String(text || '').split('\n').forEach(function (line) {
     if (!line.trim()) return;
     var p = document.createElement('p');
-    // 【文字】 标记为蒂芙尼蓝；『文字』 标记为加粗亮橙
+    // 【文字】 标记为蒂芙尼蓝；『文字』 标记为加粗朱砂红
     line.trim().split(/(【[^】]+】|『[^』]+』)/g).forEach(function (part) {
       if (part.charAt(0) === '【' && part.slice(-1) === '】') {
         var s = document.createElement('span');
