@@ -18,6 +18,7 @@
   --seal-red:     #B84A39;   /* 朱砂印章红 */
   --tiffany:      #0ABAB5;   /* 蒂芙尼蓝（标题主色） */
   --tiffany-deep: #079692;   /* 深蒂芙尼蓝（悬停/强调态） */
+  --orange:       #FF7A1A;   /* 亮橙（『』加粗标记） */
   --line:         #E6E2D8;   /* 柔和纸纹分隔线 */
   --line-soft:    rgba(158, 107, 82, 0.16);
   --date-ink:     #948F84;   /* 日期暖灰 */
@@ -712,6 +713,12 @@ img { max-width: 100%; }
 /* 正文里【文字】标记的蒂芙尼蓝 */
 .tiffany {
   color: var(--tiffany);
+}
+
+/* 正文里『文字』标记的加粗亮橙 */
+.hl {
+  color: var(--orange);
+  font-weight: 700;
 }
 
 .entry .body {
