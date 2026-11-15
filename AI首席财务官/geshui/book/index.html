@@ -857,6 +857,51 @@ footer p{font-size:12.5px;color:#9A9A9A;line-height:1.85;max-width:720px;}
   .month-bars-box>div:nth-child(2) span{font-size:9px!important;}
   .month-bars-box>div:nth-child(2)>div:last-child>div{font-size:9px!important;}
 }
+@media (max-width:700px){
+  /* 算法管道：名称＋结果一行，说明另起一行，避免 140/1fr/140 在手机上把正文挤成竖排 */
+  .pipe-step{grid-template-columns:1fr auto;grid-template-areas:"name action" "detail detail";gap:5px 10px;padding:13px 15px;}
+  .pipe-name{grid-area:name;font-size:13.5px;}
+  .pipe-detail{grid-area:detail;font-size:12.5px;line-height:1.6;}
+  .pipe-action{grid-area:action;white-space:nowrap;font-size:13.5px;}
+  .pipe-action.equal,.pipe-action.pay{font-size:15px;}
+  /* 阶段天平：两卡上下堆叠，箭头转竖 */
+  .balance-grid{grid-template-columns:1fr;}
+  .balance-arrow-box{height:36px;transform:rotate(90deg);}
+  .stage-total-box{flex-direction:column;align-items:flex-start;gap:2px;}
+  .stage-head{padding-right:0;}
+  .ladder-bar{padding-left:1px;padding-right:1px;}
+  .ladder-range{line-height:1.15;}
+}
+@media (max-width:480px){
+  .tbl{table-layout:fixed;width:100%;}
+  .tbl td,.tbl th{word-break:break-word;overflow-wrap:anywhere;}
+  .tbl-sm{font-size:12.8px;}
+  .tbl-sm td,.tbl-sm th{padding:8px 7px 8px 0;}
+}
+@media (max-width:700px){
+  /* 链条：节点换行，不再横向撑开整页 */
+  .c-chain-nodes{flex-wrap:wrap;width:100%;overflow:visible;padding-bottom:0;}
+  .c-chain-nodes>*{flex:0 0 auto;}
+  .c-chain-nodes .c-node{min-width:0;flex:1 1 calc(50% - 8px);}
+  .c-chain-nodes .c-arrow{display:none;}
+  /* 七级阶梯：条宽固定，容器内横滑，不撑破页面 */
+  .ladder-deck{overflow:visible;padding:0;gap:5px;}
+  .ladder-bar{flex:1 1 0;min-width:0;}
+  .ladder-rate{font-size:13px;}
+  .ladder-range{font-size:9px;}
+  .ladder-quick{display:none;}
+  /* 案例看板四个数字卡：两列 */
+  .case-stats-grid{grid-template-columns:1fr 1fr;}
+  .case-dashboard{padding:18px 16px;}
+}
+@media (max-width:700px){
+  /* 装饰性溢出兜底：手机上不允许整页左右拖动 */
+  html,body{overflow-x:clip;}
+}
+@media (max-width:420px){
+  .month-bars-box>div:nth-child(2) div,.month-bars-box>div:nth-child(2) span{font-size:8.5px!important;letter-spacing:-.02em!important;}
+  .month-bars-box>div:nth-child(2){overflow-x:visible;}
+}
 </style>
 </head>
 <body>
